@@ -1,0 +1,278 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="api_post_list">
+      <field name="name">Config API POST</field>
+      <field name="model">api.config</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="api_selection"/>
+          <field name="description"/>
+          <field name="token"/>
+          <field name="url"/>
+          <field name="value"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="api_post_form">
+      <field name="name">Config API</field>
+      <field name="model">api.config</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="button_check_api_request_http" string="CHECK API REQUEST USE HTTP" class="btn-primary" type="object"/>
+            <widget name="my_widget"/>
+          </header>
+          <sheet>
+            <group>
+              <group>
+                  <field name="name" readonly="1"/>
+                  <field name="api_selection" string="API Untuk : "/>
+                  <field name="description"/>
+              </group>
+              <group>
+                  <field name="token" readonly="1"/>
+                  <field name="url" readonly="1"/>
+                  <field name="value" readonly="1"/>
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers"/>
+              <field name="message_ids" widget="mail_thread"/>
+          </div>
+
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="api_post_action_window">
+      <field name="name">API POST</field>
+      <field name="res_model">api.config</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+<!--    ============== API POST ==================-->
+<!--    ===================================-->
+<!--    ==================== API GET =============-->
+
+    <record model="ir.ui.view" id="api_get_list">
+      <field name="name">Config API GET</field>
+      <field name="model">api.config.get</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="database"/>
+          <field name="username"/>
+          <field name="password"/>
+          <field name="phone_number"/>
+          <field name="query_param"/>
+          <field name="description"/>
+          <field name="token"/>
+          <field name="url"/>
+          <field name="value"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="api_get_form">
+      <field name="name">Config API GET</field>
+      <field name="model">api.config.get</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="get_api_performa_produksi" string="Check API GET Performa Produksi" class="btn-primary" type="object"/>
+          </header>
+          <sheet>
+            <group>
+              <group>
+                  <field name="name" />
+                  <field name="database"/>
+                  <field name="username"/>
+                  <field name="password"/>
+                  <field name="description"/>
+                  <field name="url" />
+
+              </group>
+              <group>
+                  <field name="phone_number"/>
+                  <field name="query_param"/>
+                  <field name="token" readonly="1"/>
+                  <field name="value" readonly="1"/>
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers"/>
+              <field name="message_ids" widget="mail_thread"/>
+          </div>
+
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="api_get_action_window">
+      <field name="name">API GET</field>
+      <field name="res_model">api.config.get</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+<!--==================== SYSTEM PARAMETERS ========================-->
+
+    <record model="ir.ui.view" id="system_parameters_api_post_list">
+      <field name="name">System Parameters API POST</field>
+      <field name="model">parameters.api.post</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" string="Variable Parameters"/>
+          <field name="api_selection"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="system_parameters_form">
+      <field name="name">System Parameters API POST</field>
+      <field name="model">parameters.api.post</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <group>
+                  <field name="name" string="Variable Parameters"/>
+              </group>
+              <group>
+                  <field name="api_selection"/>
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers"/>
+              <field name="message_ids" widget="mail_thread"/>
+          </div>
+
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="system_parameters_action_window">
+      <field name="name">System Parameters</field>
+      <field name="res_model">parameters.api.post</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+<!--    ===========================================   -->
+    <!-- server action to the one above -->
+
+
+<record model="ir.ui.view" id="api_hit_list">
+      <field name="name">API HIT (POST, PUT, DELETE, GET)</field>
+      <field name="model">api.config.hit</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="database"/>
+          <field name="username"/>
+          <field name="password"/>
+          <field name="method"/>
+          <field name="api_selection"/>
+          <field name="phone_number"/>
+          <field name="query_param"/>
+          <field name="description"/>
+          <field name="token"/>
+          <field name="url"/>
+          <field name="value"/>
+          <field name="status"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="api_hit_form">
+      <field name="name">API HIT (POST, PUT, DELETE, GET)</field>
+      <field name="model">api.config.hit</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+                <button name="check_response_connection" string="Check Response and Connection" class="btn-primary" type="object"/>
+                <field name="status"  widget="statusbar" statusbar_visible="sukses,gagal"/>
+          </header>
+          <sheet>
+            <group>
+              <group>
+                  <field name="name" />
+                  <field name="database"/>
+                  <field name="username"/>
+                  <field name="password"/>
+                  <field name="method"/>
+                  <field name="api_selection"/>
+                  <field name="variable_json_data" />
+
+              </group>
+              <group>
+                  <field name="description"/>
+                  <field name="url" />
+                  <field name="phone_number"/>
+                  <field name="query_param"/>
+                  <field name="token" readonly="1"/>
+                  <field name="value" readonly="1"/>
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers"/>
+              <field name="message_ids" widget="mail_thread"/>
+          </div>
+
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="config_api_hit_action_windows">
+      <field name="name">API HIT (POST, PUT, DELETE, GET)</field>
+      <field name="res_model">api.config.hit</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="API"
+              id="api_post.menu_root"
+              sequence="10"
+              web_icon="api_post,static/description/api.png"/>
+
+
+    <!-- menu categories -->
+
+    <menuitem name="API" id="api_post.menu_config" parent="api_post.menu_root" sequence="1"/>
+
+    <!-- actions -->
+
+    <menuitem name="POST" id="api_post.menu_list_api_post" parent="api_post.menu_config"
+              sequence="1"
+              action="api_post_action_window"/>
+
+    <menuitem name="GET" id="api_post.menu_list_api_get" parent="api_post.menu_config"
+              sequence="2"
+              action="api_get_action_window"/>
+
+    <menuitem name="HIT" id="api_post.menu_list_api_hit" parent="api_post.menu_config"
+              sequence="2"
+              action="config_api_hit_action_windows"/>
+<!--    <menuitem name="Server to list" id="api_post" parent="api_post.menu_2"-->
+<!--              action="api_post.action_server"/>-->
+
+    <menuitem name="Settings" id="api_post.menu_settings" parent="api_post.menu_root" sequence="2"/>
+
+    <!-- actions -->
+
+    <menuitem name="System Parameters" id="api_post.menu_parameters" parent="api_post.menu_settings"
+              sequence="1"
+              action="system_parameters_action_window"/>
+
+  </data>
+</odoo>

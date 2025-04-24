@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_nama_jabatan_search" model="ir.ui.view">
+      <field name="name">nama.jabatan.search</field>
+      <field name="model">nama.jabatan</field>
+      <field name="arch" type="xml">
+          <search string="Nama Jabatan">
+              <field name="name"/>
+              <field name="jabatan"/>
+              <field name="perusahaan"/>
+              <group expand="0" string="Group by" colspan="16">
+                  <filter name="name" string="Name" context="{'group_by':'name'}"/>
+                  <filter name="jabatan" string="Jabatan" context="{'group_by':'jabatan'}"/>
+                  <filter name="perusahaan" string="Perusahaan" context="{'group_by':'perusahaan'}"/>
+              </group>
+          </search>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="nama_jabatan_list">
+      <field name="name">Nama Jabatan</field>
+      <field name="model">nama.jabatan</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+            <field name="jabatan"/>
+            <field name="kode" />
+            <field name="nomor" />
+            <field name="perusahaan" />
+            <field name="bulan" />
+            <field name="tahun" />
+            <field name="kop_surat" />
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="nama_jabatan_form">
+      <field name="name">Nama Jabatan</field>
+      <field name="model">nama.jabatan</field>
+      <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                  <group>
+                      <field name="name" />
+                      <field name="jabatan" />
+                      <field name="kode" />
+                      <field name="nomor" />
+                      <field name="perusahaan" />
+                      <field name="bulan" />
+                      <field name="tahun" />
+                      <field name="kop_surat" />
+                  </group>
+                </group>
+            </sheet>
+              <div class="oe_chatter">
+                  <field name="message_follower_ids" widget="mail_followers"/>
+                  <field name="message_ids" widget="mail_thread"/>
+              </div>
+
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="nama_jabatan_action_window">
+      <field name="name">Nama dan Jabatan</field>
+      <field name="res_model">nama.jabatan</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Nama dan Jabatan" id="custom_rhpp.menu_nama_jabatan_rhpp" parent="custom_rhpp.menu_config_rhpp" sequence="11" action="nama_jabatan_action_window"/>
+
+</odoo>

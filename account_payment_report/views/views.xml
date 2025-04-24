@@ -1,0 +1,15 @@
+<odoo>
+  <data>
+    <record id="action_report_account_payment_custom" model="ir.actions.report">
+        <field name="name">Voucher</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_payment_report.template_voucher_account_payment_custom</field>
+        <field name="report_file">account_payment_report.template_voucher_account_payment_custom</field>
+        <field name="binding_model_id" ref="model_account_payment"/>
+        <field name="paperformat_id" ref="account_payment_report.custom_a4_paperformat"/>
+    </record>
+
+
+  </data>
+</odoo>

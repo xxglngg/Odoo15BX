@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_account_payment_view" model="ir.ui.view">
+        <field name="name">Inherit Account Payment View</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header/field[@name='state']" position="before">
+                <button string="Print Voucher" name="button_print_voucher" type="object"/>
+            </xpath>
+            <xpath expr="//form/sheet/group[1]" position="after">
+             <notebook>
+                <page string="Other Information" name="other_info">
+                    <group string="Other Information" name="account_payment_info">
+                        <group>
+                            <field name='user_finance_div'/>
+                            <field name='user_applicant' string="User Head of Fin and Acct"/>
+                            <field name="user_fin_director"/>
+                            <field name="user_director"/>
+                        </group>
+                    </group>
+                </page>
+             </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

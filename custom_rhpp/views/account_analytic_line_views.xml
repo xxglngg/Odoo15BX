@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record id="view_account_analytic_line_form_inherit" model="ir.ui.view">
+            <field name="name">view.account.analytic.line.form.inherit</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="amount" position="after">
+                    <field name="is_ovk" invisible="1"/>
+                    <field name="after_tax" sum="After Tax" optional="show"/>
+                </field>
+                <field name="unit_amount" position="after">
+                    <field name="qty_terkirim" sum="Qty Amount" optional="hide"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

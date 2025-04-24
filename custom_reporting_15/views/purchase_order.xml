@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="purchase_order_num2words_form" model="ir.ui.view">
+            <field name="name">purchase.order.num2words.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="analytic_account_id" attrs="{'readonly': [('invoice_count','!=',0),('state','=','purchase')]}"/>
+                </xpath>
+                <xpath expr="//notebook/page[@name='products']" position="inside">
+                    <group>
+                        <field name="amount_text"/>
+                    </group>
+                </xpath>
+                <xpath expr="//page[@name='purchase_delivery_invoice']" position="after">
+                    <page string="Signature">
+                        <group>
+                            <group>
+                                <field name="purchase_user_id"/>
+                                <field name="manager_user_id"/>
+                                <field name="finance_user_id"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Delivery">
+                        <group>
+                            <group name="delivery_address" string="Delivery Address">
+                                <field name="delivery_company_id"/>
+                                <span class="o_form_label o_td_label" name="address_name">
+                                    <b>Address</b>
+                                </span>
+                                <div class="o_address_format">
+                                    <field name="da_street" class="o_address_street"/>
+                                    <field name="da_street2" class="o_address_street"/>
+                                    <field name="da_city" class="o_address_city"/>
+                                    <field name="da_state_id" class="o_address_state"/>
+                                    <field name="da_zip" class="o_address_zip"/>
+                                </div>
+                            </group>
+                            <group name="contact_person" string="Contact Person">
+                                <field name="cp"/>
+                                <field name="cp_phone" widget="phone"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[1]/field[@name='order_line']/tree/field[@name='name']" position="after">
+                    <field name="analytic_account_id"/>
+                </xpath>
+                <!-- <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="domain">['|','|',('company_ids', '=', False),('company_id', '=', company_id),('company_ids', '=', company_id)]</attribute>
+                </xpath> -->
+            </field>
+        </record>
+    </data>
+</odoo>

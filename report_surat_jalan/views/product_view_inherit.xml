@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_packaging_tree_view_inherit" model="ir.ui.view">
+        <field name="name">product.packaging.tree.view</field>
+        <field name="model">product.packaging</field>
+        <field name="inherit_id" ref="product.product_packaging_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_uom_id']" position="attributes">
+                <attribute name="force_save">1</attribute>
+                <attribute name="class">oe_read_only</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_uom_id']" position="before">
+                <field name="secondary_uom_as_ref"/>
+                <field name="product_uom_name" class="oe_edit_only"/>
+                
+            </xpath>
+        </field>
+    </record>
+</odoo>

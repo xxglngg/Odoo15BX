@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+        <!-- Added custom js for bi_survey_files_upload-->       
+<!--         <template id="assets_for_bi_survey_files_upload" inherit_id="survey.survey_assets"> -->
+<!--             <xpath expr="." position="inside"> -->
+<!--                 <script type="text/javascript" src="/bi_survey_files_upload/static/src/js/survey.js"/> -->
+<!--                 SCSS -->
+<!--                 <link rel="stylesheet" type="text/scss" href="/bi_survey_files_upload/static/src/scss/survey.scss"/> -->
+<!--             </xpath> -->
+<!--         </template> -->
+
+        
+	  <template id="question_file_uplaod" name="Question:Upload File">
+	        <div class="o_survey_comment_container p-0">
+	            <t t-if="answer_lines">
+		            <t t-foreach='answer_lines' t-as='ans' >
+		                <div>
+	                        <a t-attf-href="/web/content/#{ans.sudo().attachment_id.id}?download=true&amp;access_token=#{ans.sudo().attachment_id.access_token}" target="_blank" data-no-post-process="">
+	                            <div class="fa fa-fw fa-download" t-att-title="ans.sudo().attachment_id.name" t-att-data-mimetype="ans.sudo().attachment_id.mimetype"/>
+	                            <t t-esc='ans.sudo().attachment_id.name'/>
+	                        </a>
+	                    </div>
+		            </t>
+		         </t>
+		         <t t-if="not answer_lines">
+		               <div class="form-group row form-field ">
+			               <div class="col-lg-12 mt32">
+			                  <div class="bi_attachment text-muted container">
+			                      <label class="bi_attachment_lbl">
+			                          <i class="fa fa-paperclip"/> Add File
+			                      </label>
+			                      
+			                      <input type="file"
+				                     class="form-control o_input_file o_website_form_input"
+				                     onchange="return get_attachment_data(this)" 
+				                     name="all_attachment"
+				                     id="all_attachment"
+				                     multiple="multiple" 
+				                     t-att-data-question-type="question.question_type"  
+				                     t-att-name="question.id"
+				                     t-att-is-multi-file="question.multipal_file"/>
+				                     
+				                 <div class="image_data_div"></div>
+				                 <label id="attach-name" class="text-muted"></label>
+				                 <label id="attach-name-multi" class="text-muted"></label>
+			                      
+			                  </div>
+			              </div>
+		              </div>
+		        </t>
+	        </div>
+	    </template>
+        
+        
+        
+        <!-- Question widgets -->
+        <template id="question_container_bi_survey_files_upload" inherit_id="survey.question_container">
+            <xpath expr="//div/div" position="after">
+                <t t-if="question.question_type == 'upload_file'"><t t-call="bi_survey_files_upload.question_file_uplaod"/></t>
+            </xpath>
+        </template>
+        
+        
+        <!-- Review Answer of Question widgets -->
+        <template id="survey_page_print_bi_survey_files_upload" inherit_id="survey.survey_page_print">
+            <xpath expr="//div[hasclass('js_question-wrapper')]" position="inside">
+                <t t-if="question.question_type == 'upload_file'"><t t-call="bi_survey_files_upload.question_file_uplaod"/></t>
+            </xpath>
+            
+        </template>
+        
+        
+    
+  </data>
+</odoo>

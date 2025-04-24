@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="contact_salesman_tree">
+            <field name="name">Salesman</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code_salesman"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="salesman_action_window" model="ir.actions.act_window">
+            <field name="name">Salesman</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="custom_customers.contact_salesman_tree"/> 
+            <field name="domain">[('category_id', '=', 'Salesman')]</field>
+            <field name="context" eval="{'default_category_id': [(6,0,[ref('custom_customers.salesman')])] }"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create an Salesman
+              </p>
+            </field>
+        </record>
+
+        <menuitem name="Salesman" id="custom_customers.menu_list_salesman" parent="contacts.res_partner_menu_config"
+              action="salesman_action_window" sequence="4"/>
+    </data>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_inherit_sh_all_one_cancel" model="ir.ui.view">
+        <field name="name">stock.picking.inherit.form.view</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="sh_all_one_cancel.sh_stock_picking_inherit_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group/group/field[@name='location_dest_id']" position="after">
+                <field name="active_menu" invisible="1"/>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[@name='extra']/group" position="after">
+                <field name="picking_type_id" invisible="1"/>
+                <group string="Surat Jalan Information" name="surat_jalan_info"  attrs="{'invisible': [('active_menu','=', False)]}">
+                    <field name='seal_number'/>
+                    <field name="user_admin_surat_jalan"/>
+                    <field name="user_gudang_surat_jalan"/>
+                    <field name="user_pengemudi_surat_jalan"/>
+                    <field name="user_keamanan_surat_jalan"/>
+                    <field name="nomor_pelanggan"/>
+                </group>
+            </xpath>
+            <button name="action_open_label_layout" position="after">
+                <field name="is_company_pis" invisible="1"/>
+                <button name="action_print_sj" string="PRINT SURAT JALAN" attrs="{'invisible': ['|',('picking_type_code', '!=', 'outgoing'), ('is_company_pis', '!=', True)]}" type="object"/>
+                <!-- <button name="action_print_sj_dot_matrix" string="PRINT SURAT JALAN DOT MATRIX" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}" type="object"/> -->
+            </button>
+        </field>
+    </record>
+</odoo>

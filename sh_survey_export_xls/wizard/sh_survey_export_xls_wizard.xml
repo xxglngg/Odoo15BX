@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<odoo>
+	<record id="sh_survey_export_wizard_form_view" model="ir.ui.view">
+		<field name="name">Survey Export Wizard</field>
+		<field name="model">sh.survey.export.wizard</field>
+		<field name="arch" type="xml">
+			<form string="Product Attribute Report">
+				<group>
+					<group>
+						<field name="sh_complete_survery" />
+						<field name="sh_group_by_partner" />
+					</group>
+				</group>
+				<footer>
+					<button name="get_xls_report" class="btn btn-primary" type="object" string="Print Xls Report" />
+					<button string="Cancel" special="cancel" />
+				</footer>
+			</form>
+		</field>
+	</record>
+	<record id="sh_survey_export_wizard_action" model="ir.actions.act_window">
+		<field name="name">Survey Answer Xls Report</field>
+		<field name="res_model">sh.survey.export.wizard</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+
+	<record id="sh_survey_form_inherit" model="ir.ui.view">
+		<field name="name">survey.survey.view.form</field>
+        <field name="model">survey.survey</field>
+        <field name="inherit_id" ref="survey.survey_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header"  position="inside">
+				<button name="%(sh_survey_export_xls.sh_survey_export_wizard_action)d" string="Export Answer" type="action" class="oe_highlight"
+				attrs="{'invisible': [('answer_done_count', '&lt;=', 0)]}"/>
+        </xpath>
+        </field>
+    </record>
+
+
+
+
+</odoo>

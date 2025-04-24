@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="approval_product_line_view_kanban" model="ir.ui.view">
+        <field name="name">approval.product.line.view.kanban</field>
+        <field name="model">approval.product.line</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="product_id"/>
+                <field name="description"/>
+                <field name="quantity"/>
+                <field name="product_uom_id" groups="uom.group_uom"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="row mb4">
+                                <div class="col-12">
+                                    <strong>
+                                        <field name="product_id"/>
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    Quantity:
+                                      <t t-esc="record.quantity.value"/>
+                                      <t t-esc="record.product_uom_id.value"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

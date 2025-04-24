@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="purchase_order_num2words_form" model="ir.ui.view">
+            <field name="name">purchase.order.num2words.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <button name="button_confirm" position="replace"/>
+                <button name="button_confirm" position="replace" />
+                <button name="action_create_invoice" position="replace"/>
+                <button name="action_create_invoice" position="replace" />
+                <button name="action_rfq_send" position="before">
+                    <button name="action_create_invoice" string="Create Bill" type="object" class="oe_highlight" context="{'create_bill':True}" attrs="{'invisible': ['|','|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'in', ('no', 'invoiced')),('flag_receipt_manual','!=',True)]}" data-hotkey="w"/>
+                    <button name="action_create_invoice" string="Create Bill" type="object" context="{'create_bill':True}" attrs="{'invisible': ['|', '|','|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'not in', ('no', 'invoiced')), ('order_line', '=', []),('flag_receipt_manual','!=',True)]}" data-hotkey="w"/>
+
+                    <button name="button_confirm" type="object" states="sent" string="Confirm Order" class="oe_highlight" id="bid_confirm" data-hotkey="v"/>
+                    <button name="button_confirm" type="object" states="draft" string="Confirm Order (Direct Receipt)" id="draft_confirm"/>
+                    <button name="button_confirm_split" type="object" states="draft" string="Confirm Order (Split Receipt)" id="draft_confirm"/>
+                </button>
+                <xpath expr="//form/header/button[@name='action_rfq_send']" position="after">
+                    <button
+                        name="action_create_split_ttb"
+                        string="Create Split TTB"
+                        type="object"
+                        class="btn-primary"
+                        attrs="{'invisible': ['|','|',('state', '!=', 'purchase'),('flag_create_ttb', '!=', True),('flag_receipt_manual','=',True)]}"
+                    />
+
+                    <button
+                        name="action_create_split_bill"
+                        string="Create Split Bill"
+                        type="object"
+                        class="btn-primary"
+                        attrs="{'invisible': ['|','|',('state', '!=', 'purchase'),('flag_create_bill','!=', True),('flag_receipt_manual','=',True)]}"
+                    />
+                    <field name="flag_create_ttb" invisible="1"/>
+                    <field name="flag_create_bill" invisible="1"/>
+                    <field name="ttb_ids" readonly="1" invisible="1"/>
+                    <field name="picking_many_ids" readonly="1" invisible="1"/>
+                    <field name="create_split_bill_split_ttb_bool" invisible="1"/>
+                    <field name="flag_receipt_manual" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

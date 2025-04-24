@@ -1,0 +1,97 @@
+<odoo>
+  <data>
+
+    <record id="view_template_kontrak_search" model="ir.ui.view">
+      <field name="name">template.kontrak.search</field>
+      <field name="model">template.kontrak</field>
+      <field name="arch" type="xml">
+          <search string="Template Kontrak">
+              <field name="name"/>
+              <filter name="active" string="Active" domain="[('active','=',True)]"/>
+              <filter name="inactive" string="Inactive" domain="[('active','=',False)]"/>
+          </search>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="template_kontrak_list">
+      <field name="name">Template Kontrak</field>
+      <field name="model">template.kontrak</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="template_date"/>
+          <field name="active" widget="boolean_toggle"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="template_kontrak_form">
+      <field name="name">Template Kontrak</field>
+      <field name="model">template.kontrak</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <div class="oe_title">
+              <h1>
+                <field name="name"/>
+              </h1>
+            </div>
+            <group>
+              <group>
+                <field name="template_date"/>
+                <field name="unit_ids" widget="many2many_tags"/>
+                <field name="pricelist_ayam"/>
+                <field name="pricelist_sapronak"/>
+                <field name="bonus_jenis_kandang_id"/>
+              </group>
+              <group>
+                <field name="bonus_ip_id"/>
+                <field name="bonus_pasar_id"/>
+                <field name="bonus_capaian_fcr_id"/>
+                <field name="bonus_daya_hidup_id"/>
+                <field name="klausul_id"/>
+              </group>
+            </group>
+            <!-- <notebook>
+                <page string="Operations" name="klausul_kontrak_lines_page">
+                    <field name="klausul_kontrak_line">
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="klausul"/>
+                                    <field name="content" type="html" options="{'collaborative': true}"/>
+                                </group>
+                            </group>
+                        </form>
+                        <tree>
+                        <field name="klausul"/>
+                        <field name="content" type="html" options="{'collaborative': true}"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook> -->
+          </sheet>
+          <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers"/>
+              <field name="message_ids" widget="mail_thread"/>
+          </div>
+
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="template_kontrak_action_window">
+      <field name="name">Template Kontrak</field>
+      <field name="res_model">template.kontrak</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- actions -->
+
+    <menuitem name="Template Kontrak" id="custom_rhpp.menu_list_template_kontrak" parent="custom_rhpp.menu_config_rhpp"
+              action="template_kontrak_action_window" sequence="1"/>
+              
+  </data>
+</odoo>

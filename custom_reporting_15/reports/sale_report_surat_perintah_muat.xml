@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <template id="custom_reporting_15.report_template_print_custom_sale_surat_perintah_muat">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.basic_layout">
+                        <style>
+                            .tdhead_1 {
+                            border-top : 1px solid black;
+                            border-bottom : 1px solid black;
+                            padding : 5px;
+                            }
+                            .tdhead_2 {
+                            border-top : 1px solid black;
+                            border-bottom : 1px solid black;
+                            padding : 5px;
+                            font-weight: bold;
+                            }
+                            .tdso {
+                            border: 1px solid black;
+                            border-collapse: collapse;
+                            padding : 5px;
+                            text-align: center;
+                            vertical-align: middle;
+                            font-weight: bold;
+                            }
+                            .tdso_2 {
+                            border-top : 1px solid black;
+                            border-bottom : 1px solid black;
+                            border-left : 1px solid black;
+                            border-right : 1px solid black;
+                            padding : 5px;
+                            }
+                        </style>
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="width:10%;">
+                                    <t t-if="o.company_id.parent_id">
+                                        <img t-att-src="image_data_uri(o.company_id.parent_id.logo)" style="height:100px;width:100px;position:relative;padding:0;margin:0 auto;"/>
+                                    </t>
+                                    <t t-else="">
+                                        <img t-att-src="image_data_uri(o.company_id.logo)" style="height:100px;width:100px;position:relative;padding:0;margin:0 auto;"/>
+                                    </t>
+                                </td>
+                                <t t-if="o.company_id.parent_id">
+                                    <td style="width:70%;font-weight: bold">
+                                        <table>
+                                            <tr>
+                                                <td style="vertical-align: top;font-weight: bold;font-size: 12pt;">
+                                                    <span t-field="o.company_id.parent_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:70%;font-size: 12pt;font-weight: bold;vertical-align: top;">
+                                                    <span t-field="o.company_id.parent_id.street"/>
+                                                    <span t-field="o.company_id.parent_id.street2"/>
+                                                    <span t-field="o.company_id.parent_id.city"/>
+                                                    <span t-field="o.company_id.parent_id.state_id.name"/><br/>
+                                                    Telp : <span t-field="o.company_id.parent_id.phone"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </t>
+                                <t t-else="">
+                                    <td style="width:70%;font-weight: bold">
+                                        <table>
+                                            <tr>
+                                                <td style="vertical-align: top;font-weight: bold;font-size: 12pt;">
+                                                    <span t-field="o.company_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:70%;font-size: 12pt;font-weight: bold;vertical-align: top;">
+                                                    <span t-field="o.company_id.street"/>
+                                                    <span t-field="o.company_id.street2"/>
+                                                    <span t-field="o.company_id.city"/>
+                                                    <span t-field="o.company_id.state_id.name"/><br/>
+                                                    Telp : <span t-field="o.company_id.phone"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </t>
+                            </tr>
+                        </table>
+                        <div class="page">
+                            <p style="width:100%;font-size:16pt;font-weight:bold;text-align:center;">Surat Perintah Muat</p>
+                            <br/>
+                            <table style="width:100%;font-size:9pt;">
+                                <tr>
+                                    <td style="width:10%;" class="">Tanggal</td>
+                                    <td style="width:1%;" class="">:</td>
+                                    <td style="width:24%;" class="">
+                                        <t t-if="o.commitment_date">
+                                            <span t-field="o.commitment_date" t-options="{'format': 'dd MMMM YYYY'}"/>
+                                        </t>
+                                    </td>
+                                    <td style="width:20%;"></td>
+                                    <td style="width:10%;" class=""></td>
+                                    <td style="width:1%;" class=""></td>
+                                    <td style="width:34%;" class="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:10%;" class="">Tujuan</td>
+                                    <td style="width:1%;" class="">:</td>
+                                    <td style="width:24%;" class="">
+                                        <span t-field="o.partner_id"/>
+                                    </td>
+                                    <td style="width:20%;"></td>
+                                    <td style="width:10%;" class=""></td>
+                                    <td style="width:1%;" class=""></td>
+                                    <td style="width:34%;" class="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:10%;" class=""></td>
+                                    <td style="width:1%;" class=""></td>
+                                    <td style="width:24%;" class="">
+                                    </td>
+                                    <td style="width:20%;"></td>
+                                    <td style="width:10%;" class=""></td>
+                                    <td style="width:1%;" class=""></td>
+                                    <td style="width:34%;" class="">
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: middle; font-weight: bold; width:100%; font-size: 10px;">
+                                <tr style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: middle; font-weight: bold;">
+                                    <td rowspan="2" style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center; vertical-align: middle; font-weight: bold; width:5%;">No</td>
+                                    <td rowspan="2" style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center; vertical-align: middle; font-weight: bold; width:20%;">Nama Produk</td>
+                                    <td rowspan="2" style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center; vertical-align: middle; font-weight: bold; width:15%;">Kode Produksi</td>
+                                    <td rowspan="2" style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center; vertical-align: middle; font-weight: bold; width:10%;">Gudang</td>
+                                    <td rowspan="2" style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center; vertical-align: middle; font-weight: bold; width:10%;">Jumlah</td>
+                                    <td rowspan="2" style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center; vertical-align: middle; font-weight: bold; width:10%;">Satuan</td>
+                                    <td rowspan="2" style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center; vertical-align: middle; font-weight: bold; width:15%;">Keterangan</td>
+                                </tr>
+                                <tr style="border: 1px solid black; border-collapse: collapse; text-align: center; vertical-align: middle; font-weight: bold;">
+                                </tr>
+                                <t t-set="all_total_pcs" t-value="0"/>
+                                <t t-foreach="o.order_line" t-as="line"> 
+                                    <t t-set="all_total_pcs" t-value="all_total_pcs + line.product_uom_qty"/>
+                                    <tr>
+                                        <td class="tdso_2">
+                                            <span t-esc="line_index+1"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="line.product_id.name"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="line.kode_produksi"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="line.gudang"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <t t-if="line.product_uom_qty">
+                                                <span t-esc="'{0:,.2f}'.format(line.product_uom_qty)"/>
+                                            </t>
+                                            <t t-else=""> </t>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="line.product_uom"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="line.note"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td colspan="4" class="tdso_2">Total</td>
+                                    <td class="tdso_2">
+                                        <span t-esc="'{0:,.2f}'.format(all_total_pcs)"/>
+                                    </td>
+                                    <td class="tdso_2">
+                                    </td>
+                                    <td class="tdso_2">
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <table style="width:100%; font-size: 10px;">
+                                <tr>
+                                    <td style="width:25%; text-align: center;"></td>
+                                    <td style="width:25%; text-align: center;"></td>
+                                    <td style="width:25%; text-align: center;"></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <table style="width:100%; font-size: 10px;">
+                                <tr>
+                                    <td style="width:25%; text-align: center;"></td>
+                                    <td style="width:25%; text-align: center;"></td>
+                                    <td style="width:25%; text-align: center;"></td>
+                                    <td style="width:25%; text-align: center;"></td>
+                                </tr>
+                            </table> -->
+                        </div>
+                        <div class="footer">
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_print_custom_sale_surat_perintah_muat">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="custom_reporting_15.report_template_print_custom_sale_surat_perintah_muat"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

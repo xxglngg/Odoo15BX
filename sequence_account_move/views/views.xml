@@ -1,0 +1,18 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+  <record model="ir.ui.view" id="view_account_move_inherit_form">
+    <field name="name">view_account_move_inherit_form list</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="replace">
+          <field name="name" attrs="{'readonly': [('state', '!=', 'draft')]}" placeholder="JRNL/2016/00001" class="oe_edit_only"/>
+          <field name="name_invoice" attrs="{'readonly': [('state', '!=', 'draft')]}" placeholder="JRNL/2016/00001" class="oe_read_only"/>
+        </xpath>
+    </field>
+  </record>
+
+  </data>
+</odoo>

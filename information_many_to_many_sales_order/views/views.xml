@@ -1,0 +1,27 @@
+<odoo>
+  <data>
+    <record id="inherit_custom_sale_view" model="ir.ui.view">
+        <field name="name">custom.sale.view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="custom_sale.sale_order_tree_view_inherit"/>
+        <field name="arch" type="xml">
+            <field name="product_ids" position="after">
+                <field name="info_quantity_ordered" widget="many2many_tags"/>
+                <field name="info_quantity_delivered" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="custom_sale_onboard_inherit_view" model="ir.ui.view">
+        <field name="name">custom.sale.onboard.inherit.view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="custom_sale.view_quotation_tree_with_onboarding_inherit"/>
+        <field name="arch" type="xml">
+            <field name="product_ids" position="after">
+                <field name="info_quantity_ordered" widget="many2many_tags"/>
+                <field name="info_quantity_delivered" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+  </data>
+</odoo>

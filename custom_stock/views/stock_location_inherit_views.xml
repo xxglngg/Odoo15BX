@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="stock_location_form_view" model="ir.ui.view">
+        <field name="name">stock.location.form.view</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <field name="return_location" position="after">
+                <field name="is_peternak"/>
+                <field name="analytic_account_id" attrs="{'invisible': [('is_peternak', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

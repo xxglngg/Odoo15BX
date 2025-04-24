@@ -1,0 +1,55 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record id="report_pivot_stock_search" model="ir.ui.view">
+        <field name="name">pivot.stock.search</field>
+        <field name="model">report.pivot.stock</field>
+        <field name="arch" type="xml">
+            <search string="Pivot Stock">
+                <filter name="date_range" date="date_range" default_period="this_month"/>
+                <filter string="Last 30 Days" name="filter_last_30_days" domain="[('date_range','&gt;=', (context_today() - relativedelta(days=30)).strftime('%%Y-%%m-%%d'))]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_pivot_stock" model="ir.ui.view">
+        <field name="name">stock.move.search</field>
+        <field name="model">report.pivot.stock</field>
+        <field name="arch" type="xml">
+            <pivot string="Stock Moves Analysis" sample="1">
+                <field name="notes_date"  type="col"/>
+                <field name="saldo" type="col"/>
+                <field name="product_tmpl_id" type="row"/>
+
+                <field name="qty" type="measure"/>
+                <field name="harga_satuan" type="measure"/>
+                <field name="nilai" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="pivot_stock_action" model="ir.actions.act_window">
+        <field name="name">Report Pivot Stock</field>
+        <field name="res_model">report.pivot.stock</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">pivot</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                There's no product move yet
+            </p><p>
+                This menu gives you the full traceability of inventory operations on a specific product.
+                You can filter on the product to see all the past movements for the product.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        action="pivot_stock_action"
+        id="pivot_stock_menu"
+        name="Report Resume Stock Flow"
+        parent="stock.menu_stock_root"
+        sequence="100"/>
+
+  </data>
+</odoo>

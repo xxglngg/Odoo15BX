@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_api_config,access_api_config,model_api_config,base.group_user,1,1,1,1
+access_api_config_get,access_api_config_get,model_api_config_get,base.group_user,1,1,1,1
+parameters_api_post,parameters_api_post,model_parameters_api_post,base.group_user,1,1,1,1
+access_api_config_hit,access_api_config_hit,model_api_config_hit,base.group_user,1,1,1,1
+access_api_post_res_api_key,api_post res_api_key,api_post.model_res_api_key,,1,1,1,1
+access_api_post_external_api_key,api_post external_api_key,api_post.model_external_api_key,base.group_user,1,1,1,1
+access_api_post_external_api_log,api_post external_api_log,api_post.model_external_api_log,base.group_user,1,1,1,1
+access_api_post_webhook_api_token,api_post webhook_api_token,api_post.model_webhook_api_token,base.group_user,1,1,1,1

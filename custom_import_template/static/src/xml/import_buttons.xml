@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-extend="ImportView.buttons">
+        <t t-jquery=".o_import_cancel" t-operation="after">
+            <t t-if="res_model == 'purchase.order' || res_model == 'sale.order'">
+                <button type="button" class="btn btn-primary o_import_template">Download</button>
+            </t>
+        </t>
+    </t>
+</templates>

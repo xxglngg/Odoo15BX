@@ -1,0 +1,1250 @@
+<odoo>
+    <data>
+      <template id="report_print_perjanjian_mitra_peternak">
+          <t t-call="web.html_container">
+              <t t-foreach="docs" t-as="doc">
+                  <t t-call="custom_rhpp.report_template_print_perjanjian_mitra_peternak"/>
+              </t>
+          </t>
+      </template>
+
+      <template id="custom_rhpp.report_template_print_perjanjian_mitra_peternak">
+        <t t-foreach="docs" t-as="o">
+          <t t-call="web.basic_layout">
+            <style>
+              * {
+                font-family: Times New Roman, Times, serif;
+              }
+            </style>
+            <div class="header">
+              <table style="width:100%;">
+                  <tr>
+                    <td width="82%"/>
+                    <td width="18%" style="font-size: 12pt;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;text-align:center;">RAHASIA DAGANG</td>
+                  </tr>
+                  <tr>
+                    <td style="width:50%; ">
+                      <img t-att-src="image_data_uri(o.kop_surat_operasional)" style="height:100px;width:330px;"/>
+                    </td>
+                  </tr>
+              </table>
+              <!-- <table style="width:100%;">
+                <tr>
+                  <td style="width:100%; ">
+                    <img t-att-src="image_data_uri(o.company_id.logo)" style="height:100px;width:100px;"/>
+                  </td>
+                  <td style="text-align:center;">
+                      <table>
+                          <tr>
+                              <td style="vertical-align: top;font-weight: bold;font-size: 13pt;text-align:center;vertical-align: middle;">
+                                  <span t-field="o.company_id.name"/>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td style="width:70%;font-size: 12pt;vertical-align: middle;text-align:center;">
+                                  <span t-field="o.company_id.street"/>
+                                  <span t-field="o.company_id.street2"/>
+                                  <span t-field="o.company_id.city"/>
+                                  <span t-field="o.company_id.state_id.name"/><br/>
+                                  Telp. <span t-field="o.company_id.phone"/> Email: <span t-field="o.company_id.email"/><br/>
+                                  Website: <span style="border-bottom:1px solid black;" t-field="o.company_id.website"/>
+                              </td>
+                          </tr>
+                      </table>
+                  </td>
+                </tr>
+              </table> -->
+              <hr style="border-top: 3px double #000000;"/>
+            </div>
+            <div class="page">
+              <t t-set="name_peternak" t-value="o.contact_peternak.name"/>
+                <p style="page-break-before:always;">
+                  <table style="width:100%;">
+                    <tr>
+                        <td colspan="6" style="font-size: 13pt;text-align: center;"><span style="font-weight: bold;">Perjanjian Kerja Sama Mitra Peternak
+                        <br/>antara</span>
+                        <br/><span style="font-weight: bold;" t-field="o.contact_peternak.name"/>
+                        <br/><span style="font-weight: bold;">dengan</span>
+                        <br/><span style="font-weight: bold;">PT Integrasi Teknologi Unggas</span>
+                        <br/>Nomor: <span t-field="o.nomor_surat_operasional"/></td> 
+                    </tr>
+                    <tr style="text-align: left;font-size: 12pt;vertical-align: top;">
+                      <td colspan="6"><br/>Pada hari ini tanggal <span t-field="o.tanggal_surat"/>,&#160;&#160;<strong>PARA PIHAK</strong> yang bertanda tangan di bawah ini:</td>
+                    </tr>
+                    <tr style="text-align: left;font-size: 12pt;vertical-align: top;">
+                      <td width="13%"><br/>&#160;&#160;&#160;&#160;I.&#160;&#160;Nama</td>
+                      <td width="2%"><br/>:</td>
+                      <td width="45%"><br/>
+                      <t t-if="o.contact_peternak.unit_rhpp">
+                        <t t-set="kode_unit" t-value="o.contact_peternak.unit_rhpp.short_code"/>
+                        <t t-if="kode_unit in name_peternak">
+                          <t t-set="name_peternak" t-value="name_peternak.replace(kode_unit + ' - ','')"/>
+                          <span t-esc="name_peternak"/>
+                        </t>
+                        <t t-else="">
+                          <span t-esc="name_peternak"/>
+                        </t>
+                      </t>
+                      <t t-if="not o.contact_peternak.unit_rhpp">
+                        <span t-esc="name_peternak"/>
+                      </t>
+                      </td>
+                    </tr>
+                    <tr style="text-align: left;font-size: 12pt;vertical-align: top;">
+                      <td width="13%">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;No KTP</td>
+                      <td width="2%">:</td>
+                      <td width="45%"><span t-field="o.nik"/></td>
+                    </tr>
+                    <tr style="text-align: left;font-size: 12pt;vertical-align: top;">
+                      <td width="13%">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Alamat</td>
+                      <td width="2%">:</td>
+                      <td width="45%"><span t-field="o.alamat"/></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Bertindak untuk dan atas nama dirinya sendiri, yang selanjutnya disebut&#160;&#160;<strong>PIHAK PERTAMA</strong>.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;II.&#160;<strong>PT Integrasi Teknologi Unggas</strong> suatu  Perseroan Terbatas didirikan yang berdasarkan
+                      Akta Pendirian Nomor 50</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;tanggal 18 November 2020 dan Keputusan Menteri Hukum 
+                      Dan Hak Asasi Manusia Republik Indonesia Nomor</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;AHU-0060577.AH.01.01.Tahun 2020 
+                      yang terakhir diubah dengan Akta Pernyataan Keputusan Rapat Nomor 55</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;tanggal 09 
+                      Agustus 2024 dan Keputusan Menteri Hukum Dan Hak Asasi Manusia Republik 
+                      Indonesia Nomor AHU-</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;AH.01.09-0237793 yang berkedudukan di Jl. Nologaten No.49A, 
+                      Nologaten, Caturtunggal, Kec. Depok, Kabupaten</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Sleman, Daerah Istimewa Yogyakarta 
+                      55281, yang, dalam Perjanjian ini diwakili oleh <strong>Pramudya Rizki Ruandhito</strong>,</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;dalam kapasitasnya sebagai <strong>Direktur</strong>, sehingga dalam hal ini bertindak secara sah atas nama 
+                      <strong>PT Integrasi</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Teknologi Unggas</strong> (selanjutnya disebut <strong>“PIHAK KEDUA”</strong>).</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/><strong>PIHAK PERTAMA</strong> dan <strong>PIHAK KEDUA</strong> secara bersama-sama disebut sebagai <strong>&#34;PARA PIHAK&#34;</strong> dan masing-masing sebagai <strong>&#34;PIHAK&#34;</strong>.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>Menerangkan terlebih dahulu, bahwa :</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;1. <strong>PIHAK KEDUA</strong> adalah perusahaan yang salah satu usahanya adalah pembudidayaan
+                      serta perdagangan ayam</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;yang bermaksud untuk memberikan bimbingan dan 
+                      pembinaan, membantu peternak dalam permodalan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;serta mengadakan kerjasama 
+                      dalam hal pemeliharaan ayam pedaging;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;2. <strong>PIHAK PERTAMA</strong> adalah peternak yang melakukan budidaya ayam, yang berlokasi di
+                      {Alamat_Kandang}, dengan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;menyerahkan jaminan {Jaminan};</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;3. <strong>PIHAK PERTAMA</strong> bersedia mengadakan kerjasama dengan <strong>PIHAK KEDUA</strong> dalam
+                      pemeliharaan dan/atau</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;budidaya ayam pedaging.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">Sehubungan dengan itu, <strong>PARA PIHAK</strong> sepakat untuk membuat Perjanjian Kerja Sama
+                      (”<strong>Perjanjian</strong>”) dengan ketentuan-ketentuan dan syarat-syarat sebagai berikut:</td>
+                    </tr>
+                  </table>
+                </p>
+                <p style="page-break-before:always;">
+                  <table style="width:100%;">
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;">Pasal 1</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>RUANG LINGKUP PERJANJIAN</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>(1) <strong>PIHAK KEDUA</strong> bersedia bekerja sama, memberikan bimbingan, pembinaan, dan menjual Sarana Produksi</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;Peternakan (”<strong>SAPRONAK</strong>”) seperti Day Old Chicken (”<strong>DOC</strong>”), pakan ternak (”<strong>Pakan</strong>”)  dan Obat, Vaksin, Kimia</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;(”<strong>OVK</strong>”), dengan jumlah yang sesuai dengan 
+                      kebutuhan <strong>PIHAK PERTAMA</strong>, dan <strong>PIHAK PERTAMA</strong> bersedia</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;bekerjasama dan menerima bimbingan serta pembinaan dari <strong>PIHAK KEDUA</strong>, dalam hal pemeliharaan ayam</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;pedaging, dimana hasil penjualan ayam budidaya tersebut akan dijual kepada&#160;&#160;<strong>PIHAK KEDUA.</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(2) Kerjasama   ini   dilaksanakan   oleh  <strong>PARA   PIHAK</strong>  atas   dasar   itikad   baik,   prinsip   saling 
+                      menguntungkan, saling percaya,</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;saling membutuhkan, dan tanpa paksaan.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>Pasal 2</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>JANGKA WAKTU</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>Perjanjian ini mulai berlaku sejak tanggal Perjanjian ini dan akan terus berlaku hingga diakhiri 
+                      sesuai dengan ketentuan Pasal 12 <strong>(”Berakhirnya Perjanjian”)</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>Pasal 3</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>KEWAJIBAN PARA PIHAK</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>Sehubungan dengan perjanjian ini, <strong>PARA PIHAK</strong> memiliki kewajiban sebagai berikut:</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;1.&#160;&#160;&#160;&#160;<strong>PIHAK PERTAMA</strong> berkewajiban untuk:</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;a. Menyediakan kandang ayam berikut dengan perlengkapannya  <strong>(”Kandang”)</strong>;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;b. Menyediakan   tenaga   kerja   yang   diperlukan   untuk   pemeliharaan   ayam 
+                      pedaging. Untuk saat ini maupun di</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;kemudian hari sesuai petunjuk-petunjuk yang diberikan oleh&#160;&#160;<strong>PIHAK KEDUA</strong> selama Jangka Waktu Perjanjian</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;c. Memelihara   serta   menggunakan  <strong>SAPRONAK</strong>  ayam   pedaging   berupa   DOC, 
+                      pakan dan OVK dari <strong>PIHAK</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>KEDUA</strong> dengan sebaik-baiknya, sesuai pengarahan 
+                      dan petunjuk yang diberikan oleh <strong>PIHAK KEDUA</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;dari waktu ke waktu;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;d. Memberitahukan dan melaporkan kepada <strong>PIHAK KEDUA</strong> selambat-lambatnya 
+                      dalam waktu 12 jam, apabila</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ayam terjangkit wabah atau penyakit, terjadi 
+                      bencana, kandang roboh, terjadi kebakaran, pencurian</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;dan kejadian lainnya 
+                      yang   dapat   merugikan   kerjasama   antara  <strong>PARA PIHAK</strong> sebagaimana diatur dalam</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Perjanjian ini;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;e. Menjual seluruh hasil produk ayam siap panen kepada&#160;&#160;<strong>PIHAK KEDUA;</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;f. Kerugian yang timbul diakibatkan kecurangan (termasuk namun tidak terbatas 
+                      pada kehilangan atau</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;pencurian) yang dialami oleh <strong>PIHAK PERTAMA</strong> atau yang 
+                      timbul akibat kelalaian  (termasuk  namun tidak</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;terbatas pada kondisi ayam 
+                      sakit   atau   mati)  <strong>PIHAK   PERTAMA</strong>  termasuk   karyawan  <strong>PIHAK   PERTAMA</strong>,</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;seluruhnya tanggung jawab <strong>PIHAK PERTAMA.</strong></td>
+                    </tr>
+                  </table>
+                </p>
+                <p style="page-break-before:always;">
+                  <table style="width:100%;">
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;2.&#160;&#160;&#160;&#160;<strong>PIHAK KEDUA</strong> berkewajiban untuk:</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;a. Menjual  <strong>SAPRONAK</strong>  kepada  <strong>PIHAK   PERTAMA</strong>,   dengan   nilai   yang   akan 
+                      ditentukan oleh  <strong>PIHAK KEDUA</strong>  dan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;disetujui oleh  <strong>PIHAK PERTAMA</strong>, untuk 
+                      setiap periode pemeliharaan ayam pedaging bentuk sebagaimana</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;tercantum  dalam Perjanjian  Kontrak  Kemitraan Pemeliharaan 
+                      Ayam Broiler yang dinyatakan dalam yang</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;merupakan bagian yang tidak terpisahkan dari perjanjian ini;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;b. Menyerahkan <strong>SAPRONAK</strong> oleh <strong>PIHAK KEDUA</strong> kepada <strong>PIHAK PERTAMA</strong> di lokasi
+                      peternakan (baik secara</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;sekaligus maupun bertahap, sesuai dengan kesiapan
+                      <strong>PIHAK PERTAMA</strong> serta berdasarkan penilaian <strong>PIHAK</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>KEDUA</strong>), penyerahan
+                      sebagaimana akan dibuktikan dengan surat jalan.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;c. Membeli seluruh hasil produk ayam siap panen dari&#160;&#160;<strong>PIHAK PERTAMA</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;d. Mengelola, memproses, dan melindungi Data Pribadi&#160;&#160;<strong>PIHAK PERTAMA</strong> sesuai 
+                      dengan ketentuan Peraturan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Perundang-undangan.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>Pasal 4</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>HAK PARA PIHAK</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/><strong>PARA PIHAK</strong> mempunyai hak sebagai berikut:</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;1.&#160;&#160;&#160;&#160;<strong>PIHAK PERTAMA</strong> berhak untuk:</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;a. Menerima pembinaan dari <strong>PIHAK KEDUA</strong> dalam bentuk penyuluhan dan/atau 
+                      apabila perlu memberikan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;kursus-kursus yang diperlukan;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;b. Menjual seluruh hasil produk ayam siap panen kepada&#160;&#160;<strong>PIHAK KEDUA</strong> dengan 
+                      harga yang kompetitif.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;2.&#160;&#160;&#160;&#160;<strong>PIHAK KEDUA</strong> berhak untuk:</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;a. Menentukan jadwal ayam masuk sekaligus menentukan jumlah&#160;&#160;<strong>SAPRONAK</strong> 
+                      yang diperlukan untuk 1 (satu)</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;siklus, sesuai kesiapan <strong>PIHAK PERTAMA</strong>;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;b. Meminta pegawai dan/atau <strong>PIHAK</strong> yang diberi kuasa, termasuk tetapi tidak 
+                      terbatas pada tenaga ahli, untuk</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;setiap waktu mengadakan pembinaan, bimbingan, peninjauan, pengecekan, melihat dan memeriksa</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;tempat pemeliharaan ayam pedaging <strong>PIHAK PERTAMA</strong>;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;c. Memberikan petunjuk dan/atau pengarahan bagi&#160;&#160;<strong>PIHAK PERTAMA</strong> dalam 
+                      melaksanakan pemeliharaan</td>
+                    </tr><tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ayam pedaging, sepanjang tindakan-tindakan 
+                      tersebut menurut pertimbangan <strong>PIHAK KEDUA</strong> diperlukan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;untuk tujuan 
+                      mengoptimalkan keberhasilan pemeliharaan;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;d. Memesan Ayam Broiler kepada&#160;&#160;<strong>PIHAK PERTAMA</strong> dan membeli hasil produksi 
+                      berupa ayam pedaging</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;hidup, pada waktu yang telah ditentukan untuk 
+                      dipasarkan, dengan ketentuan sebagai berikut:</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;i. Waktu panen dilakukan atas pertimbangan kondisi ayam, pemenuhan 
+                      spesifikasi kebutuhan pasar saat itu</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;dan pada saat panen dapat dihadiri 
+                      oleh perwakilan <strong>PIHAK KEDUA</strong>, <strong>PIHAK PERTAMA</strong>, dan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;pembeli; dan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ii. Proses panen dilakukan oleh <strong>PARA PIHAK</strong> setelah didapatkan kesepakatan 
+                      mengenai waktu panen.</td>
+                    </tr>
+                  </table>
+                </p>
+                <p style="page-break-before:always;">
+                  <table style="width:100%;">
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;">Pasal 5</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>KESEPAKATAN BERSAMA</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;(1) <strong>PARA PIHAK</strong>&#160;&#160;sepakat atas berbagai kesepakatan harga sebagaimana tercantum pada 
+                      Kontrak Kemitraan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Pemeliharaan Ayam Broiler, yang merupakan bagian yang tidak 
+                      terpisahkan dari pelaksanaan Perjanjian ini.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;(2) Apabila di akhir siklus pemeliharaan ayam dan setelah dilakukan perhitungan bagi hasil 
+                      sebagaimana dimaksud</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;pada ayat (1) terdapat kerugian, maka kerugian tersebut akan 
+                      diperhitungkan bersama oleh <strong>PARA PIHAK</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;(3) Sesuai ketentuan perpajakan di Indonesia, maka penerimaan Pendapatan Plasma 
+                      (RHPP) akan dikenakan pajak</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;penghasilan (PPh 21) sesuai dengan ketentuan pemerintah 
+                      yang berlaku.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;(4) Hal-hal yang belum diatur dalam Perjanjian ini akan diatur dalam Kontrak Kemitraan 
+                      Pemeliharaan Ayam Broiler</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;yang berlaku untuk setiap periode pemeliharaan, dan 
+                      merupakan bagian yang tidak terpisahkan dari Perjanjian ini.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;(5) Apabila dalam khusus Pasal ini bertentangan dengan Kontrak Kerjasama Pemeliharaan 
+                      Ayam Broiler, maka yang</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;berlaku adalah Kontrak Kerjasama Pemeliharaan Ayam Broiler.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>Pasal 6</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>JAMINAN PERJANJIAN</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>Sehubungan dengan Perjanjian ini, <strong>PIHAK PERTAMA</strong> menjamin kepada <strong>PIHAK KEDUA</strong> hal-hal 
+                      sebagai berikut:</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;1. Kandang merupakan milik <strong>PIHAK PERTAMA</strong>&#160;&#160;tidak sedang dijaminkan, tidak sedang 
+                      sengketa atau dibebani atas</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;suatu hutang dan tidak ada <strong>PIHAK</strong> lain yang turut memiliki, 
+                      baik sebagian maupun seluruhnya.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;2. Membebaskan <strong>PIHAK KEDUA</strong> apabila selama Jangka Waktu terjadi tuntutan-tuntutan 
+                      dari pihak ketiga atas</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;ketentuan pada Pasal 6 ayat (1) Perjanjian ini.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;3. Demi kualitas hasil budidaya ayam yang ditentukan&#160;&#160;<strong>PIHAK KEDUA</strong>,&#160;&#160;<strong>PIHAK 
+                      PERTAMA</strong> akan memelihara ayam</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;dengan menggunakan <strong>SAPRONAK</strong> yang disediakan oleh&#160;&#160;<strong>PIHAK KEDUA</strong>.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;4. Menanggung seluruh risiko yang mungkin timbul atas&#160;&#160;<strong>SAPRONAK</strong> setelah diterima dari 
+                      <strong>PIHAK KEDUA</strong>.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;5. Melaksanakan segala ketentuan-ketentuan yang telah diatur dan disepakati dalam 
+                      Perjanjian ini atau perjanjian</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;tambahannya (apabila ada).</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;6. Apabila Kandang yang digunakan oleh&#160;&#160;<strong>PIHAK PERTAMA</strong>&#160;&#160;untuk pelaksanaan 
+                      Perjanjian ini adalah berdasarkan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;vertical-align: top;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;sewa menyewa, maka <strong>PIHAK PERTAMA</strong>&#160;&#160;menjamin 
+                      bahwa pemilik Kandang tidak keberatan dan tidak akan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;vertical-align: top;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;mengajukan tuntutan apapun kepada <strong>PIHAK KEDUA</strong>.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>Pasal 7</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>LARANGAN</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>Selama Jangka Waktu Perjanjian, <strong>PIHAK PERTAMA</strong> tanpa persetujuan dari <strong>PIHAK 
+                      KEDUA</strong> dilarang untuk:</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;1. Menyewakan Kandang kepada pihak lain;</td>
+                    </tr>
+                  </table>
+                </p>
+                <p style="page-break-before:always;">
+                  <table style="width:100%;">
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;2. Menambahkan dengan cara apapun <strong>SAPRONAK</strong> (selain dari apa 
+                      yang telah disediakan oleh <strong>PIHAK KEDUA</strong>), yang</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;dapat mempengaruhi kualitas 
+                      ayam yang dibudidayakan sesuai ketentuan Pasal 6 ayat (3) tersebut di atas.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;3. Mengalihkan dengan cara apapun <strong>SAPRONAK</strong> kepada pihak ketiga.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>Pasal 8</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>KELALAIAN</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>(1) <strong>PIHAK PERTAMA</strong> wajib melakukan ganti rugi kepada <strong>PIHAK KEDUA</strong> jika melakukan kelalaian 
+                      yang menyebabkan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;kerugian atas pelaksanaan Perjanjian ini.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(2) Kelalaian yang dimaksud ayat (1) termasuk namun tidak terbatas seperti:</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;a. Kandang terbakar karena api rokok, konsleting, dan/atau lainnya;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;b. fasilitas Kandang yang tidak terurus sehingga menyebabkan keruntuhan Kandang, kerusakan fasilitas seperti</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;blower, penghangat ayam, dan/atau lainnya sehingga menyebakan kematian ayam secara masif;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(3) Ganti rugi yang dimaksud ayat (1) akan dihitung secara objektif, transparan, dan proporsional.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>Pasal 9</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>PERSETUJUAN JAMINAN</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>(1) Untuk pelaksanaan Perjanjian ini, <strong>PIHAK PERTAMA</strong> setuju menitipkan dana jaminan 
+                      atau jaminan dalam bentuk</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;lainnya kepada <strong>PIHAK KEDUA</strong>, dengan nilai jaminan 
+                      sebagaimana disepakati oleh <strong>PARA PIHAK</strong>.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(2) <strong>PIHAK KEDUA</strong> berhak melakukan eksekusi jaminan apabila <strong>PIHAK PERTAMA</strong> terbukti 
+                      wanprestasi dalam</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;Perjanjian ini dan/atau Kontrak Kerjasama Pemeliharaan Ayam Broiler.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>Pasal 10</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>WANPRESTASI</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>(1) Wanprestasi adalah apabila <strong>PIHAK</strong> tidak melaksanakan kewajibannya dalam klausa-klausa 
+                      Perjanjian secara</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;keseluruhan, sebagian, tidak tepat waktu, dan/atau melakukan yang 
+                      dilarang dalam Perjanjian.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(2) Apabila terjadi wanprestasi, <strong>PIHAK</strong> yang dirugikan memiliki hak untuk melakukan emutusan 
+                      Perjanjian secara</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;sepihak dan/atau <strong>PIHAK</strong> yang melakukan wanprestasi wajib melakukan 
+                      ganti rugi sesuai kerugian yang diderita oleh</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;<strong>PIHAK</strong> lainnya yang mengalami kerugian.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(3) Ganti rugi yang dimaksud ayat (2) adalah besaran biayanya ditentukan secara musyawaran 
+                      antara <strong>PARA PIHAK</strong>.</td>
+                    </tr>
+                  </table>
+                </p>
+                <p style="page-break-before:always;">
+                  <table style="width:100%;">
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;">Pasal 11</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>FORCE MAJEURE</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>(1) Apabila selama Jangka Waktu Perjanjian berlangsung terjadi keadaan kahar (force 
+                      majeure) seperti, tetapi tidak</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;terbatas pada, huru-hara, banjir, gempa bumi, tanah 
+                      longsor, maka segala kerugian yang terjadi terhadap:</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;a. Kandang beserta fasilitasnya adalah merupakan resiko dan tanggung jawab 
+                      <strong>PIHAK PERTAMA</strong>; dan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;b. <strong>SAPRONAK</strong> dan hasil ikutannya merupakan resiko dan tanggung jawab <strong>PIHAK KEDUA</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(2) <strong>PIHAK KEDUA</strong> yang mengalami keadaan kahar wajib mengirimkan pemberitahuan tertulis 
+                      dan menunjukkan bukti</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;berupa gambar dan/atau video kepada <strong>PIHAK PERTAMA</strong> dalam 
+                      jangka waktu 2x24 jam.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(3) Dengan terjadinya keadaan kahar yang menyebabkan terhentinya Perjanjian ini 
+                      maka hak dan kewajiban <strong>PARA</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;<strong>PIHAK</strong> dengan sendirinya hapus sejak terjadinya 
+                      keadaan kahar tersebut, kecuali kewajiban-kewajiban yang timbul</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;sebelum terjadinya keadaan kahar, dimana kewajiban-kewajiban tersebut tetap harus dan wajib dipenuhi oleh</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;masing-masing <strong>PIHAK</strong> kepada <strong>PIHAK</strong> lainnya.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(4) <strong>PIHAK KEDUA</strong> berhak mengambil langkah-langkah hukum baik secara Perdata melalui 
+                      Peradilan setempat maupun</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;Pidana melalui Pelaporan pada Kepolisian RI sehubungan 
+                      dengan penyelesaian atas kerugian sebagaimana</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;dimaksud pada ayat (3) di atas.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>Pasal 12</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>BERAKHIRNYA PERJANJIAN</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>(1) Perjanjian ini dapat diakhiri:</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;a. oleh <strong>PARA PIHAK</strong>, melalui perjanjian tertulis bersama antara <strong>PARA PIHAK</strong>; atau</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;b. oleh <strong>PIHAK KEDUA</strong>, apabila terjadi hal-hal sebagai berikut:</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;i. <strong>PIHAK PERTAMA</strong> salah melakukan pengelolaan walaupun telah diberikan 
+                      bimbingan, pembinaan dan/atau</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;pengarahan oleh <strong>PIHAK KEDUA</strong>, sehingga 
+                      mengalami kerugian 2 (dua) kali berturut-turut atau 3 (tiga kali)</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;selama 1 (satu) tahun masa pemeliharaan;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ii. <strong>PIHAK PERTAMA</strong> menghentikan aktivitas usahanya sebagai peternak ayam 
+                      pedaging; dan/atau</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;iii. <strong>PIHAK PERTAMA</strong> bebas memilih dan melakukan kerjasama kemitraan dengan 
+                      <strong>PIHAK</strong> lain setelah</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;menyelesaikan suatu siklus pemeliharaan atau budidaya 
+                      produksi ayam pedaging dengan <strong>PIHAK KEDUA</strong>.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(2) Pengakhiran Perjanjian ini tidak menghapuskan kewajiban-kewajiban <strong>PARA PIHAK</strong> yang 
+                      telah timbul dan belum</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;dilaksanakan pada saat berakhirnya Perjanjian.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(3) <strong>PARA PIHAK</strong> dengan ini secara tegas mengesampingkan hak atau kewajiban 
+                      berdasarkan undang-undang apapun</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;untuk mendapatkan persetujuan, penetapan 
+                      atau putusan pengadilan atau otoritas lainnya untuk memberlakukan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;pengakhiran Perjanjian ini, termasuk penerapan Pasal 1266 Kitab Undang-Undang Hukum 
+                      Perdata sepanjang</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;putusan pengadilan diperlukan untuk mengakhiri Perjanjian ini.</td>
+                    </tr>
+                  </table>
+                </p>
+                <p style="page-break-before:always;">
+                  <table style="width:100%;">
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;">Pasal 13</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>PENYELESAIAN PERSELISIHAN</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>(1) Segala perselisihan yang mungkin timbul akibat pelaksanaan Perjanjian ini akan 
+                      diselesaikan secara musyawarah</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;untuk mufakat.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(2) Apabila tidak dapat tercapai musyawarah secara mufakat, maka <strong>PARA PIHAK</strong> sepakat 
+                      untuk memilih domisili hukum</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;yang tetap dan tidak berubah di Kantor Kepaniteraan 
+                      Pengadilan Negeri Sleman.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>Pasal 14</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>PERSETUJUAN PEMROSESAN DATA PRIBADI</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>(1) <strong>PIHAK KEDUA</strong> berhak mengumpulkan dan memproses data pribadi PIHAK PERTAMA seperti 
+                      KTP, KK, KTP</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;pasangan, dan data pribadi lainnya sebagaimana termuat Undang-undang 
+                      Nomor 27 Tahun 2022 tentang</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;Pelindungan Data Pribadi untuk proses pelaksanaan Perjanjian ini dan untuk keperluan dengan pihak ketiga</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;seperti vendor, lembaga pembiayaan, perbankan dan lain sebagainya sejauh diperbolehkan oleh Peraturan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;Perundang-undangan.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(2) <strong>PIHAK PERTAMA</strong> menyetujui pengumpulan dan pemrosesan data pribadi yang dilakukan 
+                      oleh <strong>PIHAK KEDUA</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;sebagaimana dimaksud pada ayat (1).</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>Pasal 15</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>KETERPISAHAN</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>Apabila salah satu dari ketentuan dalam Perjanjian ini menjadi tidak berlaku atau tidak dapat 
+                      dilaksanakan, ketentuan tersebut akan dipisahkan dari Perjanjian ini, dimana ketentuan yang 
+                      lain akan tetap berlaku dan efektif, namun sepanjang ketidak berlakuan ketentuan tersebut tidak 
+                      mengubah maksud dan tujuan awal dari Perjanjian ini.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>Pasal 16</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;"><br/>LAIN-LAIN</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>(3) Perjanjian ini tidak akan berakhir karena meninggalnya salah satu <strong>PIHAK</strong> atau adanya 
+                      penggantian pemegang</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;saham di <strong>PIHAK KEDUA</strong>, dan karenanya ahli warisnya atau 
+                      penggantinya yang berhak, wajib mengikuti ketentuan-</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;ketentuan sebagaimana diatur dalam Perjanjian ini.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(4) Segala sesuatu yang belum cukup diatur dalam Perjanjian ini akan dibicarakan dan 
+                      diselesaikan secara musyawarah</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;dan apabila diperlukan akan dituangkan dalam 
+                      Adendum atau Perubahan tersendiri yang merupakan bagian yang</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;tidak terpisahkan dari Perjanjian ini.</td>
+                    </tr>
+                  </table>
+                </p>
+                <p style="page-break-before:always;">
+                  <table style="width:100%;">
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(5) Tidak ada satu <strong>PIHAK</strong> pun dalam Perjanjian ini yang dapat mengalihkan hak-haknya 
+                      menurut Perjanjian ini kepada</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;pihak ketiga manapun tanpa persetujuan tertulis 
+                      terlebih dahulu dari <strong>PIHAK</strong> lainnya.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(6) Setiap pemberitahuan atau komunikasi lainnya yang berhubungan dengan 
+                      Perjanjian ini hanya dapat dianggap sah</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;bilamana terdapat konfirmasi terlebih dahulu dari 
+                      masing-masing <strong>PIHAK</strong>. Bukti penerimaan yang cukup dapat</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;dikirimkan terlebih dahulu dalam bentuk soft copy ke masing-masing <strong>PIHAK</strong> baik melalui Whatsapp maupun surat</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;elektronik (email), dan kemudian bukti asli dapat  dikirimkan ke alamat masing-masing 
+                      <strong>PIHAK</strong> dalam waktu 2 (dua)</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;hari kalender setelah konfirmasi pemberitahuan dilakukan.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(7) Setiap pemberitahuan atau komunikasi yang berhubungan dengan Perjanjian ini 
+                      harus dialamatkan kepada alamat</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;<strong>PIHAK PERTAMA</strong> dan kantor <strong>PIHAK KEDUA</strong>.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(8) Jika satu atau lebih ketentuan dalam Perjanjian ini atau pengaturan sebagaimana dimaksud 
+                      dalam Perjanjian ini</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;dinyatakan tidak sah, tidak berlaku atau tidak 
+                      dapat dilaksanakan dalam hal apapun berdasarkan hukum yang berlaku</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;atau keputusan, 
+                      keabsahan, keberlakuan dan dapat dilaksanakannya ketentuan dan kesepakatan, yang lainnya</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;yang terkandung atau dimaksud dalam Perjanjian ini tidak 
+                      terpengaruh atau berkurang dengan cara apapun, dengan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;ketentuan bahwa, atas 
+                      terjadinya peristiwa tersebut, <strong>PARA PIHAK</strong> harus menggunakan upayanya yang terbaik</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;untuk mengubah ketentuan yang tidak sah, tidak berlaku atau tidak dapat 
+                      dilaksanakan tersebut hanya sepanjang</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;diperlukan agar ketentuan tersebut menjadi sah, 
+                      berlaku dan dapat dilaksanakan sesuai dengan maksud <strong>PARA</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;<strong>PIHAK</strong>.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(9) Kecuali ditentukan lain dalam Perjanjian ini, setiap dan semua informasi berdasarkan 
+                      dan sehubungan dengan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;Perjanjian ini akan dijaga kerahasiaannya oleh <strong>PARA PIHAK</strong> 
+                      dan tidak akan diungkapkan kepada setiap individu,</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;korporasi atau pihak ketiga lain 
+                      selama jangka waktu 5 (lima) tahun sejak tanggal Perjanjian ini, kecuali dengan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;persetujuan tertulis sebelumnya dari <strong>PIHAK</strong> lainnya, diungkapkan kepada direktur, 
+                      pejabat, penasihat hukum dan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;karyawan <strong>PARA PIHAK</strong> yang memerlukan akses pada 
+                      informasi tersebut untuk tujuan pelaksanaan Perjanjian ini</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;atau kepada penasihat 
+                      hukum atau penasihat <strong>PARA PIHAK</strong> yang telah diberitahu bahwa semua informasi 
+                      tersebut</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;harus dijaga kerahasiaannya sesuai dengan syarat dan ketentuan Perjanjian 
+                      ini atau melalui pengungkapan yang</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;disyaratkan berdasarkan hukum 
+                      pengadilan, dengan ketentuan mengungkapkannya harus segera memberitahukan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;kepada PIHAK lainnya mengenai hukum atau putusan tersebut. <strong>PARA PIHAK</strong> tidak akan 
+                      menggunakan, atau</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;mengizinkan penggunaan, informasi berdasarkan dan sehubungan 
+                      dengan Perjanjian apapun atau putusan atau</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;bahwa <strong>PIHAK</strong> yang untuk tujuan selain Tujuan tersebut.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">(10) Perjanjian ini (bersama-sama dengan dokumen yang disebut di sini ataupun 
+                      ditandatangani secara serentak oleh</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;<strong>PARA PIHAK</strong> sehubungan dengan ini) merupakan 
+                      semua syarat dan ketentuan yang disepakati antara <strong>PARA PIHAK</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;mengenai materi 
+                      Perjanjian ini dan menggantikan serta membatalkan semua perjanjian, surat, pernyataan maupun</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;jaminan sebelumnya, jika ada, antara <strong>PARA PIHAK</strong> sehubungan dengan materi 
+                      Perjanjian, baik tertulis maupun</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;lisan.</td>
+                    </tr>
+                  </table>
+                </p>
+                <p style="page-break-before:always;">
+                  <table style="width:100%;">
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>Demikian Perjanjian ini dibuat dalam rangkap 2 (dua) bermeterai cukup ditandatangani 
+                      seperlunya serta mempunyai kekuatan hukum yang sama untuk masing-masing <strong>PIHAK</strong>.</td>
+                    </tr>
+                    <tr>
+                      <table wdith="100%">
+                        <br/>
+                        <br/>
+                        <tr>
+                          <td width="60%"><center><strong>PIHAK PERTAMA</strong></center></td>
+                          <td width="60%"><center><strong>PIHAK KEDUA</strong></center></td>
+                        </tr>
+                        <tr>
+                          <td width="40%"><br/><br/></td>
+                          <td width="40%"><br/><br/></td>
+                        </tr>
+                        <tr>
+                          <td width="10%"/>
+                          <td width="40%"><br/><br/></td>
+                          <td width="40%"><br/><br/></td>
+                          <td width="10%"/>
+                        </tr>
+                        <tr>
+                          <td width="10%"/>
+                          <td width="40%"><br/><br/></td>
+                          <td width="40%"><br/><br/></td>
+                          <td width="10%"/>
+                        </tr>
+                        <tr>
+                          <td width="60%">
+                            <center>
+                              ( <span t-esc="name_peternak"/> )
+                            </center>
+                          </td>
+                          <td width="60%">
+                            <center>
+                              ( <span t-field="o.name_operasional"/> )
+                            </center>
+                          </td>
+                        </tr>
+                      </table>
+                    </tr>
+                  </table>
+                </p>
+                <p style="page-break-before:always;">
+                  <table style="width:100%;">
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: center;font-weight: bold;">FORMULIR PERSETUJUAN PEMROSESAN DATA PRIBADI</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>Berdasarkan Undang-Undang Nomor 27 Tahun 2022 Republik Indonesia tentang 
+                      Pelindungan Data Pribadi (UU PDP), PT INTEGRASI TEKNOLOGI UNGGAS (selanjutnya 
+                      dalam formulir ini disebut sebagai “BROILERX”) akan menggunakan persetujuan dari anda 
+                      selaku pemilik data pribadi sebagai dasar pemrosesan yang sah dan eksplisit. Dibawah 
+                      pengaturan UU PDP dan aturan terkait, kami tunduk untuk menjaga dan merahasiakan 
+                      data pribadi anda sesuai ketentuan perundang-undangan.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>Anda memiliki kontrol penuh untuk menentukan pilihan atas persetujuan sesuai formulir 
+                      ini. Oleh sebab itu mohon untuk membaca setiap klausul dibawah ini dengan seksama.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;<strong>1. Pemerolehan Data Pribadi dan Tujuan Penggunaan Data</strong></td>
+                    </tr>
+                    <table style="width:100%;">
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Data Pribadi yang Dikumpulkan</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Tujuan Pengumpulan dan Penggunaan Data Pribadi</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Periode Penyimpanan (Retensi) Data Pribadi</td>
+                      </tr>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Data Umum
+                        <br/>&#160;&#160;&#160;a. Nama Lengkap;
+                        <br/>&#160;&#160;&#160;b. Jenis Kelamin;
+                        <br/>&#160;&#160;&#160;c. Kewarganegaraan;
+                        <br/>&#160;&#160;&#160;d. Agama;
+                        <br/>&#160;&#160;&#160;e. Status Perkawinan; dan/atau
+                        <br/>&#160;&#160;&#160;f. Data Pribadi yang dikombinasikan untuk&#160;&#160;&#160;mengidentifikasi
+                        </td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Identifikasi, analisa, monitoring, perjanjian</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Data akan digunakan sampai dengan tujuan pemrosesan selesai</td>
+                      </tr>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Data Spesifik
+                        <br/>&#160;&#160;&#160;a. Data dan Informasi Kesehatan;
+                        <br/>&#160;&#160;&#160;b. Data Biometrik;
+                        <br/>&#160;&#160;&#160;c. Data Genetika;
+                        <br/>&#160;&#160;&#160;d. Data Anak;
+                        <br/>&#160;&#160;&#160;e. Data Keuangan Pribadi; dan/atau
+                        <br/>&#160;&#160;&#160;f. Data lainnya sesuai dengan ketentuan&#160;&#160;&#160;peraturan perundang-undangan.
+                        </td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Identifikasi, analisa, monitoring, perjanjian</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Data akan digunakan sampai dengan tujuan pemrosesan selesai</td>
+                      </tr>
+                    </table>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;<strong>2. Pemerolehan Data yang Dapat Mengidentifikasi Anda</strong></td>
+                    </tr>
+                    <table style="width:100%;">
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Data Pribadi yang Dapat Mengidentifikasi Anda</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Tujuan Pengumpulan dan Penggunaan Data</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Periode Penyimpanan (Retensi) Data Pribadi</td>
+                      </tr>
+                    </table>
+                  </table>
+                </p>
+                <p style="page-break-before:always;">
+                  <table style="width:100%;">
+                    <table style="width:100%;">
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Nomor Handphone</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Identifikasi, Komunikasi, Pemberitahuan Informasi, Pemberitahuan Lain yang relevan dengan BroilerX</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Data akan digunakan sampai dengan tujuan pemrosesan selesai</td>
+                      </tr>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Alamat E-Mail</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Identifikasi, Marketing, Pemberitahuan Informasi, Pemberitahuan Gangguan Layanan, Pemberitahuan Lain yang relevan dengan BroilerX</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Data akan digunakan sampai dengan tujuan pemrosesan selesai</td>
+                      </tr>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Nomor KTP</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Identifikasi</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Data akan digunakan sampai dengan tujuan pemrosesan selesai</td>
+                      </tr>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Nomor NPWP</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Identifikasi</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Data akan digunakan sampai dengan tujuan pemrosesan selesai</td>
+                      </tr>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Nomor Kartu Keluarga</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Identifikasi</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Data akan digunakan sampai dengan tujuan pemrosesan selesai</td>
+                      </tr>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Nomor BPJS Kesehatan</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Identifikasi, pemenuhan kewajiban terhadap peraturan perundang- undangan</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Data akan digunakan sampai dengan tujuan pemrosesan selesai</td>
+                      </tr>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Nomor BPJS Ketenagakerjaan</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Identifikasi, pemenuhan kewajiban terhadap peraturan perundang- undangan</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: top;">Data akan digunakan sampai dengan tujuan pemrosesan selesai</td>
+                      </tr>
+                    </table>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;<strong>3. Transfer Data</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;BROILERX akan melakukan transfer data berupa perpindahan, pengiriman dan/atau 
+                      penggandaan data pribadi anda</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;baik secara elektronik maupun non-elektronik kepada 
+                      pihak lain, yaitu otoritas pemerintahan yang memiliki dasar</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;pemrosesan yang sah berdasarkan peraturan perundang-undangan seperti BPJS Kesehatan, BPJS 
+                      Ketenagakerjaan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;maupun otoritas pemerintah lainnya dan mitra dari BROILERX.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/><br/>&#160;&#160;&#160;<strong>4. Hak Anda Sebagai Subjek Data Pribadi</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;- Mengakses, melengkapi dan mengubah data pribadi;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;- Menarik persetujuan atas salah satu, sebagian atau keseluruhan pemrosesan data;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;- Menghapus dan/atau memusnahkan data pribadi sesuai ketentuan peraturan perundang- undangan;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;- Mengajukan keberatan atas tindakan pemrosesan data yang menimbulkan akibat hukum atau berdampak</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;signifikan pada anda;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;- Menunda atau membatasi pemrosesan data secara proporsional sesuai;</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;- Mendapatkan dan/atau menggunakan data pribadi anda dengan format yang lazim.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;Dalam hal anda memiliki pertanyaan, komentar, keluhan atau klaim mengenai hak-hak 
+                      anda sebagai subjek data</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;pribadi, silahkan hubungi kami melalui e-mail legal@broilerx.com 
+                      BROILERX akan memproses permohonan anda</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;selaku subjek data pribadi sesuai dengan ketentuan peraturan perundang-undangan yang berlaku di Indonesia.</td>
+                    </tr>
+                  </table>
+                </p>
+                <p style="page-break-before:always;">
+                  <table style="width:100%;">
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;<strong>5. Kepatuhan BROILERX Pada Hukum</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;Dalam keadaan tertentu, BROILERX mungkin perlu untuk menggunakan ataupun mengungkapkan Data Pribadi anda</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;untuk tujuan penegakan hukum atau untuk pemenuhan persyaratan dan kewajiban peraturan perundang-undangan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;yang berlaku, 
+                      termasuk dalam hal terjadinya sengketa atau proses hukum antara anda dengan BROILERX, atau</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;dugaan tidak pidana seperti namun tidak terbatas pada penipuan atau 
+                      pencurian data pribadi.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;<strong>6. Upaya BROILERX Pada Keamanan Data Pribadi Anda</strong></td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;BROILERX melindungi setiap Data Pribadi anda yang disimpan dalam sistem baik 
+                      elektronik maupun non-elektronik</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;tersebut dari akses, penggunaan, modifikasi, 
+                      pengambilan dan/atau pengungkapan tidak sah dengan menerapkan</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;sejumlah 
+                      tindakan dan prosedur keamanan, termasuk diantaranya kata sandi anda.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;Data Pribadi anda juga dapat disimpan diproses di luar negeri oleh&#160;&#160;<strong>PIHAK</strong> yang bekerja 
+                      untuk BROILERX atau oleh</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;penyedia layanan pihak ketiga, vendor, anak perusahaan 
+                      atau afiliasi BROILERX. Dalam hal tersebut, BROILERX</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;akan memastikan bahwa Data 
+                      Pribadi anda tetap terlindungi sesuai dengan komitmen BROILERX.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>&#160;&#160;&#160;&#160;&#160;BROILERX akan menghapus dan/atau menganonimkan Data Peribadi anda yang ada di 
+                      bawah kendali BROILERX</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;apabila Data Pribadi anda tidak lagi diperlukan untuk 
+                      memenuhi tujuan dari pemrosesan data dan penyimpanan tidak</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;">&#160;&#160;&#160;&#160;&#160;lagi diperlukan untuk 
+                      tujuan kepatuhan BROILERX terhadap Peraturan Perundang-undangan yang berlaku.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>Dengan ini saya menyatakan persetujuan sebagai pemilik data pribadi kepada BROILERX untuk memproses Data Pribadi saya 
+                      untuk tujuan-tujuan sebagaimana deskripsi tertera di 
+                      atas.</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/>ttd</td>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;">
+                      <td colspan="6" style="text-align: left;"><br/><br/><br/><br/>( <span t-esc="name_peternak"/> )</td>
+                    </tr>
+                  </table>
+                </p>
+            </div>
+            <div class="footer">
+              <table width="100%">
+                <tr style="font-size: 11pt;vertical-align: top;font-family: Times New Roman, Times, serif;">
+                  <td width="100%" style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;"><strong>&#160;PERINGATAN :</strong> 
+                  <br/>&#160;Bahwa Perjanjian beserta Lampirannya termasuk dalam ruang lingkup Rahasia Dagang sebagaimana Undang-Undang, 
+                  Nomor &#160;30 Tahun 2000 tentang Rahasia Dagang, 
+                  Barang siapa yang dengan sengaja dan tanpa hak menyebarluaskan informasi &#160;Rahasia Dagang dipidana dengan pidana 
+                  penjara palinglama 2 (dua) tahun dan/atau denda paling banyak Rp. 300.000.000.00 &#160;(tiga ratus juta rupiah).</td>
+                </tr>
+              </table>
+            </div>
+          </t>
+        </t>
+      </template> 
+
+    </data>
+</odoo>

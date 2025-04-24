@@ -1,0 +1,87 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_survey_export_xls
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-24 07:04+0000\n"
+"PO-Revision-Date: 2022-06-24 07:04+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_survey_export_xls
+#: model_terms:ir.ui.view,arch_db:sh_survey_export_xls.sh_survey_export_wizard_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: sh_survey_export_xls
+#: model:ir.model.fields,field_description:sh_survey_export_xls.field_sh_survey_export_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: sh_survey_export_xls
+#: model:ir.model.fields,field_description:sh_survey_export_xls.field_sh_survey_export_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: sh_survey_export_xls
+#: model:ir.model.fields,field_description:sh_survey_export_xls.field_sh_survey_export_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sh_survey_export_xls
+#: model_terms:ir.ui.view,arch_db:sh_survey_export_xls.sh_survey_form_inherit
+msgid "Export Answer"
+msgstr ""
+
+#. module: sh_survey_export_xls
+#: model:ir.model.fields,field_description:sh_survey_export_xls.field_sh_survey_export_wizard__sh_group_by_partner
+msgid "Group By Customer"
+msgstr ""
+
+#. module: sh_survey_export_xls
+#: model:ir.model.fields,field_description:sh_survey_export_xls.field_sh_survey_export_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: sh_survey_export_xls
+#: model:ir.model.fields,field_description:sh_survey_export_xls.field_sh_survey_export_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: sh_survey_export_xls
+#: model:ir.model.fields,field_description:sh_survey_export_xls.field_sh_survey_export_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sh_survey_export_xls
+#: model:ir.model.fields,field_description:sh_survey_export_xls.field_sh_survey_export_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sh_survey_export_xls
+#: model:ir.model.fields,field_description:sh_survey_export_xls.field_sh_survey_export_wizard__sh_complete_survery
+msgid "Only completed surverys"
+msgstr ""
+
+#. module: sh_survey_export_xls
+#: model_terms:ir.ui.view,arch_db:sh_survey_export_xls.sh_survey_export_wizard_form_view
+msgid "Print Xls Report"
+msgstr ""
+
+#. module: sh_survey_export_xls
+#: model:ir.actions.act_window,name:sh_survey_export_xls.sh_survey_export_wizard_action
+#: model_terms:ir.ui.view,arch_db:sh_survey_export_xls.sh_survey_export_wizard_form_view
+msgid "Product Attribute Report"
+msgstr ""
+
+#. module: sh_survey_export_xls
+#: model:ir.model,name:sh_survey_export_xls.model_sh_survey_export_wizard
+msgid "Survey Export Wizard"
+msgstr ""

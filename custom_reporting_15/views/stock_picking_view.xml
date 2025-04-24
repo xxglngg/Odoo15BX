@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_picking_form_view_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.form.view_inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <group name="other_infos" position="after">
+                <group string="Delivery/Receipt Information" name="delivery_detail">
+                    <field name="picking_type_code" invisible="1"/>
+                    <field name="document_code" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+                    <field name="rev_number" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+                    <field name="license_plate"/>
+                    <field name="pengirim" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+                    <field name="qc_by" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+                    <field name="admin_by" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+                </group>
+            </group>
+
+            <button name="action_open_label_layout" position="after">
+                <!-- <button name="action_print_spm" string="PRINT SURAT PERINTAH MUAT" attrs="{'invisible': ['|',('picking_type_code', '!=', 'outgoing'),('state', 'in', ['assigned','done'])]}" type="object"/> -->
+                <button name="action_print_spj" string="PRINT SURAT JALAN" attrs="{'invisible': ['|',('picking_type_code', '!=', 'outgoing'), ('state', 'in', ['draft', 'waiting'])]}" type="object"/>
+                <button name="action_print_ttb" string="PRINT TTB" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}" type="object"/>
+            </button>
+        </field>
+    </record>
+
+</odoo>

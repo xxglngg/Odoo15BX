@@ -1,0 +1,125 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_stock_secondary
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.1alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-05 05:41+0000\n"
+"PO-Revision-Date: 2020-10-05 05:41+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_stock_secondary
+#: model:ir.model.fields,help:sh_stock_secondary.field_stock_scrap__category_id
+msgid ""
+"Conversion between Units of Measure can only occur if they belong to the "
+"same category. The conversion will be made based on the ratios."
+msgstr ""
+"La conversion entre unités de mesure ne peut avoir lieu que si elles appartiennent au"
+"même catégorie. La conversion se fera en fonction des ratios."
+
+#. module: sh_stock_secondary
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_immediate_transfer__display_name
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_move__display_name
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_move_line__display_name
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_scrap__display_name
+msgid "Display Name"
+msgstr "Afficher un nom"
+
+#. module: sh_stock_secondary
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_immediate_transfer__id
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_move__id
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_move_line__id
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_scrap__id
+msgid "ID"
+msgstr "identifiant"
+
+#. module: sh_stock_secondary
+#: model:ir.model,name:sh_stock_secondary.model_stock_immediate_transfer
+msgid "Immediate Transfer"
+msgstr "Transfert immédiat"
+
+#. module: sh_stock_secondary
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_immediate_transfer____last_update
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_move____last_update
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_move_line____last_update
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_scrap____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: sh_stock_secondary
+#: model:ir.model,name:sh_stock_secondary.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Déplacements de produit (ligne de déplacement de stock)"
+
+#. module: sh_stock_secondary
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_move__sh_is_secondary_unit
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_move_line__sh_is_secondary_unit
+msgid "Related Sec Unit"
+msgstr "Unité Sec connexe"
+
+#. module: sh_stock_secondary
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_scrap__sh_is_secondary_unit
+msgid "Related sec. unit"
+msgstr "Related sec. unité"
+
+#. module: sh_stock_secondary
+#: model:ir.model,name:sh_stock_secondary.model_stock_scrap
+msgid "Scrap"
+msgstr "Abandonner"
+
+#. module: sh_stock_secondary
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_move__sh_sec_done_qty
+msgid "Secondary Done Qty"
+msgstr "Qté secondaire effectuée"
+
+#. module: sh_stock_secondary
+#: model_terms:ir.ui.view,arch_db:sh_stock_secondary.sh_report_stock_delivery_document
+msgid "Secondary Done Quantity"
+msgstr "Quantité secondaire effectuée"
+
+#. module: sh_stock_secondary
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_move__sh_sec_qty
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_move_line__sh_sec_qty
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_scrap__sh_sec_qty
+#: model_terms:ir.ui.view,arch_db:sh_stock_secondary.sh_stock_move_detailed_operation_view
+#: model_terms:ir.ui.view,arch_db:sh_stock_secondary.sh_stock_move_line_custom_tree_view
+msgid "Secondary Qty"
+msgstr "Qté secondaire"
+
+#. module: sh_stock_secondary
+#: model_terms:ir.ui.view,arch_db:sh_stock_secondary.sh_report_stock_delivery_document
+#: model_terms:ir.ui.view,arch_db:sh_stock_secondary.sh_report_stock_picking_operation_document
+msgid "Secondary Quantity"
+msgstr "Quantité secondaire"
+
+#. module: sh_stock_secondary
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_move__sh_sec_uom
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_move_line__sh_sec_uom
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_scrap__sh_sec_uom
+#: model_terms:ir.ui.view,arch_db:sh_stock_secondary.sh_stock_move_detailed_operation_view
+#: model_terms:ir.ui.view,arch_db:sh_stock_secondary.sh_stock_move_line_custom_form_view
+#: model_terms:ir.ui.view,arch_db:sh_stock_secondary.sh_stock_move_line_custom_tree_view
+msgid "Secondary UOM"
+msgstr "UdM secondaire"
+
+#. module: sh_stock_secondary
+#: model:res.groups,name:sh_stock_secondary.group_secondary_unit_inventory
+msgid "Secondary Unit On Inventory"
+msgstr "Unité secondaire en inventaire"
+
+#. module: sh_stock_secondary
+#: model:ir.model,name:sh_stock_secondary.model_stock_move
+msgid "Stock Move"
+msgstr "Déplacement de stock"
+
+#. module: sh_stock_secondary
+#: model:ir.model.fields,field_description:sh_stock_secondary.field_stock_scrap__category_id
+msgid "UOM Category"
+msgstr "Catégorie UdM"

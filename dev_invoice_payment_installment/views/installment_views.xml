@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--tree-->
+    <record id="view_dev_invoice_installment_line_tree" model="ir.ui.view">
+        <field name="name">view.dev.invoice.installment.line.tree</field>
+        <field name="model">invoice.installment.lines</field>
+        <field name="arch" type="xml">
+            <tree string="Invoice Installment" create="0" edit="0">
+                <field name="name" string="Name"/>
+                <field name="date" optional="show"/>
+                <field name="invoice_id" optional="show"/>
+                <field name="payment_amount" optional="show"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="state" decoration-success="state == 'paid'" decoration-info="state == 'draft'" decoration-danger="state == 'cancel'" widget="badge" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--form-->
+    <record id="view_dev_invoice_installment_line_form" model="ir.ui.view">
+        <field name="name">view.dev.invoice.installment.line.form</field>
+        <field name="model">invoice.installment.lines</field>
+        <field name="arch" type="xml">
+            <form string="Chair" create="0" edit="0">
+                <header>
+                    <button name="%(action_installment_payment)d" string="Create Payment" 
+                            class="oe_highlight" type="action" 
+                            attrs="{'invisible':[('state','in',['cancel','paid'])]}"/>
+                    <button name="action_cancel" string="Cancel" type="object" 
+                            attrs="{'invisible':[('state','!=','draft')]}"/>
+                    
+                    <button name="action_draft" string="Set to Draft" type="object" 
+                            attrs="{'invisible':[('state','!=','cancel')]}" class="oe_highlight"/>
+                                    
+                    <field name="state" widget="statusbar" statusbar_visible="draft,paid"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="view_installment_payment" type="object" class="oe_stat_button" icon="fa-id-card" attrs="{'invisible':[('state','!=','paid')]}">
+                            <field string="View Payment" name="payment_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <h2>
+                        <field name="name" readonly="1" string='Number'/>
+                    </h2>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="invoice_id"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="payment_amount"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <!-- search view  -->
+    <record id="view_dev_invoice_installment_line_search" model="ir.ui.view">
+        <field name="name">view.dev.invoice.installment.lines.filter</field>
+        <field name="model">invoice.installment.lines</field>
+        <field name="arch" type="xml">
+            <search string="Invoice Installment">
+                <field name="name" />
+                <separator/>
+                    <filter name="state_draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                    <filter name="state_paid" string="Paid" domain="[('state', '=', 'paid')]"/>
+                    <filter name="state_cancel" string="Cancel" domain="[('state', '=', 'cancel')]"/>
+                    <filter string="Payment Date" name="filter_date" date="date"/>
+                <group expand="0" string="Group by" colspan="16">
+                    <filter name="state" string="State" context="{'group_by':'state'}"/>
+                    <filter name="partner_id" string="Customer" context="{'group_by':'partner_id'}"/>
+                    <filter name="invoice_id" string="Invoice" context="{'group_by':'invoice_id'}"/>
+                    <filter name="company_id" string="Company" 
+                            context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--All Membership Action-->
+    <record id="action_dev_invoice_installment" model="ir.actions.act_window">
+        <field name="name">Invoice Installment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">invoice.installment.lines</field>
+        <field name="context">{'search_default_invoice_id':1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <menuitem name="Installment"
+              id="menu_dev_invoice_installment"
+              parent="account.menu_finance_receivables"
+              action="action_dev_invoice_installment"
+              sequence="14"/>
+    
+
+</odoo>

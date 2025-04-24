@@ -1,0 +1,27 @@
+{
+    'name': "Custom Accounting",
+    'summary': """This module allows to accounting from the tree/form view.""",
+    'author': "Erpana",
+    'sequence': 101,
+    'category': 'Accounting',
+    'version': '15.0.1',
+    'license': 'AGPL-3',
+    'description': """This module allows to accounting from the tree/form view.
+    """,
+    'depends': ['base','account','report_xlsx', 'analytic', 'account_reports', 'custom_reporting_15','l10n_id_efaktur'],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/account_financial_report_data.xml',
+        "security/analytic_security.xml",
+        "security/analytic_mandatory_security.xml",
+        "report/database_rhpp_xlsx_view.xml",
+        "views/account_analytic_account_views.xml",
+        "views/account_analytic_line_views.xml",
+        'views/account_move_views.xml',
+        'views/report_financial.xml',
+        'views/account_invoice_report_views.xml',
+    ],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}

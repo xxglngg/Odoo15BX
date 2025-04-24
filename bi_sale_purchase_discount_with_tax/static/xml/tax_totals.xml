@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<templates xml:space="preserve">
+    <t t-inherit="account.TaxTotalsField" t-inherit-mode="extension" owl="1">
+        
+        <xpath expr="//table/tbody/tr" position="before">
+            <t t-set="total_tax" t-value="0"/>
+            <t t-foreach="totals.value.subtotals" t-as="subtotal" t-key="subtotal['name']">
+                <t t-foreach="totals.value.groups_by_subtotal[subtotal['name']]" t-as="taxGroup" t-key="taxGroup.group_key">
+                    <t t-set="total_tax" t-value="total_tax + 1"/>
+                </t>
+            </t>
+            <t t-if="totals.value.amount_disc">
+                <t t-if="total_tax == 0">
+                    <tr>
+                        <td class="o_td_label">
+                            <label class="o_form_label o_tax_total_label">Subtotal</label>
+                        </td>
+
+                        <td>
+                            <span
+                                name="amount_subtotal"
+                                t-esc="totals.value.formatted_amount_untaxed"
+                                style="white-space: nowrap; font-weight: bold; font-size: 1.3em;"
+                            />
+                        </td>
+                    </tr>
+                </t>
+                <t t-if="total_tax != 0">
+                    <tr>
+                        <td class="o_td_label">
+                            <label class="o_form_label o_tax_total_label">Subtotal</label>
+                        </td>
+
+                        <td>
+                            <span
+                                name="amount_subtotal"
+                                t-esc="totals.value.amount_subtotal"
+                                style="white-space: nowrap; font-weight: bold; font-size: 1.3em;"
+                            />
+                        </td>
+                    </tr>
+                </t>
+                <tr>
+                    <td class="o_td_label">
+                        <label class="o_form_label o_tax_total_label">Amount Discount</label>
+                    </td>
+
+                    <td>
+                        <span
+                            name="amount_disc"
+                            t-att-class="Object.keys(totals.value.amount_disc_formatted).length > 0 ? 'oe_subtotal_footer_separator' : ''"
+                            t-esc="totals.value.amount_disc_formatted"
+                            style="white-space: nowrap; font-weight: bold; font-size: 1.3em;"
+                        />
+                    </td>
+                </tr>
+            </t>
+            <t t-if="totals.value.amount_disc_line">
+                <t t-if="total_tax == 0">
+                    <tr>
+                        <td class="o_td_label">
+                            <label class="o_form_label o_tax_total_label">Subtotal</label>
+                        </td>
+
+                        <td>
+                            <span
+                                name="amount_subtotal"
+                                t-esc="totals.value.formatted_amount_untaxed"
+                                style="white-space: nowrap; font-weight: bold; font-size: 1.3em;"
+                            />
+                        </td>
+                    </tr>
+                </t>
+                <t t-if="total_tax != 0">
+                    <tr>
+                        <td class="o_td_label">
+                            <label class="o_form_label o_tax_total_label">Subtotal</label>
+                        </td>
+
+                        <td>
+                            <span
+                                name="amount_subtotal"
+                                t-esc="totals.value.amount_subtotal"
+                                style="white-space: nowrap; font-weight: bold; font-size: 1.3em;"
+                            />
+                        </td>
+                    </tr>
+                </t>
+                <tr>
+                    <td class="o_td_label">
+                        <label class="o_form_label o_tax_total_label">Line Discount</label>
+                    </td>
+
+                    <td>
+                        <span
+                            name="amount_disc_line"
+                            t-att-class="Object.keys(totals.value.amount_disc_line_formatted).length > 0 ? 'oe_subtotal_footer_separator' : ''"
+                            t-esc="totals.value.amount_disc_line_formatted"
+                            style="white-space: nowrap; font-weight: bold; font-size: 1.3em;"
+                        />
+                    </td>
+                </tr>
+            </t>
+          </xpath>
+    </t>
+</templates>

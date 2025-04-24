@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="analytic_rhpp_journal_wizard_form" model="ir.ui.view">
+			<field name="name">analytic.rhpp.journal.wizard.form</field>
+			<field name="model">analytic.rhpp.journal.wizard</field>
+			<field name="arch" type="xml">
+			<form>
+				Are You Sure Change Current Analytic RHPP Journal ? 
+				<footer>
+					<button name="confirm_journal_change" string="Yes" type="object" class="oe_highlight"/>
+					<button string="Cancel" special="cancel" icon="fa-times" class="btn btn-danger"  />
+				</footer>
+			</form>
+			</field>
+		</record>
+    </data>
+</odoo>

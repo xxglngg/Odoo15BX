@@ -1,0 +1,29 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="standar_fcr_list">
+      <field name="name">Standar FCR</field>
+      <field name="model">standar.fcr</field>
+      <field name="arch" type="xml">
+        <tree editable="top">
+          <field name="body_weight"/>
+          <field name="feed_converion_ratio"/>
+          <field name="mortality"/>
+        </tree>
+      </field>
+    </record>
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="standar_fcr_action_window">
+      <field name="name">Standar FCR</field>
+      <field name="res_model">standar.fcr</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+    <!-- actions -->
+
+    <menuitem name="Standar FCR" id="custom_rhpp.menu_list_standar_fcr" parent="custom_rhpp.menu_config_rhpp"
+              action="standar_fcr_action_window" sequence="10"/>
+              
+  </data>
+</odoo>

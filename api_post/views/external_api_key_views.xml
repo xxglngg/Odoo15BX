@@ -1,0 +1,57 @@
+<odoo>
+<data>
+    <record model="ir.ui.view" id="external_api_key_form_view">
+        <field name="name">auth.api.key.form (in external_api_key)</field>
+        <field name="model">external.api.key</field>
+        <field name="arch" type="xml">
+            <form>
+            <header>
+                <button name="generate_token"
+                    string="Generate Token" type="object"/>
+            </header>
+                <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" class="oe_inline"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="base_url"/>
+                            <field name="endpoint_url"/>
+                            <field name="username"/>
+                            <field name="password"/>
+                            <field name="token"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="external_api_key_tree_view">
+        <field name="name">auth.api.key.tree (in external_api_key)</field>
+        <field name="model">external.api.key</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="base_url"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="external_api_key_act_window">
+        <field name="name">External Api Key</field>
+        <field name="res_model">external.api.key</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <menuitem name="External Api Key" id="api_post.external_api_key_menu" parent="api_post.menu_settings"
+              sequence="3"
+              action="external_api_key_act_window"/>
+</data>
+</odoo>

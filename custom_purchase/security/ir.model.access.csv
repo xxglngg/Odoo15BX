@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_create_split_bill_wizard,access_create_split_bill_wizard,model_create_split_bill_wizard,base.group_user,1,1,1,1
+access_create_split_bill_wizard_line,access_create_split_bill_wizard_line,model_create_split_bill_wizard_line,base.group_user,1,1,1,1
+
+access_create_split_ttb_wizard,access_create_split_ttb_wizard,model_create_split_ttb_wizard,base.group_user,1,1,1,1
+access_create_split_ttb_wizard_line,access_create_split_ttb_wizard_line,model_create_split_ttb_wizard_line,base.group_user,1,1,1,1

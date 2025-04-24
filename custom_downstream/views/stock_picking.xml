@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <record id="view_picking_form" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='button_validate'][1]" position="replace">
+                    <button name="button_validate"
+                            attrs="{'invisible': ['|', ('state', 'in', ('waiting','confirmed')), ('show_validate', '=', False)]}"
+                            string="Validate" type="object" class="oe_highlight"
+                            groups="groups_inventory_validate_done,base.group_erp_manager" data-hotkey="v"/>
+                </xpath>
+                <xpath expr="//button[@name='button_validate'][2]" position="replace">
+                    <button name="button_validate"
+                            attrs="{'invisible': ['|', ('state', 'not in', ('waiting', 'confirmed')), ('show_validate', '=', False)]}"
+                            string="Validate" type="object"
+                            groups="groups_inventory_validate_done,base.group_erp_manager"
+                            class="o_btn_validate" data-hotkey="v"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

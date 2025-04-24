@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="kontrak_approve_access_user" model="res.groups">
+        <field name="name">Kontrak Approve Access</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+    <record id="rhpp_admin_unit_access_user" model="res.groups">
+        <field name="name">Admin Unit Access</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+    <record id="rhpp_admin_region_access_user" model="res.groups">
+        <field name="name">Admin Region Access</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+    <record id="rhpp_admin_ho_access_user" model="res.groups">
+        <field name="name">Admin Ho Access</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+    <record id="rhpp_admin_finance_access_user" model="res.groups">
+        <field name="name">Admin Finance Access</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>    
+</odoo>

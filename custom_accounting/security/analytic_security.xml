@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="group_analytic_lock_unlock" model="res.groups">
+            <field name="name">Access Analytic Lock Unlock</field>
+            <field name="comment">The user access analytic lock unlock.</field>
+        </record>
+    </data>
+</odoo>

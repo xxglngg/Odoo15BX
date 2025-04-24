@@ -1,0 +1,24 @@
+.bi_attachment [type=file] {
+			opacity: 0;
+			position: absolute;
+			cursor: pointer;
+			left: 0;
+			top: 0;
+			display: inline-block;
+			text-align: center;
+			margin: 25px auto;
+			font-weight: bold;
+		}
+
+.bi_attachment {
+			overflow: hidden;
+			background: transparent;
+			border: 1px dashed skyblue;
+			float: left;
+			padding: 15px;
+			// position: absolute;
+			left: 0;
+			bottom: 0;
+			font-weight: bold;
+			text-align: center;
+		}

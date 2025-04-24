@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_picking_line_wizard" model="ir.ui.view">
+            <field name="name">view.picking.line.wizard</field>
+            <field name="model">picking.line.wizard</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <tree string="Add Picking Line" editable='top' edit="1" create="0" export_xlsx="false">
+                <header>
+                    <button name="action_add_product" type="object" string="Add Product"/>
+                </header>
+                    <field name="product_id" readonly="1"/>
+                    <field name="product_categ_id" readonly="1"/>
+                    <field name="lst_price" readonly="1"  optional="hide"/>
+                    <field name="standard_price" readonly="1" optional="hide"/>
+                    <field name="id_inventory" readonly="1"/>
+                    <field name="location_id" readonly="1" domain="location_domain"/>
+                    <field name="lot_id" readonly="1" domain="lot_domain"/>
+                    <field name="uom_id" readonly="1"/>
+                    <field name="qty_available" readonly="1"/>
+                    <field name="quant_qty" readonly="1"/>
+                    <field name="product_qty"/>
+                    <field name="location_domain" invisible="1"/>
+                    <field name="lot_domain" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_picking_line_wizard_search" model="ir.ui.view">
+            <field name="name">view.picking.line.wizard.search</field>
+            <field name="model">picking.line.wizard</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <search string="Search Product">
+                    <field name="product_id"/>
+                    <field name="product_categ_id"/>
+                    <group string="Group by">
+                        <filter string="Product Category" name="group_by_categ" domain="[]" context="{'group_by':'product_categ_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- <record id="action_picking_line_wizard" model="ir.actions.act_window">
+            <field name="name">Add Picking Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">picking.line.wizard</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="custom_stock.view_picking_line_wizard"/>
+            <field name="target">new</field>
+        </record> -->
+    </data>
+</odoo>    

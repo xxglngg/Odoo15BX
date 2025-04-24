@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="1">
+        <record id="invoice_signature" model="ir.config_parameter">
+            <field name="key">invoice_signature</field>
+            <field name="value">Finance &amp; Accounting Team</field>
+        </record>
+    </data>
+</odoo>

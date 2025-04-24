@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+        <menuitem name="Stock Manifest" id="stock_manifest_menu" parent="stock.menu_stock_warehouse_mgmt" sequence="116"
+                  action="stock_manifest_action_window"/>
+
+    </data>
+</odoo>

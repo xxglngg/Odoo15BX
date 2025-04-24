@@ -1,0 +1,31 @@
+<odoo>
+<data>
+    <record model="ir.ui.view" id="external_api_log_tree_view">
+        <field name="name">auth.api.log.tree (in external_api_log)</field>
+        <field name="model">external.api.log</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="base_url"/>
+                <field name="method"/>
+                <field name="data"/>
+                <field name="response"/>
+                <field name="is_posted"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="external_api_log_act_window">
+        <field name="name">External Api Log</field>
+        <field name="res_model">external.api.log</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <menuitem name="External Api Log" id="api_post.external_api_log_menu" parent="api_post.menu_settings"
+              sequence="4"
+              action="external_api_log_act_window"/>
+</data>
+</odoo>

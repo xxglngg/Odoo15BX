@@ -1,0 +1,80 @@
+<odoo>
+    <data>
+        <record id="account_analytic_account_custom_form" model="ir.ui.view">
+            <field name="name">account.analytic.account.custom.form</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <button name="action_lock_analytic_account" string="Lock" 
+                                    class="oe_highlight" type="object" 
+                                    attrs="{'invisible':[('state','!=','unlocked')]}"
+                                    groups="custom_accounting.group_analytic_lock_unlock"
+                                    />
+                        <button name="action_unlock_analytic_account" string="Unlock" 
+                                    class="oe_highlight" type="object" 
+                                    attrs="{'invisible':[('state','!=','locked')]}"
+                                    groups="custom_accounting.group_analytic_lock_unlock"
+                                    />
+                        <field name="state" widget="statusbar" statusbar_visible="locked"/>
+                    </header>
+                </xpath>
+                <xpath expr="//widget[@name='web_ribbon']" position="after">
+                    <widget name="web_ribbon" title="Locked" bg_color="bg-danger" attrs="{'invisible': [('state', '=', 'unlocked')]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account_analytic_account_custom_tree" model="ir.ui.view">
+            <field name="name">account.analytic.account.custom.tree</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='balance']" position="after">
+                    <field name="state" widget="badge" decoration-success="state == 'unlocked'" decoration-danger=" state == 'locked'"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="server_action_lock_analytic_account" model="ir.actions.server">
+            <field name="name">Lock</field>
+            <field name="binding_model_id" ref="analytic.model_account_analytic_account" />
+            <field name="model_id" ref="analytic.model_account_analytic_account"/>
+            <field name="groups_id" eval="[(6, 0, [ref('custom_accounting.group_analytic_lock_unlock')])]"/>
+            <field name="state">code</field>
+            <field name="code">
+                for item in records:
+                    item.action_lock_analytic_account()
+            </field>
+        </record>
+
+        <record id="server_action_unlock_analytic_account" model="ir.actions.server">
+            <field name="name">Unlock</field>
+            <field name="binding_model_id" ref="analytic.model_account_analytic_account" />
+            <field name="model_id" ref="analytic.model_account_analytic_account"/>
+            <field name="groups_id" eval="[(6, 0, [ref('custom_accounting.group_analytic_lock_unlock')])]"/>
+            <field name="state">code</field>
+            <field name="code">
+                for item in records:
+                    item.action_unlock_analytic_account()
+            </field>
+        </record>
+        
+        <record id="account_analytic_account_custom_search" model="ir.ui.view">
+            <field name="name">account.analytic.account.custom.search</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='associatedpartner']" position="after">
+                    <filter string="Lock" name="lock" domain="[('state', '=' , 'locked')]"/>
+                    <filter string="Unlock" name="unlock" domain="[('state', '=' , 'unlocked')]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- <record id="analytic.action_account_analytic_account_form" model="ir.actions.act_window">
+            <field name="context">{'search_default_unlock':1}</field>
+        </record> -->
+    </data>
+</odoo>

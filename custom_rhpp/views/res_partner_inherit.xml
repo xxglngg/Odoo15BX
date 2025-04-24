@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">view.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="before">
+                <field name="nik" string="NIK" attrs="{'required': [('is_company_itu', '=', True)]}"/>
+            </field>
+            <xpath expr="//field[@name='company_id'][1]" position="replace">  
+            </xpath>
+            <field name="category_id" position="after">
+                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" attrs="{'readonly': [('parent_id', '!=', False)]}" force_save="1"/>                    
+            </field>
+            <field name="category_id" position="replace">
+                <field name="category_id_domain" invisible="1"/>
+                <field name="category_id" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags..." domain="category_id_domain"/>
+            </field>
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='acc_holder_name']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+            <field name="company_id" position="before">
+                <field name="company_ids" widget="many2many_tags"/> 
+                <field name="is_company_itu" invisible="1"/>                    
+            </field>
+            <xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="string">NPWP</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

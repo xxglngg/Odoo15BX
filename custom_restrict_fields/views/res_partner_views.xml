@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record id="view_res_partner_form_restrict_inherit_tags" model="ir.ui.view">
+            <field name="name">view.res.partner.form.restrict.inherit.tags</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('custom_restrict_fields.hide_tags_create_user') ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="attributes">  
+                    <attribute name="options">{'no_create': True,'no_create_edit': True, 'no_quick_create': True}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

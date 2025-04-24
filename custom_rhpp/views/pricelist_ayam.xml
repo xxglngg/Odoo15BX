@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pricelist_ayam_search" model="ir.ui.view">
+      <field name="name">pricelist.ayam.search</field>
+      <field name="model">pricelist.ayam.rhpp</field>
+      <field name="arch" type="xml">
+          <search string="Pricelist Ayam">
+              <field name="name"/>
+              <field name="unit"/>
+              <separator/>
+                <filter name="active" string="Active" domain="[('active','=',True)]"/>
+                <filter name="inactive" string="Inactive" domain="[('active','=',False)]"/>
+              <group expand="0" string="Group by" colspan="16">
+                  <filter name="name" string="Name" context="{'group_by':'name'}"/>
+                  <filter name="unit" string="Unit" context="{'group_by':'unit'}"/>
+              </group>
+          </search>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="pricelist_ayam_list">
+      <field name="name">Price List Ayam</field>
+      <field name="model">pricelist.ayam.rhpp</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+            <field name="unit" widget="many2many_tags"/>
+            <field name="date" />
+            <field name="active" widget="boolean_toggle"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="pricelist_ayam_form">
+      <field name="name">Pricelist Ayam</field>
+      <field name="model">pricelist.ayam.rhpp</field>
+      <field name="arch" type="xml">
+        <form>
+            <sheet>
+              <div class="oe_button_box" name="button_box">
+                <button class="oe_stat_button" name="action_open_contract" type="object" icon="fa-file-text-o" string="Contract">
+                </button>
+                <button class="oe_stat_button" name="action_open_partners" type="object" icon="fa-file-text-o" string="Partners">
+                </button>
+              </div>
+                <group>
+                  <group>
+                      <field name="name" />
+                      <field name="unit" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+                  </group>
+                  <group>
+                    <field name="date" />
+                    <field name="active" widget="boolean_toggle"/>
+                  </group>
+                </group>
+                <notebook>
+                    <page string="Pricelist" name="pricelist">
+                        <field name="pricelist_ayam_line_ids" nolabel="1" >
+                            <tree editable="bottom">
+                                <field name="product_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="bobot_start"/>
+                                <field name="bobot_end"/>
+                                <field name="harga_ayam"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+              <div class="oe_chatter">
+                  <field name="message_follower_ids" widget="mail_followers"/>
+                  <field name="message_ids" widget="mail_thread"/>
+              </div>
+
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="pricelist_ayam_action_window">
+      <field name="name">Harga Livebird</field>
+      <field name="res_model">pricelist.ayam.rhpp</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <menuitem name="Harga Livebird" id="custom_rhpp.menu_pricelist_ayam_rhpp" parent="custom_rhpp.menu_config_rhpp" sequence="3" action="pricelist_ayam_action_window"/>
+
+
+    <!-- actions -->
+
+</odoo>

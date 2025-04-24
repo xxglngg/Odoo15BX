@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+For Module Support : devintelle@gmail.com  or Skype : devintelle 
+ -->
+<odoo>
+    <record id="view_dev_account_move_installment_form" model="ir.ui.view">
+        <field name="name">view.dev.account.move.installment.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_reference']" position="after">
+                <field name="apply_installment" attrs="{'readonly':[('state','!=','draft')],
+                                                        'invisible':[('move_type','!=','out_invoice')]}"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string='Payment Installment' attrs="{'invisible':[('apply_installment','=',False)]}">
+                    <group>
+                        <group>
+                            <field name="installment" attrs="{'required':[('apply_installment','=',True)],
+                                                              'readonly':[('state','!=','draft')]}"/>
+                            <field name="next_payment_date" attrs="{'required':[('apply_installment','=',True)],
+                                                                    'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="down_payment" attrs="{'required':[('apply_installment','=',True)],
+                                                               'readonly':[('state','!=','draft')]}"/>
+                            <field name="installment_amount" 
+                                   attrs="{'required':[('apply_installment','=',True)], 'readonly':[('state','!=','draft')]}" 
+                                   string='Installment Payable' />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+			            </group>
+			            <group>
+			                <button type="object" string='Generate Installment' name="generate_installment_lines" attrs="{'invisible':[('state','=','posted')]}" class="oe_highlight"/>
+			            </group>
+                    </group>
+                    <field name="installment_lines" readonly="1">
+                        <tree>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="payment_amount"/>
+                            <field name="state"/>
+                            <field name="currency_id" invisible="1"/>
+                            <button name="%(action_installment_payment)d" string="Create Payment" 
+                                    class="oe_highlight" type="action" 
+                                    attrs="{'invisible':[('state','in',['cancel','paid'])]}"/>
+                            <button name="view_installment_payment" string="View Payment" 
+                                    class="oe_highlight" type="object" 
+                                    attrs="{'invisible':[('state','!=','paid')]}"/>
+                        </tree>
+                    </field>                
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

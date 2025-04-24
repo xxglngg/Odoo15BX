@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+    <record id="account_move_line_tree" model="ir.ui.view">
+      <field name="name">account.move.line.tree</field>
+      <field name="model">account.move.line</field>
+      <field name="inherit_id" ref="account.view_move_line_tree_grouped" />
+      <field name="arch" type="xml">
+        <field name="name" position="after">
+          <field name="no_sj"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</odoo>

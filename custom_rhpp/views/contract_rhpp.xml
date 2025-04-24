@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="view_form_kontrak_peternak_search" model="ir.ui.view">
+      <field name="name">form.kontrak.peternak.search</field>
+      <field name="model">form.kontrak.peternak</field>
+      <field name="arch" type="xml">
+          <search string="Form Kontrak Peternak">
+              <field name="name"/>
+              <field name="populasi_kandang"/>
+              <field name="analytic_account"/>
+              <field name="contact_peternak"/>
+          </search>
+      </field>
+    </record>
+
+    <record id="action_contacts_custom_contract_rhpp" model="ir.actions.act_window">
+        <field name="name">Daftar Peternak</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="context">{'res_partner_active': 'active', 'default_is_company': True}</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a Contact in your address book
+          </p><p>
+            Odoo helps you track all activities related to your contacts.
+          </p>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="form_kontrak_peternak_list">
+      <field name="name">Form Kontrak Peternak</field>
+      <field name="model">form.kontrak.peternak</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="populasi_kandang"/>
+          <field name="analytic_account"/>
+          <field name="contact_peternak"/>
+          <field name="nik"/>
+          <field name="alamat"/>
+          <field name="populasi"/>
+          <field name="ovk"/>
+          <field name="unit"/>
+          <field name="jenis_kontrak"/>
+          <field name="no_surat_pp_23"/>
+          <field name="template_kontrak_id"/>
+          <!-- <field name="pricelist_ayam"/>
+          <field name="pricelist_sapronak"/> -->
+          <field name="jenis_kandang"/>
+          <field name="contact_doc_in"/>
+          <field name="contract_ppl"/>
+          <!-- <field name="contract_tanggal_pengajuan"/> -->
+          <field name="contract_periode"/>
+          <field name="tanggal_surat"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="form_kontrak_peternak_form">
+      <field name="name">Form Kontrak Peternak</field>
+      <field name="model">form.kontrak.peternak</field>
+      <field name="arch" type="xml">
+        <form>
+            <header>
+              <button name="action_run_approve_rhpp" string="Approve" class="btn-primary" type="object" attrs="{'invisible': ['|',('state', '!=', 'new'),('file_kontrak', '=', False)]}" groups="custom_rhpp.kontrak_approve_access_user"/>
+              <button name="action_run_contract_rhpp" string="Run Contract/RHPP" class="btn-primary" type="object" attrs="{'invisible': [('state', '!=', 'ready')]}"/>
+              <button name="action_print_kontrak_peternak" string="Print Kontrak Peternak" type="object" attrs="{'invisible': [('is_periode_pertama', '=', True)]}"/>
+              <button name="action_print_perjanjian_mitra_peternak" string="Print Perjanjian Mitra Peternak" type="object" attrs="{'invisible': [('is_periode_pertama', '=', False)]}"/>
+              <button name="action_cancel" string="Cancel" type="object" attrs="{'invisible': [('state', '=', 'cancel')]}"/>
+              <field name="state"  widget="statusbar" statusbar_visible="new,ready,running,expired,cancel"/>
+            </header>
+            <sheet>
+                <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" icon="fa-file-text-o" name="action_open_rhpp" type="object" string="RHPP">
+                    </button>
+                    <button class="oe_stat_button" icon="fa-file-text-o" name="action_open_kontrak" type="object" string="Kontrak">
+                    </button>
+                </div>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" attrs="{'readonly':[('id', '=', False)]}"/>
+                    </h1>
+                </div>
+                <group>
+                    <field name="company_id" invisible="1"/>
+                    <group>
+                      <field name="is_running_transaction" attrs="{'readonly': [('state', '!=', 'new')]}"/>
+                      <field name="populasi_kandang"/>
+                      <field name="analytic_account" attrs="{'readonly': ['|',('is_running_transaction', '=', False),('state', '!=', 'new')], 'required': [('is_running_transaction', '=', True)]}" options="{'no_create': True, 'no_create_edit':True}"/>
+                      <field name="contact_peternak" force_save="1"/>
+                      <field name="nik" force_save="1"/>
+                      <field name="alamat" force_save="1"/>
+                      <field name="populasi" force_save="1"/>
+                      <field name="ovk"/>
+                      <field name="unit" force_save="1"/>
+                      <field name="jenis_kontrak"/>
+                    </group>
+                    <group>
+                      <field name="no_surat_pp_23"/>
+                      <field name="template_kontrak_id"/>
+                      <!-- <field name="pricelist_ayam"/>
+                      <field name="pricelist_sapronak"/> -->
+                      <field name="file_kontrak" filename="filename"/>
+                      <field name="jenis_kandang" force_save="1"/>
+                      <field name="contact_doc_in"/>
+                      <field name="contract_ppl"/>
+                      <!-- <field name="contract_tanggal_pengajuan"/> -->
+                      <field name="contract_periode"/>
+                      <field name="tanggal_surat"/>
+                      <field name="is_periode_pertama"/>
+                      <!-- <field name="klausul_id"/> -->
+                    </group>
+                </group>
+                <!-- <notebook>
+                  <page string="Operations" name="klausul_kontrak_lines_page">
+                      <field name="klausul_kontrak_line" readonly="1">
+                          <form>
+                              <group>
+                                  <group>
+                                      <field name="klausul"/>
+                                      <field name="content" type="html" options="{'collaborative': true}"/>
+                                  </group>
+                              </group>
+                          </form>
+                          <tree>
+                            <field name="klausul"/>
+                            <field name="content" type="html" options="{'collaborative': true}"/>
+                          </tree>
+                      </field>
+                  </page>
+                  <page string="Bonus Kontrak" name="bonus_kontrak_page">
+                      <group>
+                          <group>
+                              <field name="bonus_jenis_kandang_id" domain="[('unit_bjk', '=', unit), ('active', '=', True), ('date', '&lt;=', contact_doc_in)]" force_save="1" required="1"/>
+                              <field name="bonus_ip_id" domain="[('unit_bip', '=', unit), ('active', '=', True), ('date', '&lt;=', contact_doc_in)]" force_save="1" required="1"/>
+                              <field name="bonus_capaian_fcr_id" domain="[('unit_bcf', '=', unit), ('active', '=', True), ('date', '&lt;=', contact_doc_in)]" force_save="1" required="1"/>
+                              <field name="bonus_pasar_id" domain="[('unit_bp', '=', unit), ('active', '=', True), ('date', '&lt;=', contact_doc_in)]" force_save="1" required="1"/>
+                              <field name="bonus_daya_hidup_id" domain="[('unit_bdh', '=', unit), ('active', '=', True), ('date', '&lt;=', contact_doc_in)]" force_save="1" required="1"/>                              
+                          </group>
+                      </group>
+                  </page>
+                </notebook> -->
+            </sheet>
+            <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers"/>
+              <field name="message_ids" widget="mail_thread"/>
+            </div>
+
+        </form>
+      </field>
+    </record>
+
+    <record id="action_contacts_contract_rhpp_view_kanban" model="ir.actions.act_window.view">
+        <field name="sequence" eval="0"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="base.res_partner_kanban_view"/>
+        <field name="act_window_id" ref="action_contacts_custom_contract_rhpp"/>
+    </record>
+
+    <record id="action_contacts_contract_rhpp_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="base.view_partner_tree"/>
+        <field name="act_window_id" ref="action_contacts_custom_contract_rhpp"/>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="form_kontrak_peternak_action_window">
+      <field name="name">Kontrak Peternak</field>
+      <field name="res_model">form.kontrak.peternak</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_account_report_analytic_rhpp" model="ir.actions.act_window">
+        <field name="name">Analytic Account</field>
+        <field name="res_model">account.analytic.account</field>
+        <field name="view_mode">tree,kanban,form</field>
+            <field name="search_view_id" ref="analytic.view_account_analytic_account_search"/>
+            <field name="context">{'search_default_active':1}</field>
+            <field name="view_id" ref="analytic.view_account_analytic_account_list"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Add a new analytic account
+              </p>
+            </field>
+    </record>
+
+    <record id="wizard_view_pdf" model="ir.ui.view">
+        <field name="name">PDF View</field>
+        <field name="model">form.kontrak.peternak</field>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+        <form>
+            <group>
+                <field name="file_kontrak" filename="filename" widget="pdf_viewer" readonly="1"/>
+            </group>
+            <footer>
+                <button class="oe_link" special="cancel" string="Close"/>
+            </footer>
+         </form>
+        </field>
+    </record>
+
+    <record id="wizard_view_image" model="ir.ui.view">
+        <field name="name">Image View</field>
+        <field name="model">form.kontrak.peternak</field>
+        <field name="priority">98</field>
+        <field name="arch" type="xml">
+        <form>
+            <group>
+                <field name="file_kontrak" filename="filename" widget="image" readonly="1"/>
+            </group>
+            <footer>
+                <button class="oe_link" special="cancel" string="Close"/>
+            </footer>
+         </form>
+        </field>
+    </record>
+
+    <menuitem id="custom_rhpp.menu_root_contact_rhpp"
+              name="Contract"
+              parent="custom_rhpp.menu_root_rhpp"
+              sequence="2"/>
+
+    <menuitem name="Kontrak Peternak" id="custom_rhpp.menu_form_kontrak_peternak_rhpp" parent="custom_rhpp.menu_root_contact_rhpp" sequence="1" action="form_kontrak_peternak_action_window"/>
+    <menuitem id="custom_rhpp.menu_account_analytic_account_rhpp" name="Analytic Account" action="action_account_report_analytic_rhpp" parent="custom_rhpp.menu_root_contact_rhpp" groups="analytic.group_analytic_accounting" sequence="2"/>
+    <menuitem name="Daftar Peternak" id="custom_rhpp.menu_contract_rhpp" parent="custom_rhpp.menu_root_contact_rhpp" sequence="4" action="action_contacts_custom_contract_rhpp"/>
+
+    <!-- actions -->
+
+</odoo>

@@ -1,0 +1,79 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_account_uom_qty_pack
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.1alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-18 13:51+0000\n"
+"PO-Revision-Date: 2021-09-18 13:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_account_uom_qty_pack
+#: model_terms:ir.ui.view,arch_db:sh_account_uom_qty_pack.sh_show_bag_size_account_move_line_res_config_settings
+msgid "Bag Qty Configuration"
+msgstr "Bolsa de configuración de qty"
+
+#. module: sh_account_uom_qty_pack
+#: model:ir.model.fields,field_description:sh_account_uom_qty_pack.field_account_move_line__sh_bag_qty
+#: model_terms:ir.ui.view,arch_db:sh_account_uom_qty_pack.sh_report_account_invoice_custom
+msgid "Bag Quantity"
+msgstr "Cantidad de bolsa"
+
+#. module: sh_account_uom_qty_pack
+#: model:ir.model,name:sh_account_uom_qty_pack.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: sh_account_uom_qty_pack
+#: model:ir.model,name:sh_account_uom_qty_pack.model_res_config_settings
+msgid "Config Settings"
+msgstr "Configuración de configuración"
+
+#. module: sh_account_uom_qty_pack
+#: model:ir.model.fields,field_description:sh_account_uom_qty_pack.field_account_bank_statement_line__sh_enable_quantity
+#: model:ir.model.fields,field_description:sh_account_uom_qty_pack.field_account_move__sh_enable_quantity
+#: model:ir.model.fields,field_description:sh_account_uom_qty_pack.field_account_payment__sh_enable_quantity
+msgid "Enable Quantity"
+msgstr "Habilitar cantidad"
+
+#. module: sh_account_uom_qty_pack
+#: model:ir.model.fields,field_description:sh_account_uom_qty_pack.field_account_bank_statement_line__sh_enable_quantity_in_report
+#: model:ir.model.fields,field_description:sh_account_uom_qty_pack.field_account_move__sh_enable_quantity_in_report
+#: model:ir.model.fields,field_description:sh_account_uom_qty_pack.field_account_payment__sh_enable_quantity_in_report
+msgid "Enable Quantity In Report"
+msgstr "Habilitar cantidad en el informe"
+
+#. module: sh_account_uom_qty_pack
+#: model:ir.model,name:sh_account_uom_qty_pack.model_account_move
+msgid "Journal Entry"
+msgstr "Entrada de diario"
+
+#. module: sh_account_uom_qty_pack
+#: model:ir.model,name:sh_account_uom_qty_pack.model_account_move_line
+msgid "Journal Item"
+msgstr "Artículo de diario"
+
+#. module: sh_account_uom_qty_pack
+#: model:ir.model.fields,field_description:sh_account_uom_qty_pack.field_account_move_line__sh_qty_in_bag
+#: model_terms:ir.ui.view,arch_db:sh_account_uom_qty_pack.sh_report_account_invoice_custom
+msgid "Quantity in Bags"
+msgstr "Cantidad en bolsas"
+
+#. module: sh_account_uom_qty_pack
+#: model:ir.model.fields,field_description:sh_account_uom_qty_pack.field_res_company__sh_show_bag_size_account_move_line
+#: model:ir.model.fields,field_description:sh_account_uom_qty_pack.field_res_config_settings__sh_show_bag_size_account_move_line
+msgid "Show Bag Size in Invoice Line"
+msgstr "Mostrar tamaño de bolsa en la línea de factura"
+
+#. module: sh_account_uom_qty_pack
+#: model:ir.model.fields,field_description:sh_account_uom_qty_pack.field_res_company__sh_show_bag_size_in_account_invoice_report
+#: model:ir.model.fields,field_description:sh_account_uom_qty_pack.field_res_config_settings__sh_show_bag_size_in_account_invoice_report
+msgid "Show Bag Size in Invoice Report"
+msgstr "Mostrar tamaño de bolsa en el informe de la factura"

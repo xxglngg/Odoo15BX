@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<data>
+        <template id="journal_expend_template">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <div class="header">
+                        <table style="font-size: 10px;">
+                            <tr>
+                                <td style="width:10%;vertical-align: middle;">
+                                    <t t-if="o.company_id.parent_id">
+                                        <img t-att-src="image_data_uri(o.company_id.parent_id.logo)" height="60px"/>
+                                    </t>
+                                    <t t-else="">
+                                        <img t-att-src="image_data_uri(o.company_id.logo)" height="60px"/>
+                                    </t>
+                                </td>
+                                <td style="width:70%">
+                                    <t t-if="o.company_id.parent_id">
+                                        <table style="width:100%">
+                                            <tr>
+                                                <td style="font-weight: bold;font-size: 12px;">
+                                                    <span t-field="o.company_id.parent_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span t-field="o.company_id.parent_id.street"/>
+                                                    <span t-field="o.company_id.parent_id.street2"/>
+                                                    <span t-field="o.company_id.parent_id.city"/>
+                                                    <span t-field="o.company_id.parent_id.zip"/><br/>
+                                                    Telp : <span t-field="o.company_id.parent_id.phone"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                    <t t-else="">
+                                        <table style="width:100%">
+                                            <tr>
+                                                <td style="font-weight: bold;font-size: 12px;">
+                                                    <span t-field="o.company_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-top:5px;">
+                                                    <span t-field="o.company_id.street"/>
+                                                    <span t-field="o.company_id.street2"/>
+                                                    <span t-field="o.company_id.city"/>
+                                                    <span t-field="o.company_id.zip"/><br/>
+                                                    Telp : <span t-field="o.company_id.phone"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </t>
+                                </td>
+                                <td style="width:20%;font-size: 14pt;font-weight:bold;text-align: center; vertical-align: middle;">
+                                    EXPENSE
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="page">
+                        <hr style="border-top: 3px double #000000;"/>
+                        <table style="width:100%; font-size: 10px;">
+                            <td colspan="7" style="font-weight:bold;text-align:center;font-weight: bold;">Unit :
+                                <span t-field="o.company_id"/>
+                            </td>
+                            <tr>
+                                <td colspan="7" style="font-weight:bold;"><br/></td>
+                            </tr>
+                            <tr>
+                                <td style="width:7%;font-weight: bold;">Nama</td>
+                                <td style="width:1%;font-weight: bold;">:</td>
+                                <td style="width:37%;font-weight: bold;">
+                                    <span t-field="o.partner_id"/>
+                                </td>
+                                <td style="width:10%"/>
+                                <td style="width:19%;font-weight: bold;">No Invoice</td>
+                                <td style="width:1%;font-weight: bold;">:</td>
+                                <td style="width:21%;font-weight: bold;">
+                                    <span t-field="o.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:7%;font-weight: bold;">Kode</td>
+                                <td style="width:1%;font-weight: bold;">:</td>
+                                <td style="width:37%;font-weight: bold;">
+                                    <span t-field="o.partner_id.ref"/>
+                                </td>
+                                <td style="width:10%"/>
+                                <td style="width:19%;font-weight: bold;">Tanggal Bill</td>
+                                <td style="width:1%;font-weight: bold;">:</td>
+                                <td style="width:21%;font-weight: bold;">
+                                    <span t-field="o.invoice_date" t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;dd-MM-yyyy&quot;}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:7%;vertical-align: text-top;font-weight: bold;" rowspan="2">Alamat</td>
+                                <td style="width:1%;vertical-align: text-top;font-weight: bold;" rowspan="2">:</td>
+                                <td style="width:37%;vertical-align: text-top;font-weight: bold" rowspan="2">
+                                    <span t-field="o.partner_id.street"/>
+                                    <span t-field="o.partner_id.street2"/>
+                                    <span t-field="o.partner_id.city"/>
+                                    <span t-field="o.partner_id.state_id.name"/>
+                                </td>
+                                <td style="width:10%"/>
+                                <td style="width:19%;font-weight: bold;">Tanggal Jatuh Tempo</td>
+                                <td style="width:1%;font-weight: bold;">:</td>
+                                <td style="width:21%;font-weight: bold;">
+                                    <t t-if="o.delivery_date">
+                                        <t t-if="o.invoice_payment_term_id">
+                                            <t t-foreach="o.invoice_payment_term_id.line_ids" t-as="term_line_ids">
+
+                                                <t t-if="term_line_ids.value == 'balance'">
+                                                    <t t-if="term_line_ids.days == 0">
+                                                        <t t-set="result_days" t-value="0"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-set="result_days" t-value="term_line_ids.days"/>
+                                                    </t>
+                                                </t>
+
+                                            </t>
+
+                                            <t t-if="result_days == 0">
+                                                <span t-field="o.delivery_date" t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;dd-MM-yyyy&quot;}"/>
+                                            </t>
+
+                                            <t t-else="">
+                                                <t t-set="tanggal_kirim" t-value="o.delivery_date" t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;dd-MM-yyyy&quot;}"/>
+                                                <span t-esc="(datetime.datetime.strptime(str(tanggal_kirim), '%Y-%m-%d') + datetime.timedelta(days=int(result_days)) ).strftime('%d-%m-%Y')"/>
+                                            </t>
+                                        </t>
+
+                                        <t t-else="">
+                                            <t t-set="tanggal_kirim" t-value="o.delivery_date" t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;dd-MM-yyyy&quot;}"/>
+
+                                            <t t-set="relative" t-value="relativedelta(o.invoice_date_due, o.delivery_date).days"/>
+                                            <t t-if="relative == 0">
+                                                <span t-field="o.invoice_date_due" t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;dd-MM-yyyy&quot;}"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span t-esc="(datetime.datetime.strptime(str(tanggal_kirim), '%Y-%m-%d') + datetime.timedelta(days=int(relative)) ).strftime('%d-%m-%Y')"/>
+                                            </t>
+
+                                        </t>
+                                    </t>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:10%"/>
+                                <td style="width:19%;font-weight: bold;">TOP</td>
+                                <td style="width:1%;font-weight: bold;">:</td>
+                                <td style="width:21%;font-weight: bold;">
+                                    <t t-if="o.invoice_payment_term_id">
+                                        <span t-field="o.invoice_payment_term_id.name"/>
+                                    </t>
+
+                                    <t t-else="">
+                                        <t t-set="tanggal_kirim" t-value="o.delivery_date" t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;dd-MM-yyyy&quot;}"/>
+                                        <t t-set="due_date" t-value="o.invoice_date_due" t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;dd-MM-yyyy&quot;}"/>
+
+                                        <t t-set="relative" t-value="relativedelta(o.invoice_date_due, o.delivery_date).days"/>
+                                        <t t-if="relative == 0">
+                                            <span t-field="o.invoice_date_due" t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;dd-MM-yyyy&quot;}"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span t-esc="relative"/> hari
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:7%;font-weight: bold;">No.Telp</td>
+                                <td style="width:1%;font-weight: bold;">:</td>
+                                <td style="width:37%;font-weight: bold;">
+                                    <span t-field="o.partner_id.phone"/>
+                                </td>
+                               
+                            </tr>
+                        </table>
+                        <table style="width:100%;font-size: 10px;">
+                            <tr>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">No.</td>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Analytic Account</td>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Acccount</td>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Nama Barang</td>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Quantity</td>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Satuan</td>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Harga Satuan</td>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Jumlah</td>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Keterangan</td>
+                            </tr>
+                            <t t-set="total_qty" t-value="0"/>
+                            <t t-foreach="o.invoice_line_ids" t-as="line">
+                                <t t-set="total_qty" t-value="total_qty + line.quantity"/>
+                                <tr>
+                                    <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">
+                                        <span t-esc="line_index+1"/>
+                                    </td>
+                                    <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: left;vertical-align: middle;">
+                                        <span t-field="line.analytic_account_id"/>
+                                    </td>
+                                    <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">
+                                        <span t-field="line.account_id"/>
+                                    </td>
+                                    <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">
+                                        <span t-field="line.product_id.name"/>
+                                    </td>
+                                    <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">
+                                        <span t-field="line.quantity"/>
+                                    </td>
+                                    <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">
+                                        <span t-field="line.product_uom_id"/>
+                                    </td>
+                                    <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;text-align:right;">
+                                        Rp
+                                        <span t-field="line.price_unit"/>
+                                    </td>
+                                    <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;text-align:right;">
+                                        <span t-field="line.price_subtotal"/>
+                                    </td>
+                                    <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">
+                                        <span t-field="line.note"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;" colspan="4">Sub Total</td>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">
+                                    <span t-esc="total_qty" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/>
+                                </td>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;"/>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;"/>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;text-align:right;">
+                                    <span t-field="o.amount_untaxed_signed"/>
+                                </td>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;"/>
+                            </tr>
+                            <t t-foreach="o.line_ids" t-as="tax_line">
+                                <t t-if="tax_line.tax_line_id">
+                                    <tr>
+                                        <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;" colspan="4">
+                                            <span t-field="tax_line.tax_line_id"/>
+                                        </td>
+                                        <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;"/>
+                                        <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;"/>
+                                        <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;"/>
+                                        <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;text-align:right;">
+                                            <span t-field="tax_line.price_total"/>
+                                        </td>
+                                        <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;"/>
+                                    </tr>   
+                                </t>
+                            </t>
+                            <tr>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;" colspan="4">Grand Total</td>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;"/>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;"/>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;"/>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;vertical-align: middle;font-weight: bold;text-align:right;">
+                                    <span t-field="o.amount_total_signed"/>
+                                </td>
+                                <td style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;"/>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding : 3px;text-align: center;font-style:italic;">
+                                    <strong>
+                                        Terbilang : <span t-field="o.amount_text"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="width:100%">
+                            <tr>
+                                <td style="width:60%">
+                                    <table style="width:100%;font-size: 10px;text-align:left;float:left">
+                                        <tr>
+                                            <td colspan="4">Notes :</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:3%">1.</td>
+                                            <td colspan="3" style="width:98%">Invoice lni Sah sebagai Kuitansi Pembayaran
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:3%">2.</td>
+                                            <td colspan="3" style="width:95%">Transfer Payment</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:3%"/>
+                                            <td style="width:25%;margin-left:20px">Bank</td>
+                                            <td style="width:3%">:</td>
+                                            <td style="width:63%;display: inline-block;">
+                                                <span t-field="o.bank_nama_rekening"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:3%"/>
+                                            <td style="width:25%;margin-left:20px">No Rek</td>
+                                            <td style="width:3%">:</td>
+                                            <td style="width:65%;display: inline-block;">
+                                                <span t-field="o.rekening"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:3%"/>
+                                            <td style="width:25%;margin-left:20px;">Atas Nama</td>
+                                            <td style="width:3%">:</td>
+                                            <td style="width:63%;display: inline-block;">
+                                                <span t-field="o.atas_nama"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:3%">3.</td>
+                                            <td colspan="3" style="width:95%">Pembayaran Sah Jika Sudah Ada Bukti
+                                                Pembayaran
+                                            </td>
+                                           </tr>
+                                        <tr>
+                                            <td style="width:3%">4.</td>
+                                            <td colspan="3" style="width:95%;">PIC Sales : <span t-field="o.invoice_user_id.name"/> </td>
+                                        </tr>
+                                    </table>
+                                </td>
+
+                                <td style="width:40%">
+                                    <table style="width:50%;margin-top:10px;font-size: 10px;float:right;">
+                                        <tr>
+                                            <td>
+                                                <t t-if="o.company_id.state_id">
+                                                    <span t-field="o.company_id.state_id.name"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span t-field="o.company_id.parent_id.state_id.name"/>
+                                                </t>
+                                                ,
+                                                <t t-set="o" t-value="o.with_context({'lang':'id_ID'})"/>
+                                                <span t-field="o.invoice_date" t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;dd MMMM YYYY&quot;}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border:1px solid black;padding:5px;text-align:center">Keuangan</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border:1px solid black;padding:5px;text-align:center;height:75px;">
+                                                <t t-if="o.state not in ('draft')">
+                                                    <t t-if="o.keuangan_user_id.user_signature">
+                                                        <span t-field="o.keuangan_user_id.user_signature" t-options="{&quot;widget&quot;: &quot;image&quot;, &quot;style&quot;:&quot;max-height:72px&quot;}"/>
+                                                    </t>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border:1px solid black;padding:5px;text-align:center">
+                                                <span t-field="o.keuangan_user_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 10px;">Ttd,Nama &amp; stemple, paraf administrasi</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="width:100%;font-size: 10px;">
+                            <tr>
+                                <td style="text-align: center;border-top:1px solid black;border-bottom:1px solid black;border-left:1px solid black">
+                                    Putih : Konsumen
+                                </td>
+                                <td style="text-align: center;border-top:1px solid black;border-bottom:1px solid black;">
+                                    Kuning : Administrasi Head Office (Arsip)
+                                </td>
+                                <td style="text-align: center;border-top:1px solid black;border-bottom:1px solid black;border-right:1px solid black">
+                                    Biru: Administrasi Unit (Arsip)
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <!--template initial-->
+		<template id="bill_expend_report_template_id">
+			<t t-call="web.html_container">
+               <t t-foreach="docs" t-as="o">
+					<t t-call="bi_print_journal_entries.journal_expend_template"  t-lang="o.partner_id.lang"/>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>

@@ -1,0 +1,25 @@
+<odoo>
+  <data>
+    <record id="action_report_account_statement" model="ir.actions.report">
+        <field name="name">Statement</field>
+        <field name="model">account.bank.statement</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account.report_statement</field>
+        <field name="report_file">account.report_statement</field>
+        <field name="binding_type">report</field>
+        <field name="binding_model_id" eval="False"/>
+    </record>
+
+    <record id="action_report_account_statement_new" model="ir.actions.report">
+        <field name="name">Voucher</field>
+        <field name="model">account.bank.statement</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">account_report_statement_bank.template_voucher</field>
+        <field name="report_file">account_report_statement_bank.template_voucher</field>
+        <field name="binding_model_id" ref="model_account_bank_statement"/>
+        <field name="paperformat_id" ref="account_report_statement_bank.custom_a4_paperformat"/>
+    </record>
+
+
+  </data>
+</odoo>

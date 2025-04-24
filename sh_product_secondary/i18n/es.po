@@ -1,0 +1,107 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_product_secondary
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.1alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-03 06:12+0000\n"
+"PO-Revision-Date: 2020-10-03 06:12+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_product_secondary
+#: model_terms:ir.ui.view,arch_db:sh_product_secondary.sh_stock_product_inherit_view
+msgid "<span class=\"o_stat_text\">Forecasted</span>"
+msgstr "<span class=\"o_stat_text\">Pronosticado</span>"
+
+#. module: sh_product_secondary
+#: model_terms:ir.ui.view,arch_db:sh_product_secondary.sh_stock_product_inherit_view
+msgid "<span class=\"o_stat_text\">On Hand</span>"
+msgstr "<span class=\"o_stat_text\">En mano</span>"
+
+#. module: sh_product_secondary
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_product__category_id
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_template__category_id
+msgid "Category"
+msgstr "Categoría"
+
+#. module: sh_product_secondary
+#: model:ir.model.fields,help:sh_product_secondary.field_product_product__category_id
+#: model:ir.model.fields,help:sh_product_secondary.field_product_template__category_id
+msgid ""
+"Conversion between Units of Measure can only occur if they belong to the "
+"same category. The conversion will be made based on the ratios."
+msgstr ""
+"La conversión entre unidades de medida solo puede ocurrir si pertenecen al"
+"Misma categoría. La conversión se hará en base a los ratios"
+
+
+#. module: sh_product_secondary
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_product__display_name
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_template__display_name
+#: model:ir.model.fields,field_description:sh_product_secondary.field_stock_quant__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: sh_product_secondary
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_product__sh_secondary_uom_forecasted
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_template__sh_secondary_uom_forecasted
+msgid "Forecasted"
+msgstr "Pronosticado"
+
+#. module: sh_product_secondary
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_product__id
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_template__id
+#: model:ir.model.fields,field_description:sh_product_secondary.field_stock_quant__id
+msgid "ID"
+msgstr "CARNÉ DE IDENTIDAD"
+
+#. module: sh_product_secondary
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_product____last_update
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_template____last_update
+#: model:ir.model.fields,field_description:sh_product_secondary.field_stock_quant____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: sh_product_secondary
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_product__sh_secondary_uom_onhand
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_template__sh_secondary_uom_onhand
+#: model:ir.model.fields,field_description:sh_product_secondary.field_stock_quant__sh_secondary_unit_qty
+msgid "On Hand"
+msgstr "En mano"
+
+#. module: sh_product_secondary
+#: model:ir.model,name:sh_product_secondary.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: sh_product_secondary
+#: model:ir.model,name:sh_product_secondary.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: sh_product_secondary
+#: model:ir.model,name:sh_product_secondary.model_stock_quant
+msgid "Quants"
+msgstr "Quants"
+
+#. module: sh_product_secondary
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_product__sh_secondary_uom
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_product__sh_uom_name
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_template__sh_secondary_uom
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_template__sh_uom_name
+#: model:ir.model.fields,field_description:sh_product_secondary.field_stock_quant__sh_secondary_unit
+msgid "Secondary UOM"
+msgstr "Unidad de medida secundaria"
+
+#. module: sh_product_secondary
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_product__sh_is_secondary_unit
+#: model:ir.model.fields,field_description:sh_product_secondary.field_product_template__sh_is_secondary_unit
+msgid "is Secondary Unit ?"
+msgstr "Qué es la unidad secundaria?"

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Account Financial Report Actions -->
+        <record id="action_account_report_ar_custom" model="ir.actions.client">
+            <field name="name">Aged Receivable as Due Date</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'account.aged.receivable.custom'}" />
+        </record>
+        <record id="action_account_report_ar_custom_non_calk" model="ir.actions.client">
+            <field name="name">Aged Receivable as Date</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'account.aged.receivable.custom.non.calk'}" />
+        </record>
+        <record id="action_account_report_ap_custom" model="ir.actions.client">
+            <field name="name">Aged Payable as Due Date</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'account.aged.payable.custom'}" />
+        </record>
+        <record id="action_account_report_ap_custom_non_calk" model="ir.actions.client">
+            <field name="name">Aged Payable as Date</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'account.aged.payable.custom.non.calk'}" />
+        </record>
+        
+        <!-- Account Financial Report Menuitems -->
+        <menuitem id="menu_action_account_report_aged_receivable_custom" name="Aged Receivable as Due Date" action="action_account_report_ar_custom" parent="account_reports.account_reports_partners_reports_menu"/>
+        <menuitem id="menu_action_account_report_aged_receivable_custom_non_calk" name="Aged Receivable as Date" action="action_account_report_ar_custom_non_calk" parent="account_reports.account_reports_partners_reports_menu"/>
+        <menuitem id="menu_action_account_report_aged_payable_custom" name="Aged Payable as Due Date" action="action_account_report_ap_custom" parent="account_reports.account_reports_partners_reports_menu"/>
+        <menuitem id="menu_action_account_report_aged_payable_custom_non_calk" name="Aged Payable as Date" action="action_account_report_ap_custom_non_calk" parent="account_reports.account_reports_partners_reports_menu"/>
+    </data>
+</odoo>

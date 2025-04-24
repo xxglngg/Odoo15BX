@@ -1,0 +1,930 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="action_report_surat_jalan" model="ir.actions.report">
+                <field name="name">Print Surat Jalan</field>
+                <field name="model">stock.picking</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">report_surat_jalan.template_surat_jalan</field>
+                <field name="report_file">report_surat_jalan.template_surat_jalan</field>
+                <field name="print_report_name">'%s' % object.name</field>
+                <!-- <field name="binding_model_id" ref="model_stock_picking"/> -->
+                <field name="binding_model_id" eval="False"/>
+                <field name="paperformat_id" ref="report_surat_jalan.custom_a4_paperformat"/>
+                <field name="binding_type">report</field>
+
+        </record>
+<!--        -->
+<!--        <report id="action_shipping_label_chair"-->
+<!--                string="Label Chair"-->
+<!--                model="shipping.label"-->
+<!--                report_type="qweb-pdf"-->
+<!--                name="master_data.template_shipping_label_chair"-->
+<!--                file="master_data.template_shipping_label_chair"-->
+<!--        />-->
+        <template id="report_surat_jalan.template_surat_jalan">
+
+                <t t-call="web.html_container">
+                    <t t-call="report_surat_jalan.custom_internal_layout">
+<!--                        <t t-foreach="docs.ids" t-as="print">-->
+<!--                            <t t-esc='print' />-->
+<!--                        <t t-set="page_print" t-value="0"/>-->
+                        <t t-foreach="docs" t-as="o">
+<!--                            <span t-esc="page_print+1"/>-->
+
+
+<!--                                <t t-call="web.basic_layout">-->
+                                    <div class="page" style="page-break-after:always">
+                                    <style>
+                                        .tdhead_1 {
+                                            font-weight: bold;
+                                        }
+                                        .td_head_po_line {
+                                        border-top : 1px solid black;
+                                        border-bottom : 1px solid black;
+                                        border-left : 1px solid black;
+                                        border-right : 1px solid black;
+                                        padding-left : 2px;
+                                        padding-right : 2px;
+                                        text-align: center;
+                                        vertical-align: middle;
+                                        font-weight: bold;
+                                        }
+                                        .td_po_line {
+                                        border-top : 1px solid black;
+                                        border-bottom : 1px solid black;
+                                        border-left : 1px solid black;
+                                        border-right : 1px solid black;
+                                        padding-left : 2px;
+                                        padding-right : 2px;
+                                        text-align: center;
+                                        vertical-align: middle;
+                                        }
+                                        .td_bot_po_line {
+                                        border-top : 1px solid black;
+                                        border-bottom : 1px solid black;
+                                        border-left : 1px solid black;
+                                        border-right : 1px solid black;
+                                        padding : 3px;
+                                        text-align: center;
+                                        vertical-align: middle;
+                                        font-weight: bold;
+                                        }
+                                        .tdso_2 {
+                                        border-top : 1px solid black;
+                                        border-bottom : 1px solid black;
+                                        border-left : 1px solid black;
+                                        border-right : 1px solid black;
+                                        padding : 3px;
+                                        }
+                                        hr.class-2 {
+                                        border-top: 3px double #000000;
+                                        }
+                                        .terbilang{
+                                        border-top : 1px solid black;
+                                        border-bottom : 1px solid black;
+                                        border-left : 1px solid black;
+                                        border-right : 1px solid black;
+                                        padding : 3px;
+                                        text-align: center;
+                                        font-style:italic;
+                                        }
+                                        .td_ttd{
+                                        border-top : 1px solid black;
+                                        border-bottom : 1px solid black;
+                                        border-left : 1px solid black;
+                                        border-right : 1px solid black;
+                                        padding : 2px;
+                                        text-align: center;
+                                        vertical-align: middle;
+                                        font-weight: bold;
+                                        }
+                                    </style>
+
+                                    <table style="top:0px;width:100%;border-collapse: collapse;" cellspacing='0' cellpading="0">
+                                        <tr>
+                                            <td style="width:10%">
+                                                <t t-if="o.company_id.parent_id">
+                                                    <img t-att-src="image_data_uri(o.company_id.parent_id.logo)" style="height:100px;width:100px;position:relative;padding:0;margin:0 auto;top:20px"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <img t-att-src="image_data_uri(o.company_id.logo)" style="height:100px;width:100px;position:relative;padding:0;margin:0 auto;top:20px"/>
+                                                </t>
+                                            </td>
+
+                                            <t t-if="o.company_id.parent_id">
+
+                                                <td style="width:70%;border-collapse: collapse;">
+                                                    <table style="padding:0;margin:0;border-collapse: collapse" cellspacing='0' cellpading="0">
+                                                        <tr>
+                                                            <td style="font-weight: bold;font-size: 12pt;vertical-align: top;padding-left:5px" class="tdhead_1" colspan="4">
+                                                                <b><h5><span t-field="o.company_id.parent_id.name"/></h5></b>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:7%;vertical-align: top;padding-left:5px" class="tdhead_1">Kantor Pusat</td>
+                                                            <td style="width:1%;vertical-align: top;" class="tdhead_1">:</td>
+                                                            <td style="width:37%;vertical-align: top;" class="tdhead_1">
+                                                                <span t-field="o.company_id.parent_id.street"/>
+                                                                <span t-field="o.company_id.parent_id.street2"/>
+                                                                <span t-field="o.company_id.parent_id.city"/>
+                                                                <span t-field="o.company_id.parent_id.state_id.name"/><br/>
+                                                                Telp : <span t-field="o.company_id.parent_id.phone"/>
+                                                            </td>
+                                                        </tr>
+                                                        <t t-if="o.company_id.street and o.company_id.street2 and o.company_id.city and o.company_id.state_id.name and o.company_id.phone">
+                                                            <tr>
+                                                                <td style="width:7%;vertical-align: top;padding-left:5px" class="tdhead_1">Gudang</td>
+                                                                <td style="width:1%;vertical-align: top;" class="tdhead_1">:</td>
+                                                                <td style="width:37%;vertical-align: top;" class="tdhead_1">
+                                                                    <span t-field="o.company_id.street"/>
+                                                                    <span t-field="o.company_id.street2"/>
+                                                                    <span t-field="o.company_id.city"/>
+                                                                    <span t-field="o.company_id.state_id.name"/><br/>
+                                                                    Telp : <span t-field="o.company_id.phone"/>
+                                                                </td>
+                                                            </tr>
+                                                        </t>
+                                                    </table>
+                                                </td>
+
+                                                </t>
+                                                <t t-else="">
+
+                                                    <td style="width:70%;border-collapse: collapse;">
+                                                        <table style="padding:0;margin:0;border-collapse: collapse" cellspacing='0' cellpading="0">
+                                                            <tr>
+                                                                <td style="vertical-align: top;font-weight: bold;font-size: 12pt;" class="tdhead_1" colspan="4">
+                                                                    <b><h5><span t-field="o.company_id.name"/></h5></b>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:7%;vertical-align: top;" class="tdhead_1">Kantor Pusat</td>
+                                                                <td style="width:1%;vertical-align: top;" class="tdhead_1">:</td>
+                                                                <td style="width:37%;vertical-align: top;" class="tdhead_1">
+                                                                    <span t-field="o.company_id.parent_id.street"/>
+                                                                    <span t-field="o.company_id.parent_id.street2"/>
+                                                                    <span t-field="o.company_id.parent_id.city"/>
+                                                                    <span t-field="o.company_id.parent_id.state_id.name"/><br/>
+                                                                    Telp : <span t-field="o.company_id.parent_id.phone"/>
+                                                                </td>
+                                                            </tr>
+                                                            <t t-if="o.company_id.street and o.company_id.street2 and o.company_id.city and o.company_id.state_id.name and o.company_id.phone">
+                                                                <tr>
+                                                                    <td style="width:7%;vertical-align: top;" class="tdhead_1">Gudang</td>
+                                                                    <td style="width:1%;vertical-align: top;" class="tdhead_1">:</td>
+                                                                    <td style="width:37%;vertical-align: top;" class="tdhead_1">
+                                                                        <span t-field="o.company_id.street"/>
+                                                                        <span t-field="o.company_id.street2"/>
+                                                                        <span t-field="o.company_id.city"/>
+                                                                        <span t-field="o.company_id.state_id.name"/><br/>
+                                                                        Telp : <span t-field="o.company_id.phone"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </t>
+                                                        </table>
+                                                    </td>
+
+                                                </t>
+                                            <td style="width:20%;font-size: 12pt;font-weight:bold;text-align: center;" class="tdhead_1">
+                                                SURAT JALAN
+                                                <br></br>
+                                                <span t-field="o.location_id.company_id" />
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                                    <br/>
+                                    <!-- <hr style="border: 1px solid black;"/> -->
+                                    <table style="width:100%; font-size: 10px;">
+                                        <tr>
+                                        <td colspan="7" style="font-size: 2px; width:100%; border-bottom : 1px solid black;border-top : 2px solid black; padding:2px;"> </td>
+                                        </tr>
+                                    </table>
+                                    <br/>
+
+                                    <!-- <div style="text-align:center;font-size:10pt">
+                                         Unit :<span t-field="o.location_id.company_id" />
+                                    </div> -->
+                                    <span style="font-size:10pt;padding-bottom:10px;float:left">Kepada Yth.</span>
+
+                                    <table style="font-size:10pt;width:100%;">
+                                        <tr >
+                                            <td>
+                                                Nama Pelanggan
+                                            </td>
+                                            <td style="padding:5px">: </td>
+                                            <td>
+                                                <span t-field="o.partner_id"/>
+                                            </td>
+                                             <td>
+                                                Tanggal Pengiriman
+                                            </td>
+                                            <td style="padding:5px">: </td>
+                                            <td>
+                                                <span t-field="o.date_deadline"/>
+                                            </td>
+                                        </tr>
+                                        <tr >
+                                            <td style="">
+                                                Kode Pelanggan
+                                            </td>
+                                            <td style="padding:5px">: </td>
+                                            <td>
+                                                <span t-field="o.partner_id.ref"/>
+                                            </td>
+                                            <td>
+                                                No. Surat Jalan
+                                            </td>
+                                            <td style="padding:5px">: </td>
+                                            <td>
+                                                <span t-field="o.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="">
+                                            <td >
+                                                Telp Pelanggan
+                                            </td>
+                                            <td style="padding:5px">: </td>
+                                            <td>
+                                                <span t-field="o.partner_id.phone"/>
+                                            </td>
+                                            <td>
+                                                No. PO
+                                            </td>
+                                            <td style="padding:5px">:</td>
+                                            <td>
+                                                <span t-field="o.origin"/>
+                                            </td>
+                                        </tr>
+                                        <tr >
+                                           <td style="">
+                                                Alamat Pelanggan
+                                            </td>
+                                            <td style="padding:5px">: </td>
+                                            <td>
+                                                <span t-field="o.partner_id.street"/>
+                                            </td>
+                                            <td >
+                                                No. Kendaraan
+                                            </td>
+                                            <td style="padding:5px">: </td>
+                                            <td>
+                                                <span t-field="o.license_plate"/>
+                                            </td>
+                                        </tr>
+                                        <tr >
+                                           <td style="">
+                                            </td>
+                                            <td style="padding:5px"></td>
+                                            <td>
+                                            </td>
+                                            <td >
+                                                No. Segel
+                                            </td>
+                                            <td style="padding:5px">: </td>
+                                            <td>
+                                                <span t-field="o.seal_number"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- <div style="font-size:10pt;float:right;padding-top:10px;position:relative;pading-bottom:10px"> Tanggal : <span t-field="o.date_deadline"/></div> -->
+                                    <table style="font-size:10pt;border:solid 1px black;table-layout: fixed;width: 100%;border-spacing: 15px">
+                                        <tr style="text-align:center;border:solid 1px black;text-align:center;vertical-align:middle;">
+                                            <td style="border:1px solid black;padding:3px;width:5%">
+                                                No.
+                                            </td>
+                                            <td style="border:1px solid black">
+                                                Kode Barang
+                                            </td>
+                                            <td style="border:1px solid black">
+                                                Nama Barang
+                                            </td>
+                                            <td style="border:1px solid black">
+                                                Packaging
+                                            </td>
+                                            <td style="border:1px solid black">
+                                                Pcs
+                                                </td>
+                                                <td style="border:1px solid black">
+                                                    Kg
+                                                </td>
+                                                <td style="border:1px solid black">
+                                                    Keterangan
+                                                </td>
+                                            </tr>
+                                            <t t-set="qty_karung_karton" t-value="0"/>
+                                            <t t-set="qty_pcs" t-value="0"/>
+                                            <t t-set="qty_kg" t-value="0"/>
+                                            <t t-foreach="o.move_ids_without_package" t-as="line">
+                                                <tr style="border-left:1px solid black;border-right:1px solid black;padding-top:10px;text-align:left;vertical-align:middle;">
+
+                                                    <td style="width:10%;padding:5px">
+                                                        <span t-esc="line_index+1"/>
+                                                    </td>
+                                                    <td style="border-left:1px solid black;padding:5px">
+                                                        <span t-field="line.product_id.default_code"/>
+                                                    </td>
+                                                    <td style="border-left:1px solid black;padding:5px">
+                                                        <span t-field="line.product_id.name"/>
+                                                    </td>
+                                                    <td style="border-left:1px solid black;padding:5px">
+                                                        <span t-field="line.packaging_qty_line"/> <span t-field="line.product_packaging_id"/>
+                                                        <!-- <span t-field="line.karung_qty"/> -->
+                                                        <t t-set="qty_karung_karton" t-value="qty_karung_karton + line.packaging_qty_line"/>
+                                                    </td>
+                                                    <td style="border-left:1px solid black;padding:5px">
+                                                        <span t-field="line.pieces"/>
+                                                        <t t-set="qty_pcs" t-value="qty_pcs + line.pieces"/>
+                                                    </td>
+                                                    <td style="border-left:1px solid black;padding:5px">
+                                                        <span t-field="line.kilograms"/>
+                                                        <t t-set="qty_kg" t-value="qty_kg + line.kilograms"/>
+                                                    </td>
+                                                    <td style="border-left:1px solid black;padding:5px">
+
+                                                    </td>
+
+                                                </tr>
+                                            </t>
+                                            <tr style="border:1px solid black">
+                                                <td colspan="3" style="border:1px solid black;text-align:center">
+                                                    Total
+                                                </td>
+                                                <td style="border:1px solid black;padding:5px">
+                                                    <span t-esc="qty_karung_karton"  t-options='{"widget": "float", "precision": 2}'/>
+                                                </td>
+                                                <td style="border:1px solid black;padding:5px">
+                                                    <span t-esc="qty_pcs"  t-options='{"widget": "float", "precision": 2}'/>
+                                                </td>
+                                                <td style="border:1px solid black;padding:5px">
+                                                    <span t-esc="qty_kg"  t-options='{"widget": "float", "precision": 2}'/>
+                                                </td>
+                                                <td style="border:1px solid black">
+
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <br/>
+                                        <div style="font-size:10pt">
+                                            <span> Catatan :</span>
+                                            <br/>
+                                            <span>1. Surat jalan ini sebagai tanda terima barang</span>
+                                            <br/>
+                                            <span>2. Pelanggan dilarang melakukan pencoretan</span>
+                                            <br/>
+                                            <span>3. Pelanggan wajib mengisi dokumen Berita Acara Serah Terima dan melampirkan TTB/Tally Sheet.</span>
+                                            <br/>
+                                        </div>
+                                        <br/>
+
+                                        <div style="width:100%;font-size:10pt;padding-bottom:10px">
+                                            <div style="float:left;width:50%;margin:0px auto">
+                                                <span style="font-size:9pt">Barang telah diterima dalam keadaan baik oleh, </span>
+                                                <table style="width:53%;text-align:center">
+                                                    <tr>
+                                                        <td style="border:1px solid black">
+                                                            Penerima
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="border:1px solid black;padding:50px">
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="border:1px solid black;padding:10px">
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="border:none">
+                                                        <td style="border:none">
+                                                            <span> Ttd, Nama, dan Stempel </span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </div>
+                                            <div style="float:right;width:50%;position:relative;right:0;margin-right:0">
+                                                <span> Hormat Kami,</span>
+                                                <table style="width:100%;margin:0px auto;text-align:center">
+                                                    <tr>
+                                                        <td style="border:1px solid black">
+                                                            Administrasi
+                                                        </td>
+                                                        <td style="border:1px solid black">
+                                                            Gudang
+                                                        </td>
+                                                        <td style="border:1px solid black">
+                                                            Pengemudi
+                                                        </td>
+                                                        <td style="border:1px solid black">
+                                                            Keamanan
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="border:1px solid black;padding:50px">
+
+                                                        </td>
+                                                        <td style="border:1px solid black;padding:50px">
+
+                                                        </td>
+                                                        <td style="border:1px solid black;padding:50px">
+
+                                                        </td>
+                                                        <td style="border:1px solid black;padding:50px">
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="border:1px solid black;padding:10px">
+                                                            <span t-field="o.user_admin_surat_jalan"/>
+                                                        </td>
+                                                        <td style="border:1px solid black;padding:10px">
+                                                            <span t-field="o.user_gudang_surat_jalan"/>
+                                                        </td>
+                                                        <td style="border:1px solid black;padding:10px">
+                                                            <span t-field="o.user_pengemudi_surat_jalan"/>
+                                                        </td>
+                                                        <td style="border:1px solid black;padding:10px">
+                                                            <span t-field="o.user_keamanan_surat_jalan"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="border:none;">
+                                                        <td style="border:none" colspan="3">
+                                                            <span> Ttd, Nama, dan Stempel </span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <table style="width:100%;font-size:10pt;text-align:center;position:relative;margin-top:10px">
+                                            <tr style="padding:10px;border:solid 1px black">
+                                                <td style="width:20%"> Putih : Kantor Pusat</td>
+                                                <td style="width:20%"> Kuning : Admin</td>
+                                                <td style="width:20%"> Merah : Pelanggan</td>
+                                                <td style="width:20%"> Biru : Gudang</td>
+                                                <td style="width:20%"> Hijau : Ekspedisi</td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+<!--                                    </t>-->
+
+            <div style="page-break-after:always;"/>
+            <div class="page">
+                <style>
+                    .tdhead_1 {
+                        font-weight: bold;
+                    }
+                    .td_head_po_line {
+                    border-top : 1px solid black;
+                    border-bottom : 1px solid black;
+                    border-left : 1px solid black;
+                    border-right : 1px solid black;
+                    padding-left : 2px;
+                    padding-right : 2px;
+                    text-align: center;
+                    vertical-align: middle;
+                    font-weight: bold;
+                    }
+                    .td_po_line {
+                    border-top : 1px solid black;
+                    border-bottom : 1px solid black;
+                    border-left : 1px solid black;
+                    border-right : 1px solid black;
+                    padding-left : 2px;
+                    padding-right : 2px;
+                    text-align: center;
+                    vertical-align: middle;
+                    }
+                    .td_bot_po_line {
+                    border-top : 1px solid black;
+                    border-bottom : 1px solid black;
+                    border-left : 1px solid black;
+                    border-right : 1px solid black;
+                    padding : 3px;
+                    text-align: center;
+                    vertical-align: middle;
+                    font-weight: bold;
+                    }
+                    .tdso_2 {
+                    border-top : 1px solid black;
+                    border-bottom : 1px solid black;
+                    border-left : 1px solid black;
+                    border-right : 1px solid black;
+                    padding : 3px;
+                    }
+                    hr.class-2 {
+                    border-top: 3px double #000000;
+                    }
+                    .terbilang{
+                    border-top : 1px solid black;
+                    border-bottom : 1px solid black;
+                    border-left : 1px solid black;
+                    border-right : 1px solid black;
+                    padding : 3px;
+                    text-align: center;
+                    font-style:italic;
+                    }
+                    .td_ttd{
+                    border-top : 1px solid black;
+                    border-bottom : 1px solid black;
+                    border-left : 1px solid black;
+                    border-right : 1px solid black;
+                    padding : 2px;
+                    text-align: center;
+                    vertical-align: middle;
+                    font-weight: bold;
+                    }
+                </style>
+                <table style="top:0px;width:100%;border-collapse: collapse;" cellspacing='0' cellpading="0">
+                    <tr>
+                        <td style="width:10%">
+                            <t t-if="o.company_id.parent_id">
+                                <img t-att-src="image_data_uri(o.company_id.parent_id.logo)" style="height:100px;width:100px;position:relative;padding:0;margin:0 auto;top:20px"/>
+                            </t>
+                            <t t-else="">
+                                <img t-att-src="image_data_uri(o.company_id.logo)" style="height:100px;width:100px;position:relative;padding:0;margin:0 auto;top:20px"/>
+                            </t>
+                        </td>
+                        <t t-if="o.company_id.parent_id">
+                            <td style="width:70%;border-collapse: collapse;">
+                                <table style="padding:0;margin:0;border-collapse: collapse" cellspacing='0' cellpading="0">
+                                    <tr>
+                                        <td style="font-weight: bold;font-size: 12pt;vertical-align: top;padding-left:5px" class="tdhead_1" colspan="4">
+                                            <b><h5><span t-field="o.company_id.parent_id.name"/></h5></b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:7%;vertical-align: top;padding-left:5px" class="tdhead_1">Kantor Pusat</td>
+                                        <td style="width:1%;vertical-align: top;" class="tdhead_1">:</td>
+                                        <td style="width:37%;vertical-align: top;" class="tdhead_1">
+                                            <span t-field="o.company_id.parent_id.street"/>
+                                            <span t-field="o.company_id.parent_id.street2"/>
+                                            <span t-field="o.company_id.parent_id.city"/>
+                                            <span t-field="o.company_id.parent_id.state_id.name"/><br/>
+                                            Telp : <span t-field="o.company_id.parent_id.phone"/>
+                                        </td>
+                                    </tr>
+                                    <t t-if="o.company_id.street and o.company_id.street2 and o.company_id.city and o.company_id.state_id.name and o.company_id.phone">
+                                        <tr>
+                                            <td style="width:7%;vertical-align: top;padding-left:5px" class="tdhead_1">Gudang</td>
+                                            <td style="width:1%;vertical-align: top;" class="tdhead_1">:</td>
+                                            <td style="width:37%;vertical-align: top;" class="tdhead_1">
+                                                <span t-field="o.company_id.street"/>
+                                                <span t-field="o.company_id.street2"/>
+                                                <span t-field="o.company_id.city"/>
+                                                <span t-field="o.company_id.state_id.name"/><br/>
+                                                Telp : <span t-field="o.company_id.phone"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </table>
+                            </td>
+
+                            </t>
+                            <t t-else="">
+                                <td style="width:70%;border-collapse: collapse;">
+                                    <table style="padding:0;margin:0;border-collapse: collapse" cellspacing='0' cellpading="0">
+                                        <tr>
+                                            <td style="vertical-align: top;font-weight: bold;font-size: 12pt;" class="tdhead_1" colspan="4">
+                                                <b><h5><span t-field="o.company_id.name"/></h5></b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:7%;vertical-align: top;" class="tdhead_1">Kantor Pusat</td>
+                                            <td style="width:1%;vertical-align: top;" class="tdhead_1">:</td>
+                                            <td style="width:37%;vertical-align: top;" class="tdhead_1">
+                                                <span t-field="o.company_id.parent_id.street"/>
+                                                <span t-field="o.company_id.parent_id.street2"/>
+                                                <span t-field="o.company_id.parent_id.city"/>
+                                                <span t-field="o.company_id.parent_id.state_id.name"/><br/>
+                                                Telp : <span t-field="o.company_id.parent_id.phone"/>
+                                            </td>
+                                        </tr>
+                                        <t t-if="o.company_id.street and o.company_id.street2 and o.company_id.city and o.company_id.state_id.name and o.company_id.phone">
+                                            <tr>
+                                                <td style="width:7%;vertical-align: top;" class="tdhead_1">Gudang</td>
+                                                <td style="width:1%;vertical-align: top;" class="tdhead_1">:</td>
+                                                <td style="width:37%;vertical-align: top;" class="tdhead_1">
+                                                    <span t-field="o.company_id.street"/>
+                                                    <span t-field="o.company_id.street2"/>
+                                                    <span t-field="o.company_id.city"/>
+                                                    <span t-field="o.company_id.state_id.name"/><br/>
+                                                    Telp : <span t-field="o.company_id.phone"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </table>
+                                </td>
+                            </t>
+                    </tr>
+                </table>
+                <br/>
+                <!-- <hr style="border: 1px solid black;"/> -->
+                <table style="width:100%; font-size: 10px;">
+                    <tr>
+                    <td colspan="7" style="font-size: 2px; width:100%; border-bottom : 1px solid black;border-top : 2px solid black; padding:2px;"> </td>
+                    </tr>
+                </table>
+                <div style="text-align:center;font-size:12pt; font-weight: bolder">
+                    <span style="text-align:center;font-size:12pt; font-weight: bolder;">Berita Acara Serah Terima (BAST)</span>
+                </div>
+                <table style="font-size:10pt;width:100%;">
+                    <tr >
+                        <td>
+                            Asal Gudang
+                        </td>
+                        <td style="padding:5px">: </td>
+                        <td>
+                            <span t-field="o.location_id.company_id" />
+                        </td>
+                            <td>
+                            No. Surat Jalan
+                        </td>
+                        <td style="padding:5px">: </td>
+                        <td>
+                            <span t-field="o.name"/>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td style="">
+                            Tanggal Pengiriman
+                        </td>
+                        <td style="padding:5px">: </td>
+                        <td>
+                            <span t-field="o.date_deadline"/>
+                        </td>
+                        <td>
+                            No. Po
+                        </td>
+                        <td style="padding:5px">: </td>
+                        <td>
+                            <span t-field="o.origin"/>
+                        </td>
+                    </tr>
+                    <tr style="">
+                        <td >
+                            Penerima
+                        </td>
+                        <td style="padding:5px">: </td>
+                        <td>
+                            <span t-field="o.partner_id"/>
+                        </td>
+                        <td>
+                            No. Kendaraan
+                        </td>
+                        <td style="padding:5px">:</td>
+                        <td>
+                            <span t-field="o.license_plate"/>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td style="">
+                            Tanggal Penerimaan
+                        </td>
+                        <td style="padding:5px">: </td>
+                        <td>
+                            <!-- <span t-field="o.partner_id.street"/> -->
+                        </td>
+                        <td >
+                            No. Segel
+                        </td>
+                        <td style="padding:5px">: </td>
+                        <td>
+                            <span t-field="o.seal_number"/>
+                        </td>
+                    </tr>
+                </table>
+
+            <table style="font-size:10pt;border:solid 1px black;table-layout: fixed;width: 100%;border-spacing: 15px">
+                <tr style="text-align:center;border:solid 1px black;text-align:center;vertical-align:middle;">
+                    <td rowspan="2" style="border:1px solid black;padding:3px;width:5%">
+                        No.
+                    </td>
+                    <td rowspan="2" style="border:1px solid black">
+                        Nama Barang
+                    </td>
+                    <td colspan="3" style="border:1px solid black">
+                        Pengiriman
+                    </td>
+                    <td colspan="4" style="border:1px solid black">
+                        Penerimaan
+                    </td>
+                </tr>
+                <tr style="text-align:center;border:solid 1px black;text-align:center;vertical-align:middle;">
+
+                    <td style="border:1px solid black">
+                        Packaging
+                    </td>
+                    <td style="border:1px solid black">
+                        Pcs
+                    </td>
+                    <td style="border:1px solid black">
+                        Kg
+                    </td>
+                    <td style="border:1px solid black">
+                        Packaging
+                    </td>
+                    <td style="border:1px solid black">
+                        Pcs
+                    </td>
+                    <td style="border:1px solid black">
+                        Kg
+                    </td>
+                    <td style="border:1px solid black">
+                        Keterangan
+                    </td>
+                </tr>
+                <t t-set="qty_karung_karton" t-value="0"/>
+                <t t-set="qty_pcs" t-value="0"/>
+                <t t-set="qty_kg" t-value="0"/>
+                <t t-foreach="o.move_ids_without_package" t-as="line">
+                    <tr style="border-left:1px solid black;border-right:1px solid black;padding-top:10px;text-align:left;vertical-align:middle;">
+                        <td style="width:10%;padding:5px">
+                            <span t-esc="line_index+1"/>
+                        </td>
+                        <td style="border-left:1px solid black;padding:5px">
+                            <span t-field="line.product_id.name"/>
+                        </td>
+                        <td style="border-left:1px solid black;padding:5px">
+                            <span t-field="line.packaging_qty_line"/> <span t-field="line.product_packaging_id"/>
+                            <!-- <span t-field="line.product_uom_qty"/> -->
+                            <t t-set="qty_karung_karton" t-value="qty_karung_karton + line.packaging_qty_line"/>
+                        </td>
+                        <td style="border-left:1px solid black;padding:5px">
+                            <span t-field="line.pieces"/>
+                            <t t-set="qty_pcs" t-value="qty_pcs + line.pieces"/>
+                        </td>
+                        <td style="border-left:1px solid black;padding:5px">
+                            <span t-field="line.kilograms"/>
+                            <t t-set="qty_kg" t-value="qty_kg + line.kilograms"/>
+                        </td>
+                        <td style="border-left:1px solid black;padding:5px">
+                        </td>
+                        <td style="border-left:1px solid black;padding:5px">
+                        </td>
+                        <td style="border-left:1px solid black;padding:5px">
+                        </td>
+                        <td style="border-left:1px solid black;padding:5px">
+                        </td>
+                    </tr>
+                </t>
+                <tr style="border:1px solid black">
+                    <td colspan="2" style="border:1px solid black;text-align:center">
+                        Total
+                    </td>
+                    <td style="border:1px solid black;padding:5px">
+                        <span t-esc="qty_karung_karton"  t-options='{"widget": "float", "precision": 2}'/>
+                    </td>
+                    <td style="border:1px solid black;padding:5px">
+                        <span t-esc="qty_pcs"  t-options='{"widget": "float", "precision": 2}'/>
+                    </td>
+                    <td style="border:1px solid black;padding:5px">
+                        <span t-esc="qty_kg"  t-options='{"widget": "float", "precision": 2}'/>
+                    </td>
+                    <td style="border:1px solid black">
+                    </td>
+                    <td style="border-left:1px solid black">
+                    </td>
+                    <td style="border-left:1px solid black">
+                    </td>
+                    <td style="border-left:1px solid black">
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <span style="font-size:10pt;padding-bottom:10px;">Komplain (jika ada):</span>
+            <table style="width:100%; font-size: 10px;">
+                    <tr>
+                    <td style="height: 220px; width:100%; border : 1px solid black;padding:2px;"></td>
+                    </tr>
+            </table>
+            <br/>
+            <div style="font-size:10pt">
+                <span> Catatan :</span>
+                <br/>
+                <span>1. Dokumen Berita Acara Serah Terima ini Sah sebagai tanda terima barang.</span>
+                <br/>
+                <span>2. Kolom penerimaan wajib diisi sesuai dengan kondisi produk saat diterima.</span>
+                <br/>
+                <span>3. Jika kolom penerimaan tidak diisi, dianggap barang yang diterima sudah sesuai.</span>
+                <br/>
+                <span>4. Komplain produk hanya diproses sesuai dengan dokumen Berita Acara Serah Terima ini.</span>
+                <br/>
+            </div>
+            <br/>
+            <div style="width:100%;font-size:10pt;padding-bottom:10px">
+                <div style="float:left;width:50%;margin:0px auto">
+                    <table style="width:100%;">
+                        <tr>
+                            <td colspan="2" style="text-align:center">
+                                Pengirim
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center">
+                                Dikirim oleh,
+                            </td>
+                            <td style="text-align:center">
+                                Dikirim oleh,
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center">
+                                Sopir
+                            </td>
+                            <td style="text-align:center">
+                                Penanggung Jawab
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colpan="2" style="padding:50px">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center">
+                                <span t-field="o.user_pengemudi_surat_jalan"/>
+                            </td>
+                            <td style="text-align:center">
+                                <span t-field="o.user_id"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Tanggal:
+                            </td>
+                            <td>
+                                Tanggal:
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="float:right;width:50%;position:relative;right:0;margin-right:0">
+                    <table style="width:100%;margin:0px auto;">
+                        <tr>
+                            <td colspan="2" style="text-align:center">
+                                Penerima
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align:center">
+                                Disetujui oleh,
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center">
+                                Quantity Assurance
+                            </td>
+                            <td style="text-align:center">
+                                Penanggung Jawab
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colpan="2" style="padding:50px">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Tanggal:
+                            </td>
+                            <td>
+                                Tanggal:
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br/>
+            <table style="width:100%;font-size:10pt;text-align:center;position:relative;margin-top:10px">
+                <tr style="padding:10px;border:solid 1px black">
+                    <td> Putih : Pengirim</td>
+                    <td> Merah : Penerima</td>
+                    <td> Kuning : Ekspedisi</td>
+                </tr>
+            </table>
+            </div>
+
+                    </t>
+
+                </t>
+            </t>
+<!--                </t>-->
+
+        </template>
+
+<!--         <record id="surat_jalan.action_report_surat_jalan" model="ir.actions.report">-->
+<!--            <field name="paperformat_id" ref="report_surat_jalan.paperformat_template_shipping_label_all"/>-->
+<!--        </record>-->
+    </data>
+</odoo>

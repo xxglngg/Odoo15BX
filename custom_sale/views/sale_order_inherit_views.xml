@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="sale_order_tree_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order.tree.view.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="product_ids" widget="many2many_tags"/>
+                <field name="so_line_summary"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_quotation_tree_with_onboarding_inherit" model="ir.ui.view">
+        <field name="name">view.quotation.tree.with.onboarding.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="product_ids" widget="many2many_tags"/>
+                <field name="so_line_summary"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale_order_custom_form" model="ir.ui.view">
+        <field name="name">sale.order.custom.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header/button[@name='action_quotation_send']" position="after">
+                <button name="action_print_quotation_sale_order" string="Print Quotation" type="object"  class="btn-primary" data-hotkey="s"/>
+                <button
+                        name="%(custom_sale.action_create_sj)d"
+                        string="Create SJ"
+                        type="action"
+                        class="btn-primary"
+                        context="{'sj': True}"
+                        attrs="{'invisible': ['|',('state', '!=', 'sale'),('create_sj_bool', '!=', True)]}"
+                    />
+                <field name="create_sj_bool" invisible="1"/>
+            </xpath>
+            <xpath expr="(/form/header/button[@name='action_confirm'][1])" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="(/form/header/button[@name='action_confirm'][2])" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form/header/button[@name='action_confirm']" position="replace">
+                <button name="button_warehouse_wizard" id="button_warehouse_wizard" data-hotkey="v"
+                        string="Confirm" class="btn-primary" type="object"
+                        attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
+                <button name="button_warehouse_wizard" data-hotkey="v"
+                    string="Confirm" type="object"
+                    attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="no_po_sutomer"/>
+                <field name="file_po_cust" filename="file_name_po"/>
+                <field name="file_name_po" invisible="1"/>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[1]/field[@name='order_line']/form/group/group/field[@name='price_total']" position="after">
+                <field name="return_address" invisible="1"/>
+                <field name="get_res_partner_id" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//form/sheet/notebook/page[1]/field[@name='order_line']/tree/field[@name='price_total']"
+                   position="after">
+                <field name="return_address" invisible="1"/>
+                <field name="get_res_partner_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[1]/field[@name='order_line']/tree/field[@name='qty_invoiced']" position="after">
+                <field name="address_cust_m2o" />
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[1]/field[@name='order_line']/form/group/group/field[@name='product_packaging_id']" position="before">
+                <field name="address_cust_m2o" />
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[1]/field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                <field name="note"/>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[1]/field[@name='order_line']/form/group/group/field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_quick_create':True,'no_create_edit': True, 'no_create':True, 'no_open':True}</attribute>
+<!--                <attribute name="widget">"selection"</attribute>-->
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[1]/field[@name='order_line']/tree/field[@name='product_uom']" position="after">
+                <field name="kode_produksi"/>
+                <field name="gudang"/>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[1]/field[@name='order_line']/tree/field[@name='product_template_id']" position="attributes">
+                <attribute name="options">{'no_quick_create':True,'no_create_edit': True, 'no_create':True, 'no_open':True}</attribute>
+<!--                <attribute name="widget">"selection</attribute>-->
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[1]/field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_quick_create':True,'no_create_edit': True, 'no_create':True, 'no_open':True}</attribute>
+<!--                <attribute name="widget">"selection</attribute>-->
+            </xpath>
+
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Delivery">
+                    <group name="delivery_address" string="Delivery Address">
+                        <field name="delivery_company_id"/>
+                        <span class="o_form_label o_td_label" name="address_name">
+                            <b>Address</b>
+                        </span>
+                        <div class="o_address_format">
+                            <field name="da_street" class="o_address_street"/>
+                            <field name="da_street2" class="o_address_street"/>
+                            <field name="da_city" class="o_address_city"/>
+                            <field name="da_state_id" class="o_address_state"/>
+                            <field name="da_zip" class="o_address_zip"/>
+                        </div>
+                    </group>
+                </page>
+            </xpath>
+
+            <xpath expr="//form/sheet/notebook/page/group/group[@name='sale_shipping']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <!-- <field name="bx_warehouse_id" options="{'no_create': True}"/> -->
+                <field name="warehouse_id" options="{'no_create': True}"/>
+                <field name="incoterm" options="{'no_open': True, 'no_create': True}"/>
+                <field name="picking_policy"/>
+                <label for="commitment_date" string="Delivery Date"/>
+                    <div class="o_row">
+                        <field name="commitment_date"/>
+                        <span class="text-muted" attrs="{'invisible': [('effective_date', '!=', False), ('commitment_date', '!=', False)]}">Expected: <field name="expected_date" widget="date"/>
+                            <field name="show_json_popover" invisible="1"/>
+                            <field string=" " name="json_popover" widget="stock_rescheduling_popover" attrs="{'invisible': [('show_json_popover', '=', False)]}"/>
+                        </span>
+                    </div>
+                <field name="effective_date" attrs="{'invisible': [('effective_date', '=', False)]}"/>
+            </xpath>
+            <!-- <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="domain">['|',('type', '!=', 'private'),('company_id', 'in', (False, company_id)),('company_ids', 'in', (False, company_id))]</attribute>
+            </xpath> -->
+        </field>
+    </record>
+
+</odoo>

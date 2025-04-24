@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hide_tags_create_user" model="res.groups">
+        <field name="name">Hide Tags Create Contact</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+    
+    <record id="hide_customer_create_user" model="res.groups">
+        <field name="name">Hide Customer Create Sale</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="hide_vendor_create_user" model="res.groups">
+        <field name="name">Hide Vendor Create Purchase</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="hide_customer_vendor_create_user" model="res.groups">
+        <field name="name">Hide Customer/Vendor Create Accounting</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="hide_product_create_user" model="res.groups">
+        <field name="name">Hide Product Create Purchase/Sale/Accounting</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="hide_analytic_account_create_user" model="res.groups">
+        <field name="name">Hide Analytic Account Create Purchase/Accounting</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+    
+</odoo>

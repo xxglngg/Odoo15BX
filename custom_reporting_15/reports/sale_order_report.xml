@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <template id="custom_reporting_15.report_template_print_custom_sale_order">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.basic_layout">
+                        <style>
+                            .tdhead_1 {
+                            border-top : 1px solid black;
+                            border-bottom : 1px solid black;
+                            padding : 5px;
+                            }
+                            .tdhead_2 {
+                            border-top : 1px solid black;
+                            border-bottom : 1px solid black;
+                            padding : 5px;
+                            font-weight: bold;
+                            }
+                            .tdso {
+                            border-top : 1px solid black;
+                            border-bottom : 1px solid black;
+                            border-left : 1px solid black;
+                            border-right : 1px solid black;
+                            padding : 5px;
+                            text-align: center;
+                            vertical-align: middle;
+                            font-weight: bold;
+                            }
+                            .tdso_2 {
+                            border-top : 1px solid black;
+                            border-bottom : 1px solid black;
+                            border-left : 1px solid black;
+                            border-right : 1px solid black;
+                            padding : 5px;
+                            }
+                        </style>
+                        <div class="header">
+                            <t t-if="o.state in ('draft','send')">
+                                <p style="text-align:center;font-size: 16pt;font-weight: bold">Quotation</p>
+                            </t>
+                            <t t-if="o.state == 'sale'">
+                                <p style="text-align:center;font-size: 16pt;font-weight: bold">Sale Order</p>
+                            </t>
+                            <p style="text-align:center;font-size: 10pt;font-weight: bold">Fresh / Frozen / Retail /Other</p>
+                        </div>
+                        <div class="page">
+                            <table style="width:100%; font-size: 10px;">
+                                <tr>
+                                    <td style="width:20%" class="tdhead_1">PIC Sales</td>
+                                    <td style="width:1%" class="tdhead_1">:</td>
+                                    <td style="width:24%" class="tdhead_2">
+                                        <span t-field="o.user_id.name"/>
+                                    </td>
+                                    <td style="width:5%"></td>
+                                    <td style="width:20%" class="tdhead_1">Nama Customer</td>
+                                    <td style="width:1%" class="tdhead_1">:</td>
+                                    <td style="width:29%" class="tdhead_2">
+                                        <span t-field="o.partner_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:20%" class="tdhead_1">NO. SO</td>
+                                    <td style="width:1%" class="tdhead_1">:</td>
+                                    <td style="width:24%" class="tdhead_2">
+                                        <span t-field="o.name"/>
+                                    </td>
+                                    <td style="width:5%"></td>
+                                    <td style="width:20%" class="tdhead_1">Payment Termr</td>
+                                    <td style="width:1%" class="tdhead_1">:</td>
+                                    <td style="width:29%" class="tdhead_2">
+                                        <span t-field="o.payment_term_id.name"/>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:20%" class="tdhead_1">Tanggal Order SO</td>
+                                    <td style="width:1%" class="tdhead_1">:</td>
+                                    <td style="width:24%" class="tdhead_2">
+                                        <span t-field="o.date_order" t-options="{'format': 'dd MMMM YYYY'}"/>
+                                    </td>
+                                    <td style="width:5%"></td>
+                                    <td style="width:20%" class="tdhead_1">Alamat Customer</td>
+                                    <td style="width:1%" class="tdhead_1">:</td>
+                                    <td style="width:29%" class="tdhead_2">
+                                        <span t-field="o.partner_id.street"/>
+                                        <span t-field="o.partner_id.street2"/>
+                                        <span t-field="o.partner_id.city"/>
+                                        <span t-field="o.partner_id.state_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td style="width:5%"></td>
+
+                                    <td style="width:20%" class="tdhead_1">Segment</td>
+                                    <td style="width:1%" class="tdhead_1">:</td>
+                                    <td style="width:29%" class="tdhead_2">
+                                        <span t-field="o.partner_id.industry_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td style="width:5%"></td>
+
+                                    <td style="width:20%" class="tdhead_1">No. PO Customer</td>
+                                    <td style="width:1%" class="tdhead_1">:</td>
+                                    <td style="width:29%" class="tdhead_2">
+                                        <span t-field="o.no_po_sutomer"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table style="width:100%; font-size: 10px;">
+                                <tr>
+                                    <td style="width:5%;" class="tdso">No.</td>
+                                    <td style="width:15%;" class="tdso">Produk</td>
+                                    <td style="width:5%;" class="tdso">Qty</td>
+                                    <td style="width:5%;" class="tdso">Unit</td>
+                                    <td style="width:15%;" class="tdso">Harga Satuan</td>
+                                    <td style="width:5%;" class="tdso">Pajak</td>
+                                    <td style="width:15%;" class="tdso">Total Harga</td>
+                                    <td style="width:5%;" class="tdso">Tanggal Diterima</td>
+                                    <td style="width:15%;" class="tdso">Alamat Pengiriman</td>
+                                    <td style="width:10%;" class="tdso">Keterangan</td>
+                                </tr>
+                                <t t-set="total_product_uom_qty" t-value="0"/>
+                                <t t-foreach="o.order_line" t-as="line">
+
+                                    <tr>
+                                        <td class="tdso_2">
+                                            <span t-esc="line_index+1"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="line.product_id"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="line.product_uom_qty"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="line.product_uom"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="line.price_unit" t-options="{'widget': 'monetary'}"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <t t-foreach="line.tax_id" t-as="tax">
+                                                <span t-field="tax.name"/>
+                                            </t>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="line.price_subtotal"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="line.date_receive_another_format"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="line.return_address"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="line.name"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td class="tdso_2" style="text-align:center;" colspan="2">Total</td>
+                                    <td class="tdso_2"><t t-esc="o.total_in_report_sale_order"/></td>
+                                    <td colspan="9" class="tdso_2"></td>
+                                </tr>
+                            </table>
+                            <table style="width:100%; font-size: 10px;">
+                                <tr>
+                                    <td style="width:75%">Catatan :</td>
+                                    <td style="width:25%;font-size:14pt;font-weight:bold;text-align:right">Total</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:75%">Untuk PO diatas dibantu untuk dikirimkan ke :
+                                        <span t-field="o.da_street"/>
+                                        <span t-field="o.da_street2"/>
+                                        <span t-field="o.da_city"/>
+                                        <span t-field="o.da_state_id"/>
+                                        <span t-field="o.da_zip"/>
+                                    </td>
+                                    <td style="width:25%;font-size:14pt;font-weight:bold;text-align:right">
+                                        <span t-field="o.amount_total"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:75%">
+                                        Jam operasional :
+                                        <span t-field="o.company_id.start_day"/>
+                                        -
+                                        <span t-field="o.company_id.end_day"/>
+                                        <span t-field="o.company_id.hour_open" t-options='{"widget": "float_time"}'/>
+                                        -
+                                        <span t-field="o.company_id.hour_close" t-options='{"widget": "float_time"}'/>
+                                    </td>
+                                    <td style="25%"></td>
+                                </tr>
+                            </table>
+                            <br/>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_print_custom_sale_order">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="custom_reporting_15.report_template_print_custom_sale_order"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

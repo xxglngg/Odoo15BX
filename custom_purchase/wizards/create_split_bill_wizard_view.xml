@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_create_split_bill_wizard" model="ir.ui.view">
+        <field name="name">view.create.split.bill.wizard</field>
+        <field name="model">create.split.bill.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Split Bill">
+                <group>
+                    <field name="purchase_id" readonly="1" />
+                    <field name="ttb_ids" readonly="1" invisible="1"/>
+                    <field name="picking_many_ids" readonly="1" invisible="1" />
+                    <field name="picking_ids" options="{'no_create_edit': True,'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create':True}" domain="[('id', 'in', picking_many_ids)]" required="1"/>
+                </group>
+                <footer>
+                    <button
+                        name="create_split_bill"
+                        string="Create Split Bill"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_create_split_bill" model="ir.actions.act_window">
+        <field name="name">Create Splitt Bill</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">create.split.bill.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="purchase.model_purchase_order_line" />
+    </record>
+</odoo>

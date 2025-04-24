@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="account_move_line_rhpp_tree">
+            <field name="name">Account Move Line</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="date"/>
+                    <field name="move_id"/>
+                    <field name="product_id"/>
+                    <field name="quantity"/>
+                    <field name="product_uom_id"/>
+                    <field name="price_subtotal"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

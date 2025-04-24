@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pricelist_sapronak_search" model="ir.ui.view">
+      <field name="name">pricelist.sapronak.search</field>
+      <field name="model">pricelist.sapronak.rhpp</field>
+      <field name="arch" type="xml">
+          <search string="Pricelist Sapronak">
+              <field name="name"/>
+              <field name="unit"/>
+              <separator/>
+                <filter name="active" string="Active" domain="[('active','=',True)]"/>
+                <filter name="inactive" string="Inactive" domain="[('active','=',False)]"/>
+              <group expand="0" string="Group by" colspan="16">
+                  <filter name="name" string="Name" context="{'group_by':'name'}"/>
+                  <filter name="unit" string="Unit" context="{'group_by':'unit'}"/>
+              </group>
+          </search>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="pricelist_sapronak_list">
+      <field name="name">Price List Sapronak</field>
+      <field name="model">pricelist.sapronak.rhpp</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="name" />
+            <field name="unit" widget="many2many_tags"/>
+            <field name="harga_doc_vaksin"/>
+            <field name="harga_prestarter"/>
+            <field name="harga_starter"/>
+            <field name="harga_finisher"/>
+            <field name="date" />
+            <field name="active" widget="boolean_toggle"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="pricelist_sapronak_form">
+      <field name="name">Pricelist Sapronak</field>
+      <field name="model">pricelist.sapronak.rhpp</field>
+      <field name="arch" type="xml">
+        <form>
+            <sheet>
+              <group>
+                <group>
+                    <field name="name" />
+                    <field name="unit" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="date" />
+                    <field name="active" widget="boolean_toggle"/>
+                </group>
+                <group>
+                    <field name="harga_doc_vaksin"/>
+                    <field name="harga_prestarter" widget="monetary" string="Harga Pakan Prestarter"/>
+                    <field name="harga_starter" widget="monetary" string="Harga Pakan Starter"/>
+                    <field name="harga_finisher" widget="monetary" string="Harga Pakan Finisher"/>
+                </group>
+              </group>
+            </sheet>
+              <div class="oe_chatter">
+                  <field name="message_follower_ids" widget="mail_followers"/>
+                  <field name="message_ids" widget="mail_thread"/>
+              </div>
+
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="pricelist_sapronak_action_window">
+      <field name="name">Harga Sapronak</field>
+      <field name="res_model">pricelist.sapronak.rhpp</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <menuitem name="Harga Sapronak" id="custom_rhpp.menu_pricelist_sapronak_rhpp" parent="custom_rhpp.menu_config_rhpp" sequence="2" action="pricelist_sapronak_action_window"/>
+
+
+    <!-- actions -->
+
+</odoo>

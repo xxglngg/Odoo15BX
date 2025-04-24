@@ -1,0 +1,694 @@
+<odoo>
+    <data>
+      <template id="report_print_rhpp">
+          <t t-call="web.html_container">
+              <t t-foreach="docs" t-as="doc">
+                  <t t-call="custom_rhpp.report_template_print_rhpp"/>
+              </t>
+          </t>
+      </template>
+
+      <template id="custom_rhpp.report_template_print_rhpp">
+        <t t-foreach="docs" t-as="o">
+          <t t-call="web.basic_layout">
+            <div class="header">
+              <table style="width:100%;">
+                  <tr>
+                    <td width="80%"></td>
+                    <td width="20%"><span t-esc="time.strftime('%b %d, %Y %H:%M:%S')" style="text-align:right;"/></td>
+                  </tr>
+              </table>
+            </div>
+            <div class="page">
+              <table style="width:100%;">
+                <tr>
+                  <td style="width:10%;">
+                    <img t-att-src="image_data_uri(o.company_id.logo)" style="height:100px;width:100px;position:relative;padding:0;margin:0 auto;"/>
+                  </td>
+                  <td style="text-align:left;">
+                      <table>
+                          <tr>
+                              <td style="vertical-align: middle;font-weight: bold;font-size: 13pt;text-align:;left;vertical-align: middle;">
+                                  <span t-field="o.company_id.name"/>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td style="width:70%;font-size: 12pt;vertical-align: middle;text-align:left;">
+                                <span t-field="o.company_id.street"/>
+                                <span t-field="o.company_id.street2"/>
+                                <span t-field="o.company_id.city"/>
+                                <span t-field="o.company_id.state_id.name"/><br/>
+                              </td>
+                          </tr>
+                      </table>
+                  </td>
+                </tr>
+              </table>
+              <table style="width:100%;margin-top:10px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;">
+                  <tr>
+                      <td colspan="6" style="font-size: 12pt;font-weight: bold;vertical-align: top;border-bottom:1px ridge;">&#160;REKAPITULASI HASIL PEMELIHARAAN PETERNAK</td>
+                  </tr>
+                  <tr style="font-size: 10pt;font-weight: bold;vertical-align: top;">
+                    <td width="13%" style="border-bottom:1px ridge;">&#160;ID MITRA</td>
+                    <td width="2%" style="border-bottom:1px ridge;">:</td>
+                    <td width="45%" style="border-bottom:1px ridge;"><span t-field="o.id_mitra.name"/></td>
+                    <td width="13%" style="border-bottom:1px ridge;">UNIT</td>
+                    <td width="2%" style="border-bottom:1px ridge;">:</td>
+                    <td width="25%" style="border-bottom:1px ridge;"><span t-field="o.unit.name"/></td>
+                  </tr>
+                  <tr style="font-size: 10pt;font-weight: bold;vertical-align: top;">
+                    <td width="13%" style="border-bottom:1px ridge;">&#160;Nama</td>
+                    <td width="2%" style="border-bottom:1px ridge;">:</td>
+                    <td width="45%" style="border-bottom:1px ridge;"><span t-field="o.name.name"/></td>
+                    <td width="13%" style="border-bottom:1px ridge;">PPL</td>
+                    <td width="2%" style="border-bottom:1px ridge;">:</td>
+                    <td width="25%" style="border-bottom:1px ridge;"><span t-field="o.ppl"/></td>
+                  </tr>
+                  <tr style="font-size: 10pt;font-weight: bold;vertical-align: top;">
+                    <td width="13%" style="border-bottom:1px ridge;">&#160;Jenis Kontrak</td>
+                    <td width="2%" style="border-bottom:1px ridge;">:</td>
+                    <td width="45%" style="border-bottom:1px ridge;"><span t-field="o.jenis_kontrak"/></td>
+                    <td width="13%" style="border-bottom:1px ridge;">Jenis Kandang</td>
+                    <td width="2%" style="border-bottom:1px ridge;">:</td>
+                    <td width="25%" style="border-bottom:1px ridge;"><span t-field="o.jenis_kandang"/></td>
+                  </tr>
+                  <tr style="font-size: 10pt;font-weight: bold;vertical-align: top;">
+                    <td width="13%" style="border-bottom:1px ridge;">&#160;Periode</td>
+                    <td width="2%" style="border-bottom:1px ridge;">:</td>
+                    <td width="45%" style="border-bottom:1px ridge;"><span t-field="o.periode"/></td>
+                    <td width="13%" style="border-bottom:1px ridge;">Populasi</td>
+                    <td width="2%" style="border-bottom:1px ridge;">:</td>
+                    <td width="25%" style="border-bottom:1px ridge;"><span t-field="o.populasi"/></td>
+                  </tr>
+                  <tr style="font-size: 10pt;font-weight: bold;vertical-align: top;">
+                    <td width="13%">&#160;Tgl Pengajuan</td>
+                    <td width="2%">:</td>
+                    <td width="45%"><span t-field="o.tanggal_pengajuan"/></td>
+                    <td width="13%">DOC In</td>
+                    <td width="2%">:</td>
+                    <td width="25%"><span t-field="o.tanggal_doc_in"/></td>
+                  </tr>
+              </table>
+              <table style="width:100%;margin-top:10px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;">
+                  <tr>
+                      <td colspan="9" style="font-size: 12pt;font-weight: bold;vertical-align: top;border-bottom:1px ridge;">&#160;A. PERFORMA PRODUKSI</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="17%" style="border-bottom:1px ridge;">&#160;Populasi Awal</td>
+                    <td width="11%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.populasi_awal"/></td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;">&#160;ekor</td>
+                    <td width="18%" style="border-bottom:1px ridge;">&#160;Pakan Terkirim</td>
+                    <td width="11%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.pakan_terkirim"/></td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;">&#160;kg</td>
+                    <td width="17%" style="border-bottom:1px ridge;">&#160;Bobot Rata-rata</td>
+                    <td width="11%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.bobot_rata" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;">&#160;kg</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="17%" style="border-bottom:1px ridge;">&#160;Deplesi</td>
+                    <td width="11%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.deplesi"/></td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;">&#160;ekor</td>
+                    <td width="18%" style="border-bottom:1px ridge;">&#160;Pakan Terpakai</td>
+                    <td width="11%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.pakan_terpakai"/></td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;">&#160;kg</td>
+                    <td width="17%" style="border-bottom:1px ridge;">&#160;Umur</td>
+                    <td width="11%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.umur" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;">&#160;hari</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="17%" style="border-bottom:1px ridge;">&#160;Deplesi (%)</td>
+                    <td width="11%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.deplesi_percentage" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;">&#160;%</td>
+                    <td width="18%" style="border-bottom:1px ridge;">&#160;Pakan Sisa</td>
+                    <td width="11%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.pakan_sisa"/></td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;">&#160;kg</td>
+                    <td width="17%" style="border-bottom:1px ridge;">&#160;FCR</td>
+                    <td width="11%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.fcr" t-options='{"widget": "float", "precision": 3}'/></td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;"></td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="17%" style="border-bottom:1px ridge;">&#160;Panen</td>
+                    <td width="11%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.panen"/></td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;">&#160;ekor</td>
+                    <td width="18%" style="border-bottom:1px ridge;">&#160;Pakan Retur</td>
+                    <td width="11%" style="color: red;border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;">(<span t-field="o.pakan_retur"/>)</td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;">&#160;kg</td>
+                    <td width="17%" style="border-bottom:1px ridge;">&#160;Diff FCR</td>
+                    <td width="11%" style="color: red;border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;">(<span t-esc="float(o.diff_fcr)" t-options='{"widget": "float", "precision": 3}'/>)</td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;"></td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="17%" style="border-bottom:1px ridge;">&#160;Panen Tonase</td>
+                    <td width="11%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.panen_tonase"/></td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;">&#160;kg</td>
+                    <td width="18%" style="border-bottom:1px ridge;">&#160;Pakan/Ekor Ratio</td>
+                    <td width="11%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.pakan_ratio"/></td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;">&#160;k/e</td>
+                    <td width="17%" style="border-bottom:1px ridge;">&#160;ADG</td>
+                    <td width="11%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.adg"/></td>
+                    <td width="5%" style="border-bottom:1px ridge;background-color:#F8F8F8;">&#160;gr/hr</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="17%">&#160;Selisih Produksi</td>
+                    <td width="11%" style="text-align:right;background-color:#F8F8F8;"><span t-field="o.selisih_produksi"/></td>
+                    <td width="5%" style="background-color:#F8F8F8;">&#160;ekor</td>
+                    <td width="18%">&#160;Efisiensi Pakan (%)</td>
+                    <td width="11%" style="text-align:right;background-color:#F8F8F8;"><span t-field="o.efisiensi_pakan" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td width="5%" style="background-color:#F8F8F8;">&#160;%</td>
+                    <td width="17%">&#160;IP</td>
+                    <td width="11%" style="text-align:right;background-color:#F8F8F8;"><span t-field="o.ip" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td width="5%" style="background-color:#F8F8F8;"></td>
+                  </tr>
+              </table>
+              <table style="width:100%;margin-top:10px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;">
+                  <tr>
+                      <td colspan="2" style="font-size: 12pt;font-weight: bold;vertical-align: top;border-bottom:1px ridge;">&#160;B. PERFORMA LABA RUGI</td>
+                  </tr>
+                  <tr>
+                      <td colspan="2" style="border-bottom:1px ridge;font-size: 12pt;font-weight: bold;vertical-align: top;background-color:#F8F8F8;">&#160;SAPRONAK &amp; HASIL PANEN</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;DOC</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.doc"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;Pakan</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.pakan"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;Obat, Vaksin &amp; Kimia</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.obat_vaksin_kimia"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;Live Bird</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.live_bird"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;Internet of Things</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.iot"/>&#160;</td>
+                  </tr>
+                  <tr>
+                      <td colspan="2" style="border-bottom:1px ridge;font-size: 12pt;font-weight: bold;vertical-align: top;background-color:#F8F8F8;">&#160;PENDAPATAN</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;Pendapatan Awal</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.pendapatan_awal"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;Kompensasi</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.kompensasi"/>&#160;</td>
+                  </tr>
+                  <t t-if="o.is_bonus_ch">
+                    <tr style="font-size: 10pt;vertical-align: top;">
+                      <td width="80%" style="border-bottom:1px ridge;">&#160;Bonus CH</td>
+                      <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.bonus_ch"/>&#160;</td>
+                    </tr>
+                  </t>
+                  <t t-if="o.is_bonus_ip">
+                    <tr style="font-size: 10pt;vertical-align: top;">
+                      <td width="80%" style="border-bottom:1px ridge;">&#160;Bonus IP</td>
+                      <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.bonus_ip"/>&#160;</td>
+                    </tr>
+                  </t>
+                  <t t-if="o.is_bonus_pasar">
+                    <tr style="font-size: 10pt;vertical-align: top;">
+                      <td width="80%" style="border-bottom:1px ridge;">&#160;Bonus Pasar</td>
+                      <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.bonus_pasar"/>&#160;</td>
+                    </tr>
+                  </t>
+                  <t t-if="o.is_bonus_fcr">
+                    <tr style="font-size: 10pt;vertical-align: top;">
+                      <td width="80%" style="border-bottom:1px ridge;">&#160;Bonus Capaian FCR</td>
+                      <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.bonus_capaian_fcr"/>&#160;</td>
+                    </tr>
+                  </t>
+                  <t t-if="o.is_bonus_bdh">
+                    <tr style="font-size: 10pt;vertical-align: top;">
+                      <td width="80%" style="border-bottom:1px ridge;">&#160;Bonus Daya Hidup</td>
+                      <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.bonus_daya_hidup"/>&#160;</td>
+                    </tr>
+                  </t>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;Pendapatan Akhir</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.pendapatan_akhir"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;Pendapatan/Populasi Ratio</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.pendapatan_ratio"/>&#160;</td>
+                  </tr>
+                  <tr>
+                      <td colspan="2" style="border-bottom:1px ridge;font-size: 12pt;font-weight: bold;vertical-align: top;background-color:#F8F8F8;">&#160;POTONGAN</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;PPh Pasal 21</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.pph_21"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;Potongan Selisih Pakan - RHPP</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.selisih_pakan_rhpp"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;Potongan Selisih Pakan - Tunai</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.selisih_pakan_tunai"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;Utang:</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;"></td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;&#160;&#160;Saldo Utang - Awal</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.saldo_awal"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;&#160;&#160;Cicilan Utang - RHPP</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.cicilan_rhpp"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;&#160;&#160;Cicilan Utang - Tunai</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.cicilan_tunai"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;&#160;&#160;Saldo Utang - Akhir</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.saldo_akhir"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;Tabungan:</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;"></td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;&#160;&#160;Saldo Tabungan - Awal</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.saldo_tabungan_awal"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;&#160;&#160;Tabungan Baru</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.tabungan_baru"/>&#160;</td>
+                  </tr>
+                  <tr style="font-size: 10pt;vertical-align: top;">
+                    <td width="80%" style="border-bottom:1px ridge;">&#160;&#160;&#160;Saldo Tabungan - Akhir</td>
+                    <td width="20%" style="border-bottom:1px ridge;text-align:right;background-color:#F8F8F8;"><span t-field="o.saldo_tabungan_akhir"/>&#160;</td>
+                  </tr>
+                  <tr>
+                      <td width="80%" style="font-size: 12pt;font-weight: bold;vertical-align: top;background-color:#F8F8F8;">&#160;PENDAPATAN BERSIH</td>
+                      <td width="20%" style="font-size: 12pt;font-weight: bold;vertical-align: top;background-color:#F8F8F8;text-align:right;"><span t-field="o.pendapatan_bersih"/>&#160;</td>
+                  </tr>
+              </table>
+              <p style="page-break-before:always;">
+                <table style="width:100%;margin-top:10px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;">
+                  <tr>
+                      <td colspan="11" style="font-size: 12pt;font-weight: bold;vertical-align: top;border-bottom:1px ridge;">&#160;C. RINCIAN TRANSAKSI SAPRONAK &amp; HASIL PANEN</td>
+                  </tr>
+                  <tr>
+                      <td colspan="11" style="border-bottom:1px ridge;font-size: 12pt;font-weight: bold;vertical-align: top;background-color:#F8F8F8;">&#160;SAPRONAK</td>
+                  </tr>
+                  <tr style="font-size: 10pt;font-weight: bold;vertical-align: top;">
+                    <td width="10%" style="border-bottom:1px ridge;text-align:center;background-color:#F8F8F8;">Tanggal</td>
+                    <td width="0%" style="border-bottom:1px ridge;background-color:#F8F8F8;"></td>
+                    <td width="21%" style="border-bottom:1px ridge;background-color:#F8F8F8;">No. Transaksi</td>
+                    <td width="21%" style="border-bottom:1px ridge;background-color:#F8F8F8;">Produk</td>
+                    <td width="5%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Qty</td>
+                    <td width="5%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Satuan</td>
+                    <td width="0%" style="border-bottom:1px ridge;background-color:#F8F8F8;"></td>
+                    <td width="21%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Jumlah Ekoran</td>
+                    <td width="0%" style="border-bottom:1px ridge;background-color:#F8F8F8;"></td>
+                    <td width="21%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Keterangan</td>
+                    <td width="10%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Jumlah</td>
+                  </tr>
+                  <tr>
+                      <td colspan="11" style="font-size: 10pt;font-weight: bold;vertical-align: top;border-bottom:1px ridge;"><br/>&#160;Day Old Chick</td>
+                  </tr>
+                  <t t-set="all_qty_doc" t-value="0"/>
+                  <t t-set="all_amount_doc" t-value="0"/>
+                  <t t-foreach="o.doc_ids" t-as="doc_line">
+                    <t t-set="all_qty_doc" t-value="all_qty_doc + doc_line.unit_amount"/>
+                    <t t-set="all_amount_doc" t-value="all_amount_doc + doc_line.amount"/>
+                    <tr style="font-size: 10pt;vertical-align: top;">
+                      <td width="10%" style="text-align:center;"><span t-field="doc_line.date"/></td>
+                      <td width="0%"></td>
+                      <td width="21%"><span t-field="doc_line.move_id.move_name"/></td>
+                      <td width="21%"><span t-field="doc_line.product_id.name"/></td>
+                      <t t-if="doc_line.move_id.move_id.move_type == 'out_refund'">
+                        <td width="5%" style="color: red;text-align:right;">(<span t-field="doc_line.unit_amount"/>)</td>
+                      </t>
+                      <t t-else="">
+                        <td width="5%" style="text-align:right;"><span t-field="doc_line.unit_amount"/></td>
+                      </t>
+                      <td width="5%" style="text-align:center;"><span t-field="doc_line.product_uom_id.name"/></td>
+                      <td width="0%"></td>
+                      <td width="21%" style="text-align:center;"><span t-field="doc_line.jumlah_ekoran"/></td>
+                      <td width="0%"></td>
+                      <td width="21%" style="text-align:center;"><span t-field="doc_line.note"/></td>
+                      <t t-if="doc_line.move_id.move_id.move_type == 'out_refund'">
+                        <td width="10%" style="color: red;text-align:right;">(<span t-field="doc_line.amount"/>)&#160;</td>
+                      </t>
+                      <t t-else="">
+                        <td width="10%" style="text-align:right;"><span t-field="doc_line.amount"/>&#160;</td>
+                      </t>
+                    </tr>
+                  </t>
+                  <tr style="font-size: 10pt;font-weight:bold;vertical-align: top;">
+                    <td colspan="2" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;" width="33%">&#160;TOTAL</td>
+                    <td width="21%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;text-align:right;"><span t-esc="all_qty_doc" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="0%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="0%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="10%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;text-align:right;">Rp <span t-esc="all_amount_doc"  t-options='{"widget": "float", "precision": 2}'/>&#160;</td>
+                  </tr>
+                  <t t-set="total_populasi_doc" t-value="all_amount_doc / o.populasi"/> 
+                  <tr style="font-size: 10pt;font-weight:bold;vertical-align: top;border-bottom:1px ridge;">
+                    <td colspan="2" style="border-bottom:1px ridge;" width="33%">&#160;TOTAL/POPULASI</td>
+                    <td width="21%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="9%" style="border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="12%" style="border-bottom:1px ridge;text-align:right;"><span t-esc="total_populasi_doc"  t-options='{"widget": "float", "precision": 2}'/>&#160;</td>
+                  </tr>
+                  <tr>
+                      <td colspan="11" style="font-size: 10pt;font-weight: bold;vertical-align: top;border-bottom:1px ridge;"><br/>&#160;Pakan</td>
+                  </tr>
+                  <t t-set="all_qty_pakan" t-value="0"/>
+                  <t t-set="all_amount_pakan" t-value="0"/>
+                  <t t-foreach="o.pakan_ids" t-as="pakan_line">
+                    <t t-set="all_qty_pakan" t-value="all_qty_pakan + pakan_line.qty_terkirim"/>
+                    <t t-set="all_amount_pakan" t-value="all_amount_pakan + pakan_line.amount"/>
+                    <tr style="font-size: 10pt;vertical-align: top;">
+                      <td width="10%" style="text-align:center;"><span t-field="pakan_line.date"/></td>
+                      <td width="0%"></td>
+                      <td width="21%"><span t-field="pakan_line.move_id.move_name"/></td>
+                      <td width="21%"><span t-field="pakan_line.product_id.name"/></td>
+                      <t t-if="pakan_line.move_id.move_id.move_type == 'out_refund'">
+                        <td width="5%" style="color: red;text-align:right;">(<span t-field="pakan_line.unit_amount"/>)</td>
+                      </t>
+                      <t t-else="">
+                        <td width="5%" style="text-align:right;"><span t-field="pakan_line.unit_amount"/></td>
+                      </t>
+                      <td width="5%" style="text-align:center;"><span t-field="pakan_line.product_uom_id.name"/></td>
+                      <td width="0%"></td>
+                      <td width="21%" style="text-align:center;"><span t-field="pakan_line.jumlah_ekoran"/></td>
+                      <td width="0%"></td>
+                      <td width="21%" style="text-align:center;"><span t-field="pakan_line.note"/></td>
+                      <t t-if="pakan_line.move_id.move_id.move_type == 'out_refund'">
+                        <td width="10%" style="color: red;text-align:right;">(<span t-field="pakan_line.amount"/>)&#160;</td>
+                      </t>
+                      <t t-else="">
+                        <td width="10%" style="text-align:right;"><span t-field="pakan_line.amount"/>&#160;</td>
+                      </t>
+                    </tr>
+                  </t>
+                  <tr style="font-size: 10pt;font-weight:bold;vertical-align: top;">
+                    <td colspan="2" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;" width="33%">&#160;TOTAL</td>
+                    <td width="21%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;text-align:right;"><span t-esc="all_qty_pakan" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="0%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="0%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="10%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;text-align:right;">Rp <span t-esc="all_amount_pakan"  t-options='{"widget": "float", "precision": 2}'/>&#160;</td>
+                  </tr>
+                  <t t-set="total_populasi_pakan" t-value="all_amount_pakan / o.populasi"/> 
+                  <tr style="font-size: 10pt;font-weight:bold;vertical-align: top;border-bottom:1px ridge;">
+                    <td colspan="2" style="border-bottom:1px ridge;"  width="33%">&#160;TOTAL/POPULASI</td>
+                    <td width="21%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="9%" style="border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="12%" style="border-bottom:1px ridge;text-align:right;"><span t-esc="total_populasi_pakan"  t-options='{"widget": "float", "precision": 2}'/>&#160;</td>
+                  </tr>
+                  <tr>
+                      <td colspan="11" style="font-size: 10pt;font-weight: bold;vertical-align: top;border-bottom:1px ridge;"><br/>&#160;Obat, Vaksin &amp; Kimia</td>
+                  </tr>
+                  <t t-set="all_qty_ovk" t-value="0"/>
+                  <t t-set="all_amount_ovk" t-value="0"/>
+                  <t t-foreach="o.ovk_ids" t-as="ovk_line">
+                    <t t-set="all_qty_ovk" t-value="all_qty_ovk + ovk_line.unit_amount"/>
+                    <t t-set="all_amount_ovk" t-value="all_amount_ovk + ovk_line.after_tax"/>
+                    <tr style="font-size: 10pt;vertical-align: top;">
+                      <td width="10%" style="text-align:center;"><span t-field="ovk_line.date"/></td>
+                      <td width="0%"></td>
+                      <td width="21%"><span t-field="ovk_line.move_id.move_name"/></td>
+                      <td width="21%"><span t-field="ovk_line.product_id.name"/></td>
+                      <t t-if="ovk_line.move_id.move_id.move_type == 'out_refund'">
+                        <td width="5%" style="color: red;text-align:right;">(<span t-field="ovk_line.unit_amount"/>)</td>
+                      </t>
+                      <t t-else="">
+                        <td width="5%" style="text-align:right;"><span t-field="ovk_line.unit_amount"/></td>
+                      </t>
+                      <td width="5%" style="text-align:center;"><span t-field="ovk_line.product_uom_id.name"/></td>
+                      <td width="0%"></td>
+                      <td width="21%" style="text-align:center;"><span t-field="ovk_line.jumlah_ekoran"/></td>
+                      <td width="0%"></td>
+                      <td width="21%" style="text-align:center;"><span t-field="ovk_line.note"/></td>
+                      <t t-if="ovk_line.move_id.move_id.move_type == 'out_refund'">
+                        <td width="10%" style="color: red;text-align:right;">(<span t-field="ovk_line.after_tax"/>)&#160;</td>
+                      </t>
+                      <t t-else="">
+                        <td width="10%" style="text-align:right;"><span t-field="ovk_line.after_tax"/>&#160;</td>
+                      </t>
+                    </tr>
+                  </t>
+                  <tr style="font-size: 10pt;font-weight:bold;vertical-align: top;">
+                    <td colspan="2" style="border-top:1px ridge;border-bottom:1px ridge;" width="33%">&#160;TOTAL</td>
+                    <td width="21%" style="border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-bottom:1px ridge;text-align:right;"><span t-esc="all_qty_ovk" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td width="5%" style="border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="0%" style="border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="0%" style="border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="10%" style="border-top:1px ridge;border-bottom:1px ridge;text-align:right;">Rp <span t-esc="all_amount_ovk"  t-options='{"widget": "float", "precision": 2}'/>&#160;</td>
+                  </tr>
+                  <t t-set="total_populasi_ovk" t-value="all_amount_ovk / o.populasi"/> 
+                  <tr style="font-size: 10pt;font-weight:bold;vertical-align: top;border-bottom:1px ridge;">
+                    <td colspan="2" style="border-bottom:1px ridge;" width="33%">&#160;TOTAL/POPULASI</td>
+                    <td width="21%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="9%" style="border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="12%" style="border-bottom:1px ridge;text-align:right;"><span t-esc="total_populasi_ovk"  t-options='{"widget": "float", "precision": 2}'/>&#160;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="11"><br/></td>
+                  </tr>
+                  <tr>
+                      <td colspan="11" style="border-bottom:1px ridge;font-size: 12pt;font-weight: bold;vertical-align: top;background-color:#F8F8F8;">&#160;HASIL PANEN</td>
+                  </tr>
+                  <tr style="font-size: 10pt;font-weight: bold;vertical-align: top;">
+                    <td width="10%" style="border-bottom:1px ridge;text-align:center;background-color:#F8F8F8;">Tanggal</td>
+                    <td width="0%" style="border-bottom:1px ridge;background-color:#F8F8F8;"></td>
+                    <td width="21%" style="border-bottom:1px ridge;background-color:#F8F8F8;">No. Transaksi</td>
+                    <td width="21%" style="border-bottom:1px ridge;background-color:#F8F8F8;">Produk</td>
+                    <td width="5%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Qty</td>
+                    <td width="5%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Satuan</td>
+                    <td width="0%" style="border-bottom:1px ridge;background-color:#F8F8F8;"></td>
+                    <td width="21%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Jumlah Ekoran</td>
+                    <td width="0%" style="border-bottom:1px ridge;background-color:#F8F8F8;"></td>
+                    <td width="21%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Keterangan</td>
+                    <td width="10%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Jumlah</td>
+                  </tr>
+                  <tr>
+                      <td colspan="11" style="font-size: 10pt;font-weight: bold;vertical-align: top;border-bottom:1px ridge;"><br/>&#160;Live Bird</td>
+                  </tr>
+                  <t t-set="all_qty_live_bird" t-value="0"/>
+                  <t t-set="all_amount_live_bird" t-value="0"/>
+                  <t t-foreach="o.live_bird_ids" t-as="live_bird_line">
+                    <t t-set="all_qty_live_bird" t-value="all_qty_live_bird + live_bird_line.unit_amount"/>
+                    <t t-set="all_amount_live_bird" t-value="all_amount_live_bird + abs(live_bird_line.amount)"/>
+                    <tr style="font-size: 10pt;vertical-align: top;">
+                      <td width="10%" style="text-align:center;"><span t-field="live_bird_line.date"/></td>
+                      <td width="0%"></td>
+                      <td width="21%"><span t-field="live_bird_line.move_id.move_name"/></td>
+                      <td width="21%"><span t-field="live_bird_line.product_id.name"/></td>
+                      <t t-if="live_bird_line.move_id.move_id.move_type == 'out_refund'">
+                        <td width="5%" style="color: red;text-align:right;">(<span t-field="live_bird_line.unit_amount"/>)</td>
+                      </t>
+                      <t t-else="">
+                        <td width="5%" style="text-align:right;"><span t-field="live_bird_line.unit_amount"/></td>
+                      </t>
+                      <td width="5%" style="text-align:center;"><span t-field="live_bird_line.product_uom_id.name"/></td>
+                      <td width="0%"></td>
+                      <td width="21%" style="text-align:center;"><span t-field="live_bird_line.jumlah_ekoran"/></td>
+                      <td width="0%"></td>
+                      <td width="21%" style="text-align:center;"><span t-field="live_bird_line.note"/></td>
+                      <t t-if="live_bird_line.move_id.move_id.move_type == 'out_refund'">
+                        <td width="10%" style="color: red;text-align:right;">(Rp <span t-esc="abs(live_bird_line.amount)" t-options='{"widget": "float", "precision": 2}'/>)&#160;</td>
+                      </t>
+                      <t t-else="">
+                        <td width="10%" style="text-align:right;">Rp <span t-esc="abs(live_bird_line.amount)" t-options='{"widget": "float", "precision": 2}'/>&#160;</td>
+                      </t>
+                    </tr>
+                  </t>
+                  <tr style="font-size: 10pt;font-weight:bold;vertical-align: top;">
+                    <td colspan="2" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;" width="33%">&#160;TOTAL</td>
+                    <td width="21%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;text-align:right;"><span t-esc="all_qty_live_bird" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="0%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="0%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="10%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;text-align:right;">Rp <span t-esc="all_amount_live_bird"  t-options='{"widget": "float", "precision": 2}'/>&#160;</td>
+                  </tr>
+                  <t t-set="total_populasi_live_bird" t-value="all_amount_live_bird / o.populasi"/> 
+                  <tr style="font-size: 10pt;font-weight:bold;vertical-align: top;border-bottom:1px ridge;">
+                    <td colspan="2" style="border-bottom:1px ridge;" width="33%">&#160;TOTAL/POPULASI</td>
+                    <td width="21%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="9%" style="border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="12%" style="border-bottom:1px ridge;text-align:right;"><span t-esc="total_populasi_live_bird"  t-options='{"widget": "float", "precision": 2}'/>&#160;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="11"><br/></td>
+                  </tr>
+                  <tr>
+                      <td colspan="11" style="border-bottom:1px ridge;font-size: 12pt;font-weight: bold;vertical-align: top;background-color:#F8F8F8;">&#160;IOT</td>
+                  </tr>
+                  <tr style="font-size: 10pt;font-weight: bold;vertical-align: top;">
+                    <td width="10%" style="border-bottom:1px ridge;text-align:center;background-color:#F8F8F8;">Tanggal</td>
+                    <td width="0%" style="border-bottom:1px ridge;background-color:#F8F8F8;"></td>
+                    <td width="21%" style="border-bottom:1px ridge;background-color:#F8F8F8;">No. Transaksi</td>
+                    <td width="21%" style="border-bottom:1px ridge;background-color:#F8F8F8;">Produk</td>
+                    <td width="5%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Qty</td>
+                    <td width="5%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Satuan</td>
+                    <td width="0%" style="border-bottom:1px ridge;background-color:#F8F8F8;"></td>
+                    <td width="21%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Jumlah Ekoran</td>
+                    <td width="0%" style="border-bottom:1px ridge;background-color:#F8F8F8;"></td>
+                    <td width="21%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Keterangan</td>
+                    <td width="10%" style="text-align:center;border-bottom:1px ridge;background-color:#F8F8F8;">Jumlah</td>
+                  </tr>
+                  <tr>
+                      <td colspan="11" style="font-size: 10pt;font-weight: bold;vertical-align: top;border-bottom:1px ridge;"><br/>&#160;Internet of Things</td>
+                  </tr>
+                  <t t-set="all_qty_iot" t-value="0"/>
+                  <t t-set="all_amount_iot" t-value="0"/>
+                  <t t-foreach="o.iot_ids" t-as="iot_line">
+                    <t t-set="all_qty_iot" t-value="all_qty_iot + iot_line.unit_amount"/>
+                    <t t-set="all_amount_iot" t-value="all_amount_iot + iot_line.amount"/>
+                    <tr style="font-size: 10pt;vertical-align: top;">
+                      <td width="10%" style="text-align:center;"><span t-field="iot_line.date"/></td>
+                      <td width="0%"></td>
+                      <td width="21%"><span t-field="iot_line.move_id.move_name"/></td>
+                      <td width="21%"><span t-field="iot_line.product_id.name"/></td>
+                      <td width="5%" style="text-align:right;"><span t-field="iot_line.unit_amount"/></td>
+                      <t t-if="iot_line.move_id.move_id.move_type == 'out_refund'">
+                        <td width="5%" style="color: red;text-align:center;">(<span t-field="iot_line.product_uom_id.name"/>)</td>
+                      </t>
+                      <t t-else="">
+                        <td width="5%" style="text-align:center;"><span t-field="iot_line.product_uom_id.name"/></td>
+                      </t>
+                      <td width="0%"></td>
+                      <td width="21%" style="text-align:center;"><span t-field="iot_line.jumlah_ekoran"/></td>
+                      <td width="0%"></td>
+                      <td width="21%" style="text-align:center;"><span t-field="iot_line.note"/></td>
+                      <t t-if="iot_line.move_id.move_id.move_type == 'out_refund'">
+                        <td width="10%" style="color: red;text-align:center;">(<span t-field="iot_line.amount"/>)&#160;</td>
+                      </t>
+                      <t t-else="">
+                        <td width="10%" style="text-align:right;"><span t-field="iot_line.amount"/>&#160;</td>
+                      </t>
+                    </tr>
+                  </t>
+                  <tr style="font-size: 10pt;font-weight:bold;vertical-align: top;">
+                    <td colspan="2" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;" width="33%">&#160;TOTAL</td>
+                    <td width="21%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;text-align:right;"><span t-esc="all_qty_iot" t-options='{"widget": "float", "precision": 2}'/></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="0%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="0%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="10%" style="border-top:1px ridge;border-top:1px ridge;border-bottom:1px ridge;text-align:right;">Rp <span t-esc="all_amount_iot"  t-options='{"widget": "float", "precision": 2}'/>&#160;</td>
+                  </tr>
+                  <t t-set="total_populasi_iot" t-value="all_amount_iot / o.populasi"/> 
+                  <tr style="font-size: 10pt;font-weight:bold;vertical-align: top;border-bottom:1px ridge;">
+                    <td colspan="2" style="border-bottom:1px ridge;" width="33%">&#160;TOTAL/POPULASI</td>
+                    <td width="21%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="5%" style="border-bottom:1px ridge;"></td>
+                    <td width="9%" style="border-bottom:1px ridge;text-align:right;"></td>
+                    <td width="12%" style="border-bottom:1px ridge;text-align:right;"><span t-esc="total_populasi_iot"  t-options='{"widget": "float", "precision": 2}'/>&#160;</td>
+                  </tr>
+                  <tr>
+                      <td colspan="10" width="80%" style="font-size: 12pt;font-weight: bold;vertical-align: top;background-color:#F8F8F8;">&#160;TOTAL DIBAYARKAN</td>
+                      <td width="20%" style="font-size: 12pt;font-weight: bold;vertical-align: top;background-color:#F8F8F8;text-align:right;"><span t-field="o.pendapatan_bersih"/>&#160;</td>
+                  </tr>
+              </table>
+              <table  style="width:100%;">
+                <tr style="font-size: 10pt;font-weight:bold;vertical-align: top;">
+                  <td style="text-align:right;">Ditransfer ke:</td>
+                </tr>
+                <tr style="font-size: 10pt;vertical-align: top;">
+                  <td style="text-align:right;"><t t-if="o.bank_id"><span t-esc="o.bank_id.bank_id.name"/> Cab.  No. A/C <span t-esc="o.bank_id.acc_number"/></t></td>
+                </tr>
+                <tr style="font-size: 10pt;vertical-align: top;">
+                  <td style="text-align:right;">a.n </td>
+                </tr>
+              </table>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <table  style="width:100%;">
+                <tr style="font-size: 12pt;font-weight:bold;vertical-align: top;">
+                  <td width="25%" style="text-align:center;"></td>
+                  <td width="25%" style="text-align:center;"></td>
+                  <td width="25%" style="text-align:center;"></td>
+                  <td width="25%" style="text-align:center;"></td>
+                </tr>
+              </table>
+              <table  style="width:100%;">
+                <tr style="font-size: 12pt;font-weight:bold;vertical-align: top;">
+                  <td width="25%" style="text-align:center;">Dibuat oleh, Produksi</td>
+                  <td width="25%" style="text-align:center;">Diperiksa oleh, Kepala Unit</td>
+                  <td width="25%" style="text-align:center;">Disetujui oleh, Kepala Region</td>
+                  <td width="25%" style="text-align:center;">Diketahui oleh, Direktur</td>
+                </tr>
+              </table> 
+            </p>
+            </div>
+            <div class="footer">
+              <table width="100%">
+                <tr>
+                  <td width="90%"></td>
+                  <td width="10%">Halaman <span class="page"/></td>
+                </tr>
+              </table>
+            </div>
+          </t>
+        </t> 
+      </template>
+
+    </data>
+</odoo>

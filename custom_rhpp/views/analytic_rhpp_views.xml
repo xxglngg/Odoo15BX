@@ -1,0 +1,294 @@
+<odoo>
+  <data>
+
+    <record id="view_analytic_rhpp_search" model="ir.ui.view">
+      <field name="name">analytic.rhpp.search</field>
+      <field name="model">analytic.rhpp</field>
+      <field name="arch" type="xml">
+          <search string="Analytic RHPP">
+              <field name="id_mitra"/>
+              <field name="name"/>
+              <field name="bank_id"/>
+          </search>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="analytic_rhpp_list">
+      <field name="name">Analysis RHPP</field>
+      <field name="model">analytic.rhpp</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="id_mitra"/>
+          <field name="name"/>
+          <field name="bank_id"/>
+          <field name="jenis_kontrak"/>
+          <field name="periode"/>
+          <field name="tanggal_pengajuan"/>
+          <field name="unit"/>
+          <field name="ppl"/>
+          <field name="jenis_kandang"/>
+          <field name="populasi"/>
+          <field name="tanggal_doc_in"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="analytic_rhpp_form">
+      <field name="name">Analysis RHPP</field>
+      <field name="model">analytic.rhpp</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="action_closing" string="Submit To Closing" class="btn-primary" type="object" attrs="{'invisible': [('state', '!=', 'new')]}"/>
+            <button name="action_kalkulasi_tabungan" string="Calculate Tabungan" class="btn-primary" type="object" attrs="{'invisible': [('state', '!=', 'new')]}"/>
+            <button name="action_admin_unit" string="Submit To Admin Unit" class="btn-primary" type="object" attrs="{'invisible': [('state', '!=', 'closing')]}"/>
+            <button name="action_admin_prod_region" string="Submit To Admin Prod Region" class="btn-primary" type="object" attrs="{'invisible': [('state', '!=', 'unit')]}" groups="custom_rhpp.rhpp_admin_unit_access_user"/>
+            <button name="action_admin_prod_ho" string="Submit To Admin Prod HO" class="btn-primary" type="object" attrs="{'invisible': [('state', '!=', 'region')]}" groups="custom_rhpp.rhpp_admin_region_access_user"/>
+            <button name="action_finance" string="Submit To Finance" class="btn-primary" type="object" attrs="{'invisible': [('state', '!=', 'ho')]}" groups="custom_rhpp.rhpp_admin_ho_access_user"/>
+            <button name="action_analytic_rhpp_done" string="Done" class="btn-primary" type="object" attrs="{'invisible': [('state', '!=', 'finance')]}" groups="custom_rhpp.rhpp_admin_finance_access_user"/>
+            <button name="action_print_rhpp" string="Print RHPP" type="object"/>
+            <button name="action_back_state" string="Back State" type="object" attrs="{'invisible': [('state', 'in', ['new','closing','unit','done'])]}"/>
+            <field name="state"  widget="statusbar" statusbar_visible="new,closing,unit,region,ho,finance,done"/>
+          </header>
+          <sheet>
+            <div class="oe_button_box" name="button_box">
+              <button class="oe_stat_button" name="action_open_journal_rhpp" type="object" icon="fa-file-text-o">
+                  <field string="Journal RHPP" name="journal_rhpp_count" widget="statinfo"/>
+              </button>
+              <button class="oe_stat_button" name="action_open_iot" type="object" icon="fa-file-text-o">
+                  <field string="IoT" name="iot_count" widget="statinfo"/>
+              </button>
+              <button class="oe_stat_button" name="action_open_ovk" type="object" icon="fa-file-text-o">
+                  <field string="OVK" name="ovk_count" widget="statinfo"/>
+              </button>
+              <button class="oe_stat_button" name="action_open_pakan" type="object" icon="fa-file-text-o">
+                  <field string="Pakan" name="pakan_count" widget="statinfo"/>
+              </button>
+              <button class="oe_stat_button" name="action_open_doc" type="object" icon="fa-file-text-o">
+                  <field string="DOC" name="doc_count" widget="statinfo"/>
+              </button>
+              <button class="oe_stat_button" name="action_open_hasil_panen" type="object" icon="fa-file-text-o">
+                  <field string="Hasil Panen" name="hasil_panen_count" widget="statinfo"/>
+              </button>
+            </div>
+            <group>
+              <field name="company_id" invisible="1"/>
+              <field name="currency_id" invisible="1"/>
+              <field name="inv_avg" invisible="1"/>
+              <field name="bill_avg" invisible="1"/>
+              <field name="selisih" invisible="1"/>
+              <field name="bp" invisible="1"/>
+              <field name="pendapatan_bersih" invisible="1" widget="monetary"/>
+              <field name="doc_ids" invisible="1"/>
+              <field name="pakan_ids" invisible="1"/>
+              <field name="ovk_ids" invisible="1"/>
+              <field name="live_bird_ids" invisible="1"/>
+              <field name="iot_ids" invisible="1"/>
+              <group>
+                <field name="id_mitra"/>
+                <field name="name"/>
+                <field name="bank_id" domain="[('partner_id','=',name)]"/>
+                <field name="jenis_kontrak"/>
+                <field name="periode"/>
+                <field name="unit"/>
+              </group>
+              <group>
+                <field name="ppl"/>
+                <field name="jenis_kandang"/>
+                <field name="populasi"/>
+                <field name="tanggal_doc_in"/>
+                <field name="tanggal_pengajuan" attrs="{'invisible': [('state', 'in', ['new', 'closing', 'unit', 'region'])], 'required': [('state', '=', 'ho')]}"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="Performa Produksi" name="performa_produksi">
+                <form>
+                  <sheet>
+                    <group>
+                      <group>
+                        <label for="populasi_awal"/>
+                        <div class="o_row" name="populasi_awal">
+                        <field name="populasi_awal"/>
+                          <span>ekor</span>
+                        </div>
+                        <label for="deplesi"/>
+                        <div class="o_row" name="deplesi">
+                        <field name="deplesi"/>
+                          <span>ekor</span>
+                        </div>
+                        <label for="deplesi_percentage"/>
+                        <div class="o_row" name="deplesi_percentage">
+                        <field name="deplesi_percentage"/>
+                          <span>%</span>
+                        </div>
+                        <label for="panen"/>
+                        <div class="o_row" name="panen">
+                        <field name="panen"/>
+                          <span>ekor</span>
+                        </div>
+                        <label for="panen_tonase"/>
+                        <div class="o_row" name="panen_tonase">
+                        <field name="panen_tonase"/>
+                          <span>kg</span>
+                        </div>
+                        <label for="selisih_produksi"/>
+                        <div class="o_row" name="selisih_produksi">
+                        <field name="selisih_produksi"/>
+                          <span>ekor</span>
+                        </div>
+                        <label for="pakan_terkirim"/>
+                        <div class="o_row" name="pakan_terkirim">
+                        <field name="pakan_terkirim"/>
+                          <span>kg</span>
+                        </div>
+                        <label for="pakan_terpakai"/>
+                        <div class="o_row" name="pakan_terpakai">
+                        <field name="pakan_terpakai"/>
+                          <span>kg</span>
+                        </div>
+                        <label for="pakan_sisa"/>
+                        <div class="o_row" name="pakan_sisa">
+                        <field name="pakan_sisa"/>
+                          <span>kg</span>
+                        </div>
+                      </group>
+                      <group>
+                        <label for="pakan_retur"/>
+                        <div class="o_row" name="pakan_retur">
+                        <field name="pakan_retur"/>
+                          <span>kg</span>
+                        </div>
+                        <label for="pakan_ratio"/>
+                        <div class="o_row" name="pakan_ratio">
+                        <field name="pakan_ratio"/>
+                          <span>k/e</span>
+                        </div>
+                        <label for="efisiensi_pakan"/>
+                        <div class="o_row" name="efisiensi_pakan">
+                        <field name="efisiensi_pakan"/>
+                          <span>%</span>
+                        </div>
+                        <label for="bobot_rata"/>
+                        <div class="o_row" name="bobot_rata">
+                        <field name="bobot_rata"/>
+                          <span>kg</span>
+                        </div>
+                        <label for="umur"/>
+                        <div class="o_row" name="umur">
+                        <field name="umur"/>
+                          <span>hari</span>
+                        </div>
+                        <field name="fcr"/>
+                        <field name="diff_fcr"/>
+                        <label for="adg"/>
+                        <div class="o_row" name="adg">
+                        <field name="adg"/>
+                          <span>gr/hr</span>
+                        </div>
+                        <field name="ip"/>
+                      </group>
+                    </group>
+                  </sheet>
+                </form>
+              </page>
+              <page string="Performa Laba Rugi" name="performa_laba_rugi">
+                <form>
+                  <sheet>
+                    <group string="SAPRONAK/HASIL PANEN">
+                      <field name="doc" widget="monetary"/>
+                      <field name="pakan" widget="monetary"/>
+                      <field name="obat_vaksin_kimia" widget="monetary"/>
+                      <field name="live_bird" widget="monetary"/>
+                      <field name="iot" widget="monetary"/>
+                    </group>
+                    <group>
+                      <group string="PENDAPATAN">
+                        <field name="is_bonus_ch" invisible="1"/>
+                        <field name="is_bonus_ip" invisible="1"/>
+                        <field name="is_bonus_pasar" invisible="1"/>
+                        <field name="is_bonus_fcr" invisible="1"/>
+                        <field name="is_bonus_bdh" invisible="1"/>
+                        <field name="pendapatan_awal" widget="monetary"/>
+                        <field name="kompensasi" widget="monetary"/>
+                        <field name="bonus_ch" widget="monetary" attrs="{'invisible': [('is_bonus_ch', '=', False)]}"/>
+                        <field name="bonus_ip" widget="monetary" attrs="{'invisible': [('is_bonus_ip', '=', False)]}"/>
+                        <field name="bonus_pasar" widget="monetary" attrs="{'invisible': [('is_bonus_pasar', '=', False)]}"/>
+                        <field name="bonus_capaian_fcr" widget="monetary" attrs="{'invisible': [('is_bonus_fcr', '=', False)]}"/>
+                        <field name="bonus_daya_hidup" widget="monetary" attrs="{'invisible': [('is_bonus_bdh', '=', False)]}"/>
+                        <field name="pendapatan_akhir" widget="monetary"/>
+                        <field name="pendapatan_ratio" widget="monetary"/>
+                        <field name="dpp" widget="monetary"/>
+                      </group>
+                      <group string="POTONGAN">
+                        <field name="pph_21" widget="monetary"/>
+                        <field name="selisih_pakan_rhpp" widget="monetary"/>
+                        <field name="selisih_pakan_tunai" widget="monetary"/>
+                      </group>
+                    </group>
+                    <group>
+                      <group string="UTANG">
+                        <field name="saldo_awal" widget="monetary"/>
+                        <field name="cicilan_rhpp" widget="monetary"/>
+                        <field name="cicilan_tunai" widget="monetary"/>
+                        <field name="saldo_akhir" widget="monetary"/>
+                      </group>
+                      <group string="TABUNGAN">
+                        <field name="saldo_tabungan_awal" widget="monetary"/>
+                        <field name="tabungan_baru" widget="monetary"/>
+                        <field name="saldo_tabungan_akhir" widget="monetary"/>
+                        <field name="penarikan_tabungan" widget="monetary"/>
+                      </group>
+                    </group>
+                  </sheet>
+                </form>
+              </page>
+            </notebook>
+          </sheet>
+          <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers"/>
+              <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="analytic_rhpp_action_window">
+      <field name="name">Kalkulasi RHPP</field>
+      <field name="res_model">analytic.rhpp</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- menu categories -->
+
+    <menuitem name="Menu RHPP" id="custom_rhpp.menu_config_analytic_rhpp" parent="custom_rhpp.menu_root_rhpp" sequence="1"/>
+
+    <!-- actions -->
+
+    <menuitem name="Kalkulasi RHPP" id="custom_rhpp.menu_list_analytic_rhpp" parent="custom_rhpp.menu_config_analytic_rhpp"
+              action="analytic_rhpp_action_window" sequence="1"/>
+
+    <!-- actions opening views on models -->
+
+    <record id="action_invoice_report_analysis_rhpp" model="ir.actions.act_window">
+      <field name="name">Laporan Penjualan dan Pembelian</field>
+      <field name="res_model">account.invoice.report</field>
+      <field name="view_mode">pivot,graph</field>
+        <field name="search_view_id" ref="account.view_account_invoice_report_search"/>
+        <field name="context">{'search_default_current':1, 'search_default_customer': 1, 'group_by':['invoice_date'], 'group_by_no_leaf':1}</field>
+        <field name="view_id" ref="account.action_account_invoice_report_all"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Add a new invoice analysis
+          </p>
+        </field>
+    </record>
+
+    <!-- actions -->
+
+    <menuitem id="custom_rhpp.menu_invoice_analysis_rhpp" name="Laporan Penjualan dan Pembelian" parent="custom_rhpp.menu_config_analytic_rhpp"
+              action="action_invoice_report_analysis_rhpp" sequence="2"/>
+              
+  </data>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+         <record id="survey_user_input_line_view_form_inherit_bi_survey_files_upload" model="ir.ui.view">
+            <field name="name">survey.user_input.line.inherit.bi.survey.customization</field>
+            <field name="model">survey.user_input.line</field>
+            <field name="inherit_id" ref="survey.survey_user_input_line_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='question_id']" position="after">
+                     <field name="attachment" filename="name"/>
+                     <field name="attachment_id"/>
+                 </xpath>
+            </field>
+        </record>
+  </data>
+</odoo>

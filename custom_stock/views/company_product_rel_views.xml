@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="company_product_rel_tree_view" model="ir.ui.view">
+        <field name="name">company.product.rel.tree.view</field>
+        <field name="model">company.product.rel</field>
+        <field name="arch" type="xml">
+            <tree string="Company Product Relations" editable="bottom">
+                <field name="name"/>
+                <field name="company_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+                <field name="product_categ_ids"  widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="company_product_rel_action" model="ir.actions.act_window">
+        <field name="name">Company Product Relations</field>
+        <field name="res_model">company.product.rel</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree</field>
+        <!-- <field name="context">{'active_test': False}</field> -->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configuration for Company Product Relations
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="company_product_rel_menu"
+            name="Company Product Relations"
+            parent="stock.menu_stock_config_settings"
+            action="custom_stock.company_product_rel_action"/>
+</odoo>

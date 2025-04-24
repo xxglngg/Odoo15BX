@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record id="account_analytic_line_custom_tree" model="ir.ui.view">
+            <field name="name">account.analytic.line.custom.tree</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="note" optional="show"/>
+                </xpath>
+                <xpath expr="//field[@name='product_uom_id']" position="after">
+                    <field name="jumlah_ekoran" optional="hide"/>
+                </xpath>
+            </field>
+        </record>        
+    </data>
+</odoo>

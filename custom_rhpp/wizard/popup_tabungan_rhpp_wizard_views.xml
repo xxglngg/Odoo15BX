@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="popup_tabungan_rhpp_wizard_form" model="ir.ui.view">
+			<field name="name">popup.tabungan.rhpp.wizard.form</field>
+			<field name="model">popup.tabungan.rhpp.wizard</field>
+			<field name="arch" type="xml">
+			<form>
+				Apakah Peternak Akan Melakukan Penarikan Tabungan ? 
+				<footer>
+					<button name="confirm_penarikan" string="Ya Lakukan Penarikan" type="object" class="oe_highlight"/>
+					<button name="cancel_penarikan" string="Tidak Lakukan Penarikan" type="object"/>
+				</footer>
+			</form>
+			</field>
+		</record>
+    </data>
+</odoo>

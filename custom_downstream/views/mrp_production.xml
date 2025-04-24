@@ -1,0 +1,83 @@
+<odoo>
+    <data>
+        <record id="broilerx_action_stock_landed_cost" model="ir.actions.act_window">
+            <field name="name">Landed Costs</field>
+            <field name="res_model">stock.landed.cost</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{'default_target_model': 'manufacturing', 'search_default_mrp_production_ids': active_ids, 'default_mrp_production_ids': active_ids}</field>
+            <field name="domain">[('mrp_production_ids', '=', active_ids)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new landed cost
+                </p>
+            </field>
+        </record>
+
+        <record id="mrp_production_form_inherit_view6" model="ir.ui.view">
+            <field name="name">inherit_mrp_production_form_view</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp_account_enterprise.mrp_production_form_inherit_view6"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='%(mrp_account_enterprise.action_cost_struct_mrp_production)d']" position="after">
+                    <button class="oe_stat_button" icon="fa-cubes" type="action" name="%(custom_downstream.broilerx_action_stock_landed_cost)d"
+                            attrs="{'invisible': [('state', '!=', 'done')]}"
+                            groups="custom_downstream.group_broilerx_downstream">
+                        <field name="mrp_production_ids_stock_landed_cost_count" string="Landed Costs" widget="statinfo"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_mrp_production_form_view" model="ir.ui.view">
+            <field name="name">inherit_mrp_production_form_view</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bom_id']" position="after">
+                    <field name="material_cost" groups="custom_downstream.group_broilerx_downstream" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                    <field name="material_cost_by_quantity" groups="custom_downstream.group_broilerx_downstream" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                    <field name="fix_cost" groups="custom_downstream.group_broilerx_downstream" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                    <field name="adjusted_material_cost" groups="custom_downstream.group_broilerx_downstream" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="company_currency_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='components']/field[@name='move_raw_ids']/tree[1]/field[@name='quantity_done']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                    <attribute name="force_save">1</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='components']/field[@name='move_raw_ids']/tree[1]/field[@name='product_uom']" position="after">
+                    <field name="material_cost" optional="show" widget="monetary" options="{'currency_field': 'company_currency_id'}" groups="custom_downstream.group_broilerx_downstream" attrs="{'column_invisible': [('parent.state', '=', 'draft')]}" readonly="1" force_save="1"/>
+                    <field name="material_cost_by_quantity" optional="show" widget="monetary" options="{'currency_field': 'company_currency_id'}" groups="custom_downstream.group_broilerx_downstream" attrs="{'column_invisible': [('parent.state', '=', 'draft')]}" readonly="1" force_save="1"/>
+                    <field name="subtotal_material" optional="show" sum="Sum of Subtotal Material" groups="custom_downstream.group_broilerx_downstream" attrs="{'column_invisible': [('parent.state', '=', 'draft')]}" readonly="1" force_save="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="split_method"/>
+                </xpath>
+                <xpath expr="//page[@name='finished_products']" position="attributes">
+                    <attribute name="string">Production Results</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='finished_products']/field[@name='move_byproduct_ids']/tree[1]/field[@name='move_line_ids']/tree[1]/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="sum">Sum of To Produce</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='finished_products']/field[@name='move_byproduct_ids']/tree[1]/field[@name='product_uom']" position="after">
+                    <field name="is_fix_cost" optional="show" groups="custom_downstream.group_broilerx_downstream" readonly="1" force_save="1"/>
+                    <field name="fix_cost_price" optional="show" groups="custom_downstream.group_broilerx_downstream" readonly="1" force_save="1" attrs="{'column_invisible': [('parent.state', '=', 'draft')]}"/>
+                    <field name="ratio" optional="show" groups="custom_downstream.group_broilerx_downstream" readonly="1" force_save="1" attrs="{'column_invisible': [('parent.state', '=', 'draft')]}"/>
+                    <field name="cost" optional="show" sum="Sum of Cost" groups="custom_downstream.group_broilerx_downstream" attrs="{'column_invisible': [('parent.state', '=', 'draft')]}" widget="monetary"/>
+                    <field name="landed_cost" optional="show" sum="Sum of Cost" groups="custom_downstream.group_broilerx_downstream" attrs="{'column_invisible': [('parent.state', '=', 'draft')]}" widget="monetary"/>
+
+                </xpath>
+                <xpath expr="//field[@name='cost_share']" position="attributes">
+                    <attribute name="sum">Sum of Cost Share (%)</attribute>
+                    <attribute name="widget">monetary</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='finished_products']/field[@name='move_byproduct_ids']/tree[1]/field[@name='lot_ids']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

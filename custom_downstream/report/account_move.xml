@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+            <xpath expr="//td[@class='text-right']" position="inside">
+                <span>(</span>
+                <span t-esc="'%.2f'% line.qty_secondary"/>
+                <span t-field="line.uom_secondary_id" groups="uom.group_uom"/>
+                <span>)</span>
+            </xpath>
+            <xpath expr="//div[@class='mt16']" position="after">
+              <strong>Rekening:</strong> <br/>
+              <t t-set="banks" t-value="o.partner_id.parent_id.bank_ids"/>
+              <t t-foreach="banks" t-as="b">
+                <span t-field="b.acc_number"/>  (<span t-field="b.bank_id.name"/>) <br/>
+
+              </t>
+                  
+            </xpath>
+        </template>
+    </data>
+</odoo>

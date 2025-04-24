@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <!--product.template-->
+        <record id="product_template_is_pacakging" model="ir.ui.view">
+            <field name="name">product.template.is.pacakging</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='barcode']" position="after">
+                    <field name="is_packaging"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sh_report_account_invoice_custom" inherit_id="account.report_invoice_document">
+        <xpath expr="//table[@name='invoice_line_table']//thead//tr[1]//th[@name='th_quantity']" position="before">
+            <th class="text-right">Bag Quantity</th>
+        </xpath>
+        <xpath expr="//table[@name='invoice_line_table']//tbody//tr[1]//td[2]" position="before">
+            <td class="text-right">
+                <span t-field="line.sh_bag_qty" />
+            </td>
+        </xpath>
+
+        <xpath expr="//table[@name='invoice_line_table']//thead//tr[1]//th[@name='th_description']" position="after">
+            <th class="text-right" t-if="o.sh_enable_quantity_in_report==True">Quantity in Bags</th>
+        </xpath>
+        <xpath expr="//table[@name='invoice_line_table']//tbody//tr[1]//td[1]" position="after">
+            <td class="text-right" t-if="o.sh_enable_quantity_in_report==True">
+                <span t-field="line.sh_qty_in_bag" />
+            </td>
+        </xpath>
+
+        
+    </template>
+</odoo>

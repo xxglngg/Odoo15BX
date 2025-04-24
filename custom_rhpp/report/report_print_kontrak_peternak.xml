@@ -1,0 +1,539 @@
+<odoo>
+    <data>
+      <template id="report_print_kontrak_peternak">
+          <t t-call="web.html_container">
+              <t t-foreach="docs" t-as="doc">
+                  <t t-call="custom_rhpp.report_template_print_kontrak_peternak"/>
+              </t>
+          </t>
+      </template>
+
+      <template id="custom_rhpp.report_template_print_kontrak_peternak">
+        <t t-foreach="docs" t-as="o">
+          <t t-call="web.basic_layout">
+            <style>
+              * {
+                font-family: Times New Roman, Times, serif;
+              }
+            </style>
+            <div class="header">
+              <table style="width:100%;">
+                  <tr>
+                    <td width="82%"/>
+                    <td width="18%" style="font-size: 12pt;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;text-align:center;">RAHASIA DAGANG</td>
+                  </tr>
+                  <tr>
+                    <td style="width:50%; ">
+                      <img t-att-src="image_data_uri(o.kop_surat_operasional)" style="height:100px;width:330px;"/>
+                    </td>
+                  </tr>
+              </table>
+              <!-- <table style="width:100%;">
+                <tr>
+                  <td style="width:100%; ">
+                    <img t-att-src="image_data_uri(o.company_id.logo)" style="height:100px;width:100px;"/>
+                  </td>
+                  <td style="text-align:center;">
+                      <table>
+                          <tr>
+                              <td style="vertical-align: top;font-weight: bold;font-size: 13pt;text-align:center;vertical-align: middle;">
+                                  <span t-field="o.company_id.name"/>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td style="width:70%;font-size: 12pt;vertical-align: middle;text-align:center;">
+                                  <span t-field="o.company_id.street"/>
+                                  <span t-field="o.company_id.street2"/>
+                                  <span t-field="o.company_id.city"/>
+                                  <span t-field="o.company_id.state_id.name"/><br/>
+                                  Telp. <span t-field="o.company_id.phone"/> Email: <span t-field="o.company_id.email"/><br/>
+                                  Website: <span style="border-bottom:1px solid black;" t-field="o.company_id.website"/>
+                              </td>
+                          </tr>
+                      </table>
+                  </td>
+                </tr>
+              </table> -->
+              <hr style="border-top: 3px double #000000;"/>
+            </div>
+            <div class="page">
+              <t t-set="name_peternak" t-value="o.contact_peternak.name"/>
+              <table style="width:100%;">
+                <tr>
+                    <td colspan="6" style="text-align: justify;text-justify: inter-word;font-size: 13pt;font-weight: bold;text-align: center;"><span style="border-bottom:1px solid black;">KONTRAK KEMITRAAN PEMELIHARAAN AYAM BROILER </span><span style="border-bottom:1px solid black;" t-field="o.template_kontrak_id.klausul_id.name"/></td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: justify;text-justify: inter-word;font-size: 13pt;font-weight: bold;text-align: center;"><br/><span style="border-bottom:1px solid black;" t-field="o.unit.name"/></td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: justify;text-justify: inter-word;font-size: 13pt;font-weight: bold;text-align: center;"><br/>PERIODE: <span t-field="o.contract_periode"/></td>
+                </tr>
+                <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                  <td colspan="6"><br/>Yang bertandatangan di bawah ini:</td>
+                </tr>
+                <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                  <td width="13%"><br/>Nama Lengkap</td>
+                  <td width="2%"><br/>:</td>
+                  <td width="45%"><br/>
+                  <t t-if="o.contact_peternak.unit_rhpp">
+                    <t t-set="kode_unit" t-value="o.contact_peternak.unit_rhpp.short_code"/>
+                    <t t-if="kode_unit in name_peternak">
+                      <t t-set="name_peternak" t-value="name_peternak.replace(kode_unit + ' - ','')"/>
+                      <span t-esc="name_peternak"/>
+                    </t>
+                    <t t-else="">
+                      <span t-esc="name_peternak"/>
+                    </t>
+                  </t>
+                  <t t-if="not o.contact_peternak.unit_rhpp">
+                    <span t-esc="name_peternak"/>
+                  </t>
+                  </td>
+                </tr>
+                <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                  <td width="13%">NIK</td>
+                  <td width="2%">:</td>
+                  <td width="45%"><span t-field="o.nik"/></td>
+                </tr>
+                <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                  <td width="13%">Alamat</td>
+                  <td width="2%">:</td>
+                  <td width="45%"><span t-field="o.alamat"/></td>
+                </tr>
+                <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                  <td width="13%">Populasi</td>
+                  <td width="2%">:</td>
+                  <td width="45%"><span t-field="o.populasi" t-options='{"widget": "float", "precision": 0}'/></td>
+                </tr>
+                <tr style="font-size: 12pt;vertical-align: top;">
+                  <td colspan="6" style="text-align: justify;text-justify: inter-word;">Bertindak untuk dan atas nama dirinya sendiri, yang selanjutnya disebut <span style="font-size: 13pt;font-weight: bold;vertical-align: top;"><strong>PIHAK PERTAMA</strong>.</span></td>
+                </tr>
+                <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                  <td width="13%"><br/>Nama Lengkap</td>
+                  <td width="2%"><br/>:</td>
+                  <td width="45%"><br/><span t-field="o.name_operasional"/></td>
+                </tr>
+                <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                  <td width="13%">Jabatan</td>
+                  <td width="2%">:</td>
+                  <td width="45%"><span t-field="o.jabatan_operasional"/></td>
+                </tr>
+                <tr style="font-size: 12pt;vertical-align: top;">
+                  <td colspan="6" style="text-align: justify;text-justify: inter-word;"><br/>Bertindak untuk dan atas nama PT Integrasi Teknologi Unggas, yang berkedudukan di Jl. Nologaten 49A RT 005/RW 002, Kel. Caturtunggal, Kec. Depok, Kab. Sleman, Daerah Istimewa Yogyakarta, yang selanjutnya disebut <span style="font-size: 13pt;font-weight: bold;vertical-align: top;">PIHAK KEDUA.</span></td>
+                </tr>
+                <tr style="font-size: 12pt;vertical-align: top;">
+                  <td colspan="6" style="text-align: justify;text-justify: inter-word;"><br/><strong>PIHAK PERTAMA</strong> dan <strong>PIHAK KEDUA</strong> secara bersama-sama disebut sebagai &#34;PARA PIHAK&#34; dan masing-masing sebagai <strong>&#34;PIHAK&#34;</strong>.</td>
+                </tr>
+                <tr style="font-size: 12pt;vertical-align: top;">
+                  <td colspan="6" style="text-align: justify;text-justify: inter-word;"><br/><strong>PIHAK PERTAMA</strong> dan <strong>PIHAK KEDUA</strong> sepakat untuk membuat Perjanjian Kerjasama Kemitraan Pemeliharaan Ayam Broiler (<strong>&#34;Perjanjian&#34;</strong>) dengan ketentuan-ketentuan sebagai berikut:</td>
+                </tr>
+                <tr style="font-size: 12pt;vertical-align: top;font-weight: bold;">
+                  <td colspan="3" style="text-align: justify;text-justify: inter-word;"><br/>&#160;&#160;&#160;I. &#160;Kesepakatan Harga Sapronak</td>
+                </tr>
+                <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                  <td width="13%"><br/>&#160;&#160;&#160;&#160;&#160;&#160;- DOC Vaksin</td>
+                  <td width="2%"><br/>:</td>
+                  <td width="45%"><br/><span t-field="o.template_kontrak_id.pricelist_sapronak.harga_doc_vaksin" t-options='{"widget": "float", "precision": 0}'/> / Ekor</td>
+                </tr>
+                <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                  <td width="13%">&#160;&#160;&#160;&#160;&#160;&#160;- Pakan Prestarter</td>
+                  <td width="2%">:</td>
+                  <td width="45%"><span t-field="o.template_kontrak_id.pricelist_sapronak.harga_prestarter" t-options='{"widget": "float", "precision": 0}'/> / Kg</td>
+                </tr>
+                <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                  <td width="13%">&#160;&#160;&#160;&#160;&#160;&#160;- Pakan Starter</td>
+                  <td width="2%">:</td>
+                  <td width="45%"><span t-field="o.template_kontrak_id.pricelist_sapronak.harga_starter" t-options='{"widget": "float", "precision": 0}'/> / Kg</td>
+                </tr>
+                <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                  <td width="13%">&#160;&#160;&#160;&#160;&#160;&#160;- Pakan Finisher</td>
+                  <td width="2%">:</td>
+                  <td width="45%"><span t-field="o.template_kontrak_id.pricelist_sapronak.harga_finisher" t-options='{"widget": "float", "precision": 0}'/> / Kg</td>
+                </tr>
+                <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                  <td width="13%">&#160;&#160;&#160;&#160;&#160;&#160;- OVK</td>
+                  <td width="2%">:</td>
+                  <td width="45%">Sesuai Kebutuhan</td>
+                </tr>
+                <t t-set="number_romawi2" t-value="''"/>
+                <t t-set="number_romawi3" t-value="''"/>
+                <t t-set="number_romawi4" t-value="''"/>
+                <t t-set="number_romawi5" t-value="''"/>
+                <t t-if="o.is_have_pricelist and o.is_have_insentif">
+                  <t t-set="number_romawi2" t-value="'II'"/>
+                  <t t-set="number_romawi3" t-value="'III'"/>
+                  <t t-set="number_romawi4" t-value="'IV'"/>
+                  <t t-set="number_romawi5" t-value="'V'"/>
+                </t>
+                <t t-if="not o.is_have_pricelist and o.is_have_insentif">
+                  <t t-set="number_romawi2" t-value="''"/>
+                  <t t-set="number_romawi3" t-value="'II'"/>
+                  <t t-set="number_romawi4" t-value="'III'"/>
+                  <t t-set="number_romawi5" t-value="'IV'"/>
+                </t>
+                <t t-if="o.is_have_pricelist and not o.is_have_insentif">
+                  <t t-set="number_romawi2" t-value="'II'"/>
+                  <t t-set="number_romawi3" t-value="''"/>
+                  <t t-set="number_romawi4" t-value="'III'"/>
+                  <t t-set="number_romawi5" t-value="'IV'"/>
+                </t>
+                <t t-if="not o.is_have_pricelist and not o.is_have_insentif">
+                  <t t-set="number_romawi2" t-value="''"/>
+                  <t t-set="number_romawi3" t-value="''"/>
+                  <t t-set="number_romawi4" t-value="'II'"/>
+                  <t t-set="number_romawi5" t-value="'III'"/>
+                </t>
+                <t t-if="o.is_have_pricelist">
+                  <tr style="font-size: 12pt;vertical-align: top;font-weight: bold;">
+                    <td colspan="3" style="text-align: justify;text-justify: inter-word;"><br/>&#160;&#160;&#160;<span t-esc="number_romawi2"/>. &#160;Kesepakatan Harga Ayam</td>
+                  </tr>
+                  <tr style="font-size: 12pt;vertical-align: top;margin-left:45px">
+                    <table style="width:70%;margin-left:45px">
+                      <br/>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Bobot Ayam</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Rp/Kg</td>
+                      </tr>
+                      <t t-foreach="o.template_kontrak_id.pricelist_ayam.pricelist_ayam_line_ids" t-as="line"> 
+                        <tr>
+                        <t t-if="line.bobot_start == 2.20">
+                          <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;"><span t-field="line.bobot_start" t-options='{"widget": "float", "precision": 2}'/> Up</td>
+                        </t>
+                        <t t-else="">
+                          <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;"><span t-field="line.bobot_start" t-options='{"widget": "float", "precision": 2}'/> - <span t-field="line.bobot_end" t-options='{"widget": "float", "precision": 2}'/></td>
+                        </t>
+                          <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;"><span t-field="line.harga_ayam" t-options='{"widget": "float", "precision": 0}'/></td>
+                        </tr>
+                      </t>
+                    </table>
+                  </tr>
+                </t>
+                <t t-if="o.is_have_insentif">
+                <t t-set="number_insentif" t-value="['a', 'b', 'c', 'd']"/>
+                <t t-set="number_check_insentif" t-value="0"/>
+                <tr>
+                  <table style="width:100%;">
+                    <tr style="font-size: 12pt;vertical-align: top;font-weight: bold;">
+                      <td colspan="3" style="text-align: justify;text-justify: inter-word;"><br/>&#160;&#160;&#160;<span t-esc="number_romawi3"/>. &#160;Kesepakatan Insentif</td>
+                    </tr>
+                    <t t-if="o.template_kontrak_id.bonus_capaian_fcr_id">
+                      <tr style="font-size: 12pt;vertical-align: top;font-weight: bold;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;"><br/>&#160;&#160;&#160;&#160;&#160;&#160;<span t-esc="number_insentif[number_check_insentif]"/>. Bonus Pencapaian FCR (Rp/Kg)</td>
+                      </tr>
+                      <t t-set="number_check_insentif" t-value="number_check_insentif + 1"/>
+                    </t>
+                  </table>
+                </tr>
+                <t t-if="o.template_kontrak_id.bonus_capaian_fcr_id">
+                  <tr style="font-size: 12pt;vertical-align: top;margin-left:45px">
+                    <td>
+                    <table style="width:60%;margin-left:45px">
+                      <br/>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Pencapaian FCR</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">NILAI BONUS (Rp/Kg)</td>
+                      </tr>
+                      <t t-foreach="o.template_kontrak_id.bonus_capaian_fcr_id.bonus_capaian_fcr_line" t-as="line">
+                        <tr>
+                          <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;"><span t-esc="line.pencapaian_fcr_start"/> - (<span t-esc="line.pencapaian_fcr_end"/>)</td>
+                          <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;"><span t-esc="line.nominal_bonus"/></td>
+                        </tr>
+                      </t>
+                    </table>
+                    </td>
+                  </tr>
+                </t>
+                <p style="page-break-before:always;">
+                  <t t-if="o.template_kontrak_id.bonus_pasar_id">
+                    <tr>
+                      <table style="width:100%;">
+                        <tr style="font-size: 12pt;vertical-align: top;font-weight: bold;">
+                          <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;&#160;&#160;<span t-esc="number_insentif[number_check_insentif]"/>. Bonus Total Rataan Harga Pasar &gt; Total Rataan Harga Kontrak (Rp/Kg)</td>
+                        </tr>
+                        <t t-set="number_check_insentif" t-value="number_check_insentif + 1"/>
+                      </table>
+                    </tr>
+                    <tr style="font-size: 12pt;vertical-align: top;margin-left:45px">
+                      <table style="width:60%;margin-left:45px">
+                        <br/>
+                        <tr>
+                          <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Pencapaian FCR</td>
+                          <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Presentase Bonus</td>
+                        </tr>
+                        <t t-foreach="o.template_kontrak_id.bonus_pasar_id.bonus_pasar_line" t-as="line">
+                          <tr>
+                            <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;"><span t-esc="line.diff_fcr_start"/> - (<span t-esc="line.diff_fcr_end"/>)</td>
+                            <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;"><span t-esc="line.presentase_bonus"/>%</td>
+                          </tr>
+                        </t>
+                      </table>
+                    </tr>
+                  </t>
+                  <!-- <tr>
+                    <table style="width:100%;">
+                      <tr style="font-size: 12pt;vertical-align: top;font-weight: bold;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;"><br/>&#160;&#160;&#160;&#160;&#160;&#160;c. Bonus Pasar</td>
+                      </tr>
+                    </table>
+                  </tr> -->
+                  <tr style="font-size: 12pt;vertical-align: top;margin-left:45px">
+                    <!-- <table style="width:60%;margin-left:45px">
+                      <br/>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Diff FCR</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;font-weight: bold;">Presentase Bonus</td>
+                      </tr>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">0.000 - (0.050)</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">15%</td>
+                      </tr>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">(0.051) - (0.100)</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">17%</td>
+                      </tr>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">(0.101) - (0.200)</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">20%</td>
+                      </tr>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">(0.201) - (0.300)</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">22%</td>
+                      </tr>
+                      <tr>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">&lt; (0.301)</td>
+                        <td style="height: 40px;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;padding-left : 2px;padding-right : 2px;text-align: center;vertical-align: middle;">25%</td>
+                      </tr>
+                    </table> -->
+                    <t t-if="o.template_kontrak_id.bonus_jenis_kandang_id">
+                      <table style="width:100%;">
+                        <tr style="font-size: 12pt;vertical-align: top;font-weight: bold;">
+                          <td colspan="3" style="text-align: justify;text-justify: inter-word;"><br/>&#160;&#160;&#160;&#160;&#160;&#160;<span t-esc="number_insentif[number_check_insentif]"/>. Insentif Close House</td>
+                        </tr>
+                        <t t-foreach="o.template_kontrak_id.bonus_jenis_kandang_id.bonus_jenis_kandang_type_ids" t-as="line">
+                          <t t-if="o.jenis_kandang == line.kandang_bjk">
+                            <tr style="font-size: 12pt;vertical-align: top;">
+                              <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1) Close House dan Semi Close House (Rp <span t-esc="line.nilai_bonus"/> /Ekor Masuk)</td>
+                            </tr>
+                          </t>
+                        </t>
+                        <t t-set="number_check_insentif" t-value="number_check_insentif + 1"/>
+                      </table>
+                    </t>
+                    <t t-if="o.template_kontrak_id">
+                      <t t-if="o.template_kontrak_id.bonus_daya_hidup_id">
+                        <table style="width:100%;">
+                          <tr style="font-size: 12pt;vertical-align: top;font-weight: bold;">
+                            <td colspan="3" style="text-align: justify;text-justify: inter-word;"><br/>&#160;&#160;&#160;&#160;&#160;&#160;<span t-esc="number_insentif[number_check_insentif]"/>. Bonus Daya Hidup (Rp/Ekr Panen)</td>
+                          </tr>
+                          <tr style="font-size: 12pt;vertical-align: top;">
+                            <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1) ><span t-esc="'%.0f'% o.template_kontrak_id.bonus_daya_hidup_id.presentasi_hidup"/>% : Rp <span t-esc="o.template_kontrak_id.bonus_daya_hidup_id.nilai_bonus"/></td>
+                          </tr>
+                        </table>
+                      </t>
+                    </t>
+                  </tr>
+                </p>
+                </t>
+                <tr>
+                  <p style="page-break-before:always;">
+                    <table style="width:100%;">
+                      <tr style="font-size: 12pt;vertical-align: top;font-weight: bold;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;<span t-esc="number_romawi4"/>. &#160;Kesepakatan Tambahanan</td>
+                      </tr>
+                      <t t-foreach="o.template_kontrak_id.klausul_id.klausul_kontrak_line" t-as="line">
+                        <tr>
+                          <td colspan="3" style="vertical-align:top;text-align: justify;text-justify: inter-word;"><span t-field="line.content"/></td>
+                        </tr>
+                      </t>
+                    </table>
+                  </p>
+                  <p style="page-break-before:always;">
+                    <table style="width:100%;">
+                      <tr style="font-size: 12pt;vertical-align: top;font-weight: bold;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;<span t-esc="number_romawi5"/>. &#160;Sanksi</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;&#160;&#160;1) Apabila terjadi <strong>selisih jumlah pakan</strong> antara catatan harian/recording <strong>PIHAK PERTAMA</strong> dengan catatan</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;realisasi pakan <strong>PIHAK KEDUA</strong> di akhir siklus (jumlah dalam karung), <strong>maka PIHAK PERTAMA</strong></td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>wajib mengganti</strong> dengan perhitungan:
+                        <br/><br/><center><strong>(Jumlah selisih pakan x harga kontrak) x 2</strong></center><br/></td>
+                      </tr>
+                    </table>
+                    <table style="width:100%;">
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;&#160;&#160;2) Apabila terbukti ada selisih jumlah ayam antara catatan harian/recording&#160;&#160;<strong>PIHAK PERTAMA</strong></td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;dengan catatan realisasi <strong>PIHAK KEDUA</strong> di realisasi (jumlah) akhir siklus atau jika <strong>PIHAK PERTAMA</strong></td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;terbukti menjual ayam sendiri atau melalui perantara (ayam panen sendiri),&#160;&#160;<strong>maka PIHAK PERTAMA</strong></td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>dikenakan sanksi</strong> dengan perhitungan:
+                          <br/><br/><center><strong>(Jumlah selisih ayam x berat badan x harga tertinggi) x 2</strong></center><br/><br/>
+                          &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Catatan</strong>: Harga tertinggi adalah harga yang lebih tinggi pada saat panen, apakah harga kontrak atau</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">
+                         &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;harga pasar yang lebih tinggi.</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;"><br/>Demikian Perjanjian kontrak kerjasama ini dibuat dengan sebenar-benarnya tanpa adanya tekanan atau paksaan dari pihak manapun.</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: right;"><span t-field="o.unit.name"/>, <span t-field="o.tanggal_surat"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</td>
+                      </tr>
+                      <tr>
+                        <table wdith="100%">
+                          <br/>
+                          <br/>
+                          <tr>
+                            <td width="60%"><center>PIHAK PERTAMA</center></td>
+                            <td width="60%"><center>PIHAK KEDUA</center></td>
+                          </tr>
+                          <tr>
+                            <td width="40%"><br/><br/></td>
+                            <td width="40%"><br/><br/></td>
+                          </tr>
+                          <tr>
+                            <td width="10%"/>
+                            <td width="40%"><br/><br/></td>
+                            <td width="40%"><br/><br/></td>
+                            <td width="10%"/>
+                          </tr>
+                          <tr>
+                            <td width="10%"/>
+                            <td width="40%"><br/><br/></td>
+                            <td width="40%"><br/><br/></td>
+                            <td width="10%"/>
+                          </tr>
+                          <tr>
+                            <td width="60%">
+                              <center>
+                                ( <span t-esc="name_peternak"/> )
+                                <br/>Peternak
+                              </center>
+                            </td>
+                            <td width="60%">
+                              <center>
+                                ( <span t-field="o.name_operasional"/> )
+                                <br/><span t-field="o.jabatan_operasional"/>
+                              </center>
+                            </td>
+                          </tr>
+                        </table>
+                      </tr>
+                    </table>
+                  </p>
+                  <!-- <p style="page-break-before:always;">
+                    <table style="width:100%;">
+                      <tr>
+                          <td colspan="6" style="text-align: justify;text-justify: inter-word;font-size: 13pt;font-weight: bold;text-align: center;">SURAT PERNYATAAN</td>
+                      </tr>
+                      <tr>
+                          <td colspan="6" style="text-align: justify;text-justify: inter-word;font-size: 13pt;text-align: center;">Nomor:</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="6" style="text-align: justify;text-justify: inter-word;"><br/>Yang bertandatangan di bawah ini, saya :</td>
+                      </tr>
+                      <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                        <td width="13%"><br/>&#160;&#160;&#160;&#160;Nama</td>
+                        <td width="2%"><br/>:</td>
+                        <td width="45%"><br/><span t-field="o.contact_peternak.name"/></td>
+                      </tr>
+                      <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                        <td width="13%">&#160;&#160;&#160;&#160;NIK</td>
+                        <td width="2%">:</td>
+                        <td width="45%"><span t-field="o.nik"/></td>
+                      </tr>
+                      <tr style="text-align: justify;text-justify: inter-word;font-size: 12pt;vertical-align: top;">
+                        <td width="13%">&#160;&#160;&#160;&#160;Alamat</td>
+                        <td width="2%">:</td>
+                        <td width="45%"><span t-field="o.alamat"/></td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;"><br/>Dengan ini menyatakan akan mengikuti segala saran dan larangan dari petugas lapangan PT Integrasi Teknologi Unggas.</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">Selain itu saya sanggup untuk mengganti kerugian dalam bermitra dengan PT Integrasi Teknologi Unggas, apabila:</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;1) Terjadi selisih jumlah ayam;</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;2) Terjadi selisih jumlah pakan;</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;3) Terjadi selisih yang mencolok antara prediksi FCR awal/sebelum panen dengan FCR actual setelah panen.</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(FCR lebih jelek dibanding prediksi panen);</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;4) Menambah pakan dan OVK dari luar;</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;5) Di akhir masa pemeliharaan ayam terjadi pembengkakan FCR ≥ 0,200 dari standar FCR Inti, dan</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;bukan disebabkan oleh kasus penyakit maupun force majeure lain.</td>
+                      </tr>
+                      <tr style="font-size: 12pt;vertical-align: top;">
+                        <td colspan="3" style="text-align: justify;text-justify: inter-word;"><br/>Demikian surat pernyataan ini saya buat dengan sebenar-benarnya, atas perhatian dan kerjasamanya saya ucapkan terima kasih.</td>
+                      </tr>
+                      <tr>
+                        <table wdith="100%">
+                          <br/>
+                          <br/>
+                          <br/>
+                          <br/>
+                          <tr>
+                            <td width="60%"><center/></td>
+                            <td width="50%"><center>Peternak</center></td>
+                          </tr>
+                          <tr>
+                            <td width="40%"><br/><br/></td>
+                            <td width="40%"><br/><br/></td>
+                          </tr>
+                          <tr>
+                            <td width="10%"/>
+                            <td width="40%"><br/><br/></td>
+                            <td width="40%"><br/><br/></td>
+                            <td width="10%"/>
+                          </tr>
+                          <tr>
+                            <td width="10%"/>
+                            <td width="40%"><br/><br/></td>
+                            <td width="40%"><br/><br/></td>
+                            <td width="10%"/>
+                          </tr>
+                          <tr>
+                            <td width="60%"/>
+                            <td width="50%"><center>(<span t-field="o.contact_peternak.name"/>)</center></td>
+                          </tr>
+                        </table>
+                      </tr>
+                    </table>
+                  </p> -->
+                </tr>
+              </table>
+            </div>
+            <div class="footer">
+              <table width="100%">
+                <tr>
+                  <td width="90%"/>
+                  <td width="10%">Halaman <span class="page"/></td>
+                </tr>
+              </table>
+            </div>
+          </t>
+        </t>
+      </template> 
+
+    </data>
+</odoo>

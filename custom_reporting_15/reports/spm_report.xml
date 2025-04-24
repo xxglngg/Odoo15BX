@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <template id="custom_reporting_15.report_template_print_custom_spm">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.basic_layout">
+                        <style>
+                            .tdhead_1 {
+                            border-top : 1px solid black;
+                            border-bottom : 1px solid black;
+                            padding : 5px;
+                            }
+                            .tdhead_2 {
+                            border-top : 1px solid black;
+                            border-bottom : 1px solid black;
+                            padding : 5px;
+                            font-weight: bold;
+                            }
+                            .tdso {
+                            border-top : 1px solid black;
+                            border-bottom : 1px solid black;
+                            border-left : 1px solid black;
+                            border-right : 1px solid black;
+                            padding : 5px;
+                            text-align: center;
+                            vertical-align: middle;
+                            font-weight: bold;
+                            }
+                            .tdso_2 {
+                            border-top : 1px solid black;
+                            border-bottom : 1px solid black;
+                            border-left : 1px solid black;
+                            border-right : 1px solid black;
+                            padding : 5px;
+                            }
+                        </style>
+                        <div class="header">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td rowspan="2" style="width:70%;font-size: 16pt;font-weight: bold">
+                                        <t t-if="o.company_id.parent_id">
+                                            <span t-field="o.company_id.parent_id.name"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span t-field="o.company_id.name"/>
+                                        </t>
+                                    </td>
+                                    <td style="width:10%;font-size: 10pt;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;"> Kode Doc.</td>
+                                    <td style="width:10%;font-size: 10pt;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black; padding-left:4px"> <span t-field="o.document_code"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:10%;font-size: 10pt;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black;"> Rev</td>
+                                    <td style="width:10%;font-size: 10pt;border-top : 1px solid black;border-bottom : 1px solid black;border-left : 1px solid black;border-right : 1px solid black; padding-left:4px"> <span t-field="o.rev_number"/></td>
+                                </tr>
+                            </table>
+                          </div>
+                        <div class="page">
+                            <p style="width:100%;font-size:16pt;font-weight:bold;text-align:center;">Surat Perintah Muat</p>
+                            <table style="width:100%;font-size:9pt;">
+                                <tr>
+                                    <td style="width:10%;" class="">Tanggal</td>
+                                    <td style="width:1%;" class="">:</td>
+                                    <td style="width:24%;" class="">
+                                        <span t-field="o.scheduled_date" t-options="{'format': 'dd MMMM YYYY'}"/>
+                                    </td>
+                                    <td style="width:20%;"></td>
+                                    <td style="width:10%;" class="">No. SPM</td>
+                                    <td style="width:1%;" class="">:</td>
+                                    <td style="width:34%;" class="">
+                                        <span t-field="o.name"/> (<span t-field="o.origin"/>)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:10%;" class="">Tujuan</td>
+                                    <td style="width:1%;" class="">:</td>
+                                    <td style="width:24%;" class="">
+                                        <span t-field="o.partner_id"/>
+                                    </td>
+                                    <td style="width:20%;"></td>
+                                    <td style="width:10%;" class="">No. Mobil</td>
+                                    <td style="width:1%;" class="">:</td>
+                                    <td style="width:34%;" class="">
+                                        <span t-field="o.license_plate"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table style="width:100%; font-size: 10px;">
+                                <tr>
+                                    <td rowspan="2" style="width:5%;" class="tdso">No</td>
+                                    <td rowspan="2" style="width:15%;" class="tdso">Nama Produk</td>
+                                    <td rowspan="2" style="width:10%;" class="tdso">Kode Produksi</td>
+                                    <td rowspan="2" style="width:5%;" class="tdso">Nomor Seri</td>
+                                    <td rowspan="2" style="width:5%;" class="tdso">Gudang</td>
+                                    <td rowspan="2" style="width:5%;" class="tdso">Palet</td>
+                                    <td colspan="3" style="width:15%;" class="tdso">Rencana</td>
+                                    <td colspan="3" style="width:15%;" class="tdso">Realisasi</td>
+                                    <td colspan="3" style="width:15%;" class="tdso">Sisa</td>
+                                    <td rowspan="2" style="width:10%;" class="tdso">Keterangan</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:5%;" class="tdso">Bag</td>
+                                    <td style="width:5%;" class="tdso">Pcs</td>
+                                    <td style="width:5%;" class="tdso">Berat</td>
+                                    <td style="width:5%;" class="tdso">Bag</td>
+                                    <td style="width:5%;" class="tdso">Pcs</td>
+                                    <td style="width:5%;" class="tdso">Berat</td>
+                                    <td style="width:5%;" class="tdso">Bag</td>
+                                    <td style="width:5%;" class="tdso">Pcs</td>
+                                    <td style="width:5%;" class="tdso">Berat</td>
+                                </tr>
+                                <t t-set="all_total_bag" t-value="0"/>
+                                <t t-set="all_total_pcs" t-value="0"/>
+                                <t t-set="all_total_qty" t-value="0"/>
+                                <t t-foreach="o.move_ids_without_package" t-as="move_id"> 
+                                    <t t-set="total_bag" t-value="0"/>
+                                    <t t-set="total_pcs" t-value="0"/>
+                                    <t t-set="total_qty" t-value="0"/>
+                                   
+                                    <t t-set="total_bag" t-value="total_bag + move_id.bag_qty"/>
+                                    <t t-set="total_pcs" t-value="total_pcs + move_id.sh_sec_qty"/>
+                                    <t t-set="total_qty" t-value="total_qty + move_id.quantity_done"/>
+                                    <t t-set="all_total_bag" t-value="all_total_bag + move_id.bag_qty"/>
+                                    <t t-set="all_total_pcs" t-value="all_total_pcs + move_id.sh_sec_qty"/>
+                                    <t t-set="all_total_qty" t-value="all_total_qty + move_id.quantity_done"/>
+                                    <tr>
+                                        <td class="tdso_2">
+                                            <span t-esc="move_id_index+1"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="move_id.product_id.name"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                 
+                                        </td>
+                                        <td class="tdso_2">
+                      
+                                        </td>
+                                        <td class="tdso_2">
+               
+                                        </td>
+                                        <td class="tdso_2">
+                                            
+                                        </td>
+                                        <td class="tdso_2">
+                                            <t t-if="move_id.bag_qty">
+                                                <span t-esc="'{0:,.2f}'.format(move_id.bag_qty)"/>
+                                            </t>
+                                            <t t-else=""> </t>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <t t-if="move_id.sh_sec_qty">
+                                                <span t-esc="'{0:,.2f}'.format(move_id.sh_sec_qty)"/>
+                                            </t>
+                                            <t t-else=""> </t>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-esc="'{0:,.2f}'.format(move_id.quantity_done)"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            
+                                        </td>
+                                        <td class="tdso_2">
+                                            
+                                        </td>
+                                        <td class="tdso_2">
+                                            
+                                        </td>
+                                        <td class="tdso_2">
+                                            
+                                        </td>
+                                        <td class="tdso_2">
+                                            
+                                        </td>
+                                        <td class="tdso_2">
+                                            
+                                        </td>
+                                        <td class="tdso_2">
+                                        </td>
+                                        <!-- <td class="tdso_2">
+                                            <span t-field="move_id.price_unit" t-options="{'widget': 'monetary'}"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <t t-foreach="move_id.tax_id" t-as="tax">
+                                                <span t-field="tax.name"/>
+                                            </t>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="move_id.price_subtotal"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="move_id.date_received"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="move_id.return_address"/>
+                                        </td>
+                                        <td class="tdso_2">
+                                            <span t-field="move_id.name"/>
+                                        </td> -->
+                                    </tr>
+                            
+                                    <t t-if="total_bag or total_pcs or total_qty">
+                                        <tr>
+                                            <!-- <td class="tdso_2" style="text-align:center;" colspan="2">Total</td>
+                                            <td class="tdso_2"><t t-esc="'%.2f'% total_product_uom_qty"/></td> -->
+                                            <td colspan="6" class="tdso_2">Sub Total</td>
+                                            <td class="tdso_2">
+                                            <span t-esc="'{0:,.2f}'.format(total_bag)"/>
+                                            </td>
+                                            <td class="tdso_2">
+                                            <span t-esc="'{0:,.2f}'.format(total_pcs)"/>
+                                            </td>
+                                            <td class="tdso_2">
+                                            <span t-esc="'{0:,.2f}'.format(total_qty)"/>
+                                            </td>
+                                            <td class="tdso_2">
+                                            </td>
+                                            <td class="tdso_2">
+                                            </td>
+                                            <td class="tdso_2">
+                                            </td>
+                                            <td class="tdso_2">
+                                            </td>
+                                            <td class="tdso_2">
+                                            </td>
+                                            <td class="tdso_2">
+                                            </td>
+                                            <td class="tdso_2">
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-else=""></t>
+                                </t>
+                                <tr>
+                                    <td colspan="6" class="tdso_2">Total</td>
+                                    <td class="tdso_2">
+                                    <span t-esc="'{0:,.2f}'.format(all_total_bag)"/>
+                                    </td>
+                                    <td class="tdso_2">
+                                    <span t-esc="'{0:,.2f}'.format(all_total_pcs)"/>
+                                    </td>
+                                    <td class="tdso_2">
+                                    <span t-esc="'{0:,.2f}'.format(all_total_qty)"/>
+                                    </td>
+                                    <td class="tdso_2">
+                                    </td>
+                                    <td class="tdso_2">
+                                    </td>
+                                    <td class="tdso_2">
+                                    </td>
+                                    <td class="tdso_2">
+                                    </td>
+                                    <td class="tdso_2">
+                                    </td>
+                                    <td class="tdso_2">
+                                    </td>
+                                    <td class="tdso_2">
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <table style="width:100%; font-size: 10px;">
+                                <tr>
+                                    <td style="width:25%; text-align: center;">Team Order Process</td>
+                                    <td style="width:25%; text-align: center;">Leader</td>
+                                    <td style="width:25%; text-align: center;">Team Assembly</td>
+                                    <td style="width:25%; text-align: center;">Team Dispatch</td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <table style="width:100%; font-size: 10px;">
+                                <tr>
+                                    <td style="width:25%; text-align: center;"><span t-field="o.user_id"/></td>
+                                    <td style="width:25%; text-align: center;"></td>
+                                    <td style="width:25%; text-align: center;"></td>
+                                    <td style="width:25%; text-align: center;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="footer">
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_print_custom_sale_order">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="custom_reporting_15.report_template_print_custom_sale_order"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

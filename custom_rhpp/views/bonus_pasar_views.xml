@@ -1,0 +1,90 @@
+<odoo>
+  <data>
+
+    <record id="view_bonus_pasar_search" model="ir.ui.view">
+      <field name="name">bonus.pasar.search</field>
+      <field name="model">bonus.pasar</field>
+      <field name="arch" type="xml">
+          <search string="Bonus Pasar">
+              <field name="name"/>
+              <field name="unit_bp"/>
+              <separator/>
+                <filter name="active" string="Active" domain="[('active','=',True)]"/>
+                <filter name="inactive" string="Inactive" domain="[('active','=',False)]"/>
+              <group expand="0" string="Group by" colspan="16">
+                  <filter name="name" string="Name" context="{'group_by':'name'}"/>
+                  <filter name="unit_bp" string="Unit" context="{'group_by':'unit_bp'}"/>
+              </group>
+          </search>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="bonus_pasar_list">
+      <field name="name">Bonus Pasar</field>
+      <field name="model">bonus.pasar</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="unit_bp" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+          <field name="date" />
+          <field name="active" widget="boolean_toggle"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="bonus_pasar_form">
+      <field name="name">Bonus Pasar</field>
+      <field name="model">bonus.pasar</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <div class="oe_title">
+              <h1>
+                <field name="name"/>
+              </h1>
+            </div>
+            <group>
+              <group>
+                <field name="unit_bp" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                <field name="active" widget="boolean_toggle"/>
+              </group>
+              <group>
+                <field name="date" />
+              </group>
+            </group>
+            <notebook>
+                <page string="Operations" name="operations">
+                  <field name="bonus_pasar_line">
+                    <tree editable="bottom">
+                      <field name="diff_fcr_start"/>
+                      <field name="diff_fcr_end"/>
+                      <field name="presentase_bonus"/>
+                    </tree>
+                  </field>
+                </page>
+            </notebook>
+          </sheet>
+          <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers"/>
+              <field name="message_ids" widget="mail_thread"/>
+          </div>
+
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="bonus_pasar_action_window">
+      <field name="name">Bonus Pasar</field>
+      <field name="res_model">bonus.pasar</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- actions -->
+
+    <menuitem name="Bonus Pasar" id="custom_rhpp.menu_list_bp" parent="custom_rhpp.menu_config_rhpp"
+              action="bonus_pasar_action_window" sequence="6"/>
+              
+  </data>
+</odoo>

@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+          <record id="view_account_analytic_account_form_inherit" model="ir.ui.view">
+            <field name="name">view.account.analytic.account.form.inherit</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='135']" position="before">
+                    <button class="oe_stat_button" type="object" name="action_analysis_rhpp" icon="fa-file-text-o">
+                        <field string="RHPP" name="analysis_rhpp_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_stat_button" type="action" name="899" icon="fa-usd">
+                        <div class="o_form_field o_stat_info">
+                            <span class="o_stat_text">Budget</span>
+                            <span class="o_stat_value">
+                                <field name="total_planned_amount" widget="monetary"/>
+                            </span>
+                        </div>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

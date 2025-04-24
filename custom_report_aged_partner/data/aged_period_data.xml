@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="1">
+        <record id="custom_report_aged_partner.period1" model="account.aged.period">
+            <field name="name">1 - 7</field>
+            <field name="sequence">1</field>
+            <field name="period_start">1</field>
+            <field name="period_end">7</field>
+        </record>
+        <record id="custom_report_aged_partner.period2" model="account.aged.period">
+            <field name="name">8 - 15</field>
+            <field name="sequence">2</field>
+            <field name="period_start">8</field>
+            <field name="period_end">15</field>
+        </record>
+        <record id="custom_report_aged_partner.period3" model="account.aged.period">
+            <field name="name">16 - 30</field>
+            <field name="sequence">3</field>
+            <field name="period_start">16</field>
+            <field name="period_end">30</field>
+        </record>
+        <record id="custom_report_aged_partner.period4" model="account.aged.period">
+            <field name="name">31 - 60</field>
+            <field name="sequence">4</field>
+            <field name="period_start">31</field>
+            <field name="period_end">60</field>
+        </record>
+        <record id="custom_report_aged_partner.period5" model="account.aged.period">
+            <field name="name">Older</field>
+            <field name="sequence">5</field>
+            <field name="period_start">60</field>
+        </record>
+    </data>
+</odoo>

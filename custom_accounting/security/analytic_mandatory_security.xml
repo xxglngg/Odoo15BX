@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="group_analytic_mandatory" model="res.groups">
+            <field name="name">Access Analytic Account Mandatory</field>
+            <field name="comment">The user access analytic account mandatory.</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_picking_line_wizard_user,access_picking_line_wizard_user,model_picking_line_wizard,base.group_user,1,1,1,1
+access_company_product_rel_admin,access_company_product_rel_admin,model_company_product_rel,stock.group_stock_manager,1,1,1,1
+access_company_product_rel_user,access_company_product_rel_user,model_company_product_rel,base.group_user,1,0,0,0

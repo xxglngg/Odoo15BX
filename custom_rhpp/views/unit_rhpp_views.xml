@@ -1,0 +1,76 @@
+<odoo>
+  <data>
+    
+    <record id="unit_rhpp_search" model="ir.ui.view">
+      <field name="name">unit.rhpp.search</field>
+      <field name="model">unit.rhpp</field>
+      <field name="arch" type="xml">
+          <search string="Unit">
+              <field name="short_code"/>
+              <field name="name"/>
+              <field name="region"/>
+              <group expand="0" string="Group by" colspan="16">
+                  <filter name="short_code" string="Short Code" context="{'group_by':'short_code'}"/>
+                  <filter name="name" string="Name" context="{'group_by':'name'}"/>
+                  <filter name="region" string="Region" context="{'group_by':'region'}"/>
+              </group>
+          </search>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="unit_rhpp_list">
+      <field name="name">Master Unit</field>
+      <field name="model">unit.rhpp</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="short_code"/>
+          <field name="name"/>
+          <field name="region"/>
+          <field name="color" widget="color_picker"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="unit_rhpp_form">
+      <field name="name">Master Unit</field>
+      <field name="model">unit.rhpp</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <div class="oe_title">
+              <h1>
+                <field name="short_code"/>
+              </h1>
+            </div>
+            <group>
+              <group>
+                <field name="name"/>
+                <field name="region"/>
+                <field name="color" widget="color_picker"/>
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers"/>
+              <field name="message_ids" widget="mail_thread"/>
+          </div>
+
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="unit_rhpp_action_window">
+      <field name="name">Daftar Unit</field>
+      <field name="res_model">unit.rhpp</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- actions -->
+
+    <menuitem name="Daftar Unit" id="custom_rhpp.menu_list_unit_rhpp" parent="custom_rhpp.menu_root_contact_rhpp"
+              action="unit_rhpp_action_window" sequence="5"/>
+              
+  </data>
+</odoo>

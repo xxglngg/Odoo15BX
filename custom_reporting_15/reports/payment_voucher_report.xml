@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_payment_voucher">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="custom_reporting_15.report_template_payment_voucher"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="custom_reporting_15.report_template_payment_voucher">
+            <t t-call="web.basic_layout">
+                <style>
+                    .table-voucher {
+                    border-top : 1px solid black;
+                    border-bottom : 1px solid black;
+                    border-left : 1px solid black;
+                    border-right : 1px solid black;
+                    padding : 3px;
+                    }
+                </style>
+                <table width="100%">
+                    <tr>
+                        <td colspan="2" class="table-voucher">
+                            <table width="100%">
+                                <tr>
+                                    <td width="30%">
+                                        <center>
+                                            <t t-if="o.company_id.parent_id">
+                                                <img t-att-src="image_data_uri(o.company_id.parent_id.logo)" height="60px"/>
+                                            </t>
+                                            <t t-else="">
+                                                <img t-att-src="image_data_uri(o.company_id.logo)" height="60px"/>
+                                            </t>
+                                        </center>
+                                    </td>
+                                    <td width="70%" style="font-size: 14px;font-weight:bold;"><span t-esc="o.company_id.name"/></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td colspan="4" class="table-voucher" style="font-size: 12px;font-weight:bold;padding: 15px;">
+                            <table width="100%">
+                                <tr>
+                                    <td width="25%">Payment Voucher</td>
+                                    <td width="5%">:</td>
+                                    <td width="70%">KAS / BANK</td>
+                                </tr>
+                                <tr>
+                                    <td>No Referensi</td>
+                                    <td>:</td>
+                                    <td><span t-esc="o.ref"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Tanggal</td>
+                                    <td>:</td>
+                                    <td><span t-esc="o.date.strftime('%d %b %Y')"/></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="table-voucher" style="font-size: 12px;padding: 15px;">
+                            <table width="100%">
+                                <tr>
+                                    <td height="35px">Jumlah</td>
+                                </tr>
+                                <tr>
+                                    <td height="35px">Dibayarkan Kepada</td>
+                                </tr>
+                                <tr>
+                                    <td height="35px">Keperluan</td>
+                                </tr>
+                                <tr>
+                                    <td height="100px">Tanggal Jatuh Tempo</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td colspan="4" class="table-voucher" style="font-size: 12px;vertical-align: text-top;padding: 15px;">
+                            <table width="100%">
+                                <tr>
+                                    <td height="35px"><span t-field="o.currency_id.symbol" /> <span t-esc="o.amount" t-options='{"widget": "float", "precision": 2}'/></td>
+                                </tr>
+                                <tr>
+                                    <td height="35px"><span t-field="o.partner_id.name" /></td>
+                                </tr>
+                                <tr>
+                                    <td height="35px"><span t-field="o.ref" /></td>
+                                </tr>
+                                <tr>
+                                    <td height="100px"><t t-if="o.invoice_date_due"><span t-esc="o.invoice_date_due.strftime('%d %b %Y')"/></t></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="table-voucher" style="font-size: 12px;">Yogyakarta,</td>
+                    </tr>
+                    <tr>
+                        <td class="table-voucher" width="22%" style="font-size: 12px;font-weight:bold;">Pemohon</td>
+                        <td colspan="2" class="table-voucher" width="24%" style="font-size: 12px;font-weight:bold;">Verifikasi</td>
+                        <td colspan="2" class="table-voucher" width="32%" style="font-size: 12px;font-weight:bold;">Jurnal Pembukuan</td>
+                        <td class="table-voucher" width="22%" style="font-size: 12px;font-weight:bold;">Penerimaan Pembayaran</td>
+                    </tr>
+                    <tr>
+                        <td class="table-voucher" rowspan="7"></td>
+                        <td colspan="2" class="table-voucher" rowspan="7" style="font-size: 12px;">
+                            <br/><br/><br/><br/><center>FAT</center>
+                        </td>
+                        <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;">Debit</td>
+                        <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;">Credit</td>
+                        <td class="table-voucher" rowspan="7"></td>
+                    </tr>
+                    <t t-set="arr_debit" t-value="o.line_ids.filtered(lambda x:x.credit != 0)"/>
+                    <t t-set="arr_credit" t-value="o.line_ids.filtered(lambda x:x.debit != 0)"/>    
+                    <t t-if="len(arr_debit) > 0 and len(arr_credit) > 0">
+                        <tr>
+                            <t t-set="in_debit" t-value="0"/>
+                            <t t-set="in_credit" t-value="0"/>
+                            <t t-foreach="arr_debit" t-as="line">
+                                <t t-if="in_debit == 0"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_debit" t-value="in_debit + 1"/>
+                            </t>
+                            <t t-foreach="arr_credit" t-as="line">
+                                <t t-if="in_credit == 0"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_credit" t-value="in_credit + 1"/>
+                            </t>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) > 0 and len(arr_debit) == 0">
+                        <tr>
+                            <t t-set="in_debit" t-value="0"/>
+                            <t t-foreach="arr_debit" t-as="line">
+                                <t t-if="in_debit == 0"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_debit" t-value="in_debit + 1"/>
+                            </t>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) == 0 and len(arr_credit) > 0">
+                        <tr>
+                            <t t-set="in_credit" t-value="0"/>
+                            <t t-foreach="arr_credit" t-as="line">
+                                <t t-if="in_credit == 0"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_credit" t-value="in_credit + 1"/>
+                            </t>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) == 0 and len(arr_credit) == 0">
+                        <tr>
+                            <td class="table-voucher" height="7px"></td>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) > 1 and len(arr_credit) > 1">
+                        <tr>
+                            <t t-set="in_debit_1" t-value="0"/>
+                            <t t-set="in_credit_1" t-value="0"/>
+                            <t t-foreach="arr_debit" t-as="line">
+                                <t t-if="in_debit_1 == 1"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_debit_1" t-value="in_debit_1 + 1"/>
+                            </t>
+                            <t t-foreach="arr_credit" t-as="line">
+                                <t t-if="in_credit_1 == 1"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_credit_1" t-value="in_credit_1 + 1"/>
+                            </t>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) > 1 and len(arr_credit) &lt;= 1">
+                        <tr>
+                            <t t-set="in_debit" t-value="0"/>
+                            <t t-foreach="arr_debit" t-as="line">
+                                <t t-if="in_debit == 1"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_debit" t-value="in_debit + 1"/>
+                            </t>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) &lt;= 1 and len(arr_credit) > 1">
+                        <tr>
+                            <t t-set="in_credit" t-value="0"/>
+                            <t t-foreach="arr_credit" t-as="line">
+                                <t t-if="in_credit == 1"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_credit" t-value="in_credit + 1"/>
+                            </t>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) &lt; 2 and len(arr_credit) &lt; 2">
+                        <tr>
+                            <td class="table-voucher" height="7px"></td>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+
+                    <t t-if="len(arr_debit) > 2 and len(arr_credit) > 2">
+                        <tr>
+                            <t t-set="in_debit" t-value="0"/>
+                            <t t-set="in_credit" t-value="0"/>
+                            <t t-foreach="arr_debit" t-as="line">
+                                <t t-if="in_debit == 2"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_debit" t-value="in_debit + 1"/>
+                            </t>
+                            <t t-foreach="arr_credit" t-as="line">
+                                <t t-if="in_credit == 2"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_credit" t-value="in_credit + 1"/>
+                            </t>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) > 2 and len(arr_credit) &lt;= 2">
+                        <tr>
+                            <t t-set="in_debit" t-value="0"/>
+                            <t t-foreach="arr_debit" t-as="line">
+                                <t t-if="in_debit == 2"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_debit" t-value="in_debit + 1"/>
+                            </t>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) &lt;= 2 and len(arr_credit) > 2">
+                        <tr>
+                            <t t-set="in_credit" t-value="0"/>
+                            <t t-foreach="arr_credit" t-as="line">
+                                <t t-if="in_credit == 2"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_credit" t-value="in_credit + 1"/>
+                            </t>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) &lt; 3 and len(arr_credit) &lt; 3">
+                        <tr>
+                            <td class="table-voucher" height="7px"></td>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                    
+                    <t t-if="len(arr_debit) > 3 and len(arr_credit) > 3">
+                        <tr>
+                            <t t-set="in_debit" t-value="0"/>
+                            <t t-set="in_credit" t-value="0"/>
+                            <t t-foreach="arr_debit" t-as="line">
+                                <t t-if="in_debit == 3"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_debit" t-value="in_debit + 1"/>
+                            </t>
+                            <t t-foreach="arr_credit" t-as="line">
+                                <t t-if="in_credit == 3"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_credit" t-value="in_credit + 1"/>
+                            </t>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) >= 3 and len(arr_credit) &lt; 3">
+                        <tr>
+                            <t t-set="in_debit" t-value="0"/>
+                            <t t-foreach="arr_debit" t-as="line">
+                                <t t-if="in_debit == 3"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_debit" t-value="in_debit + 1"/>
+                            </t>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) &lt; 3 and len(arr_credit) >= 3">
+                        <tr>
+                            <t t-set="in_credit" t-value="0"/>
+                            <t t-foreach="arr_credit" t-as="line">
+                                <t t-if="in_credit == 3"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_credit" t-value="in_credit + 1"/>
+                            </t>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) &lt; 4 and len(arr_credit) &lt; 4">
+                        <tr>
+                            <td class="table-voucher" height="7px"></td>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+
+                    <t t-if="len(arr_debit) > 4 and len(arr_credit) > 4">
+                        <tr>
+                            <t t-set="in_debit" t-value="0"/>
+                            <t t-set="in_credit" t-value="0"/>
+                            <t t-foreach="arr_debit" t-as="line">
+                                <t t-if="in_debit == 4"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_debit" t-value="in_debit + 1"/>
+                            </t>
+                            <t t-foreach="arr_credit" t-as="line">
+                                <t t-if="in_credit == 4"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_credit" t-value="in_credit + 1"/>
+                            </t>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) >= 4 and len(arr_credit) &lt; 4">
+                        <tr>
+                            <t t-set="in_debit" t-value="0"/>
+                            <t t-foreach="arr_debit" t-as="line">
+                                <t t-if="in_debit == 4"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_debit" t-value="in_debit + 1"/>
+                            </t>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) &lt; 4 and len(arr_credit) >= 4">
+                        <tr>
+                            <t t-set="in_credit" t-value="0"/>
+                            <t t-foreach="arr_credit" t-as="line">
+                                <t t-if="in_credit == 4"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_credit" t-value="in_credit + 1"/>
+                            </t>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) &lt; 5 and len(arr_credit) &lt; 5">
+                        <tr>
+                            <td class="table-voucher" height="7px"></td>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+
+                    <t t-if="len(arr_debit) > 5 and len(arr_credit) > 5">
+                        <tr>
+                            <t t-set="in_debit" t-value="0"/>
+                            <t t-set="in_credit" t-value="0"/>
+                            <t t-foreach="arr_debit" t-as="line">
+                                <t t-if="in_debit == 5"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_debit" t-value="in_debit + 1"/>
+                            </t>
+                            <t t-foreach="arr_credit" t-as="line">
+                                <t t-if="in_credit == 5"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_credit" t-value="in_credit + 1"/>
+                            </t>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) >= 5 and len(arr_credit) &lt; 5">
+                        <tr>
+                            <t t-set="in_debit" t-value="0"/>
+                            <t t-foreach="arr_debit" t-as="line">
+                                <t t-if="in_debit == 5"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_debit" t-value="in_debit + 1"/>
+                            </t>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) &lt; 5 and len(arr_credit) >= 5">
+                        <tr>
+                            <t t-set="in_credit" t-value="0"/>
+                            <t t-foreach="arr_credit" t-as="line">
+                                <t t-if="in_credit == 5"> 
+                                    <td class="table-voucher" height="7px" style="font-size: 7px;font-weight:bold;"><span t-esc="line.account_id.code"/>-<span t-esc="line.account_id.name"/></td>
+                                </t>
+                                <t t-set="in_credit" t-value="in_credit + 1"/>
+                            </t>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                    <t t-if="len(arr_debit) &lt; 6 and len(arr_credit) &lt; 6">
+                        <tr>
+                            <td class="table-voucher" height="7px"></td>
+                            <td class="table-voucher" height="7px"></td>
+                        </tr>
+                    </t>
+                </table>
+            </t>
+        </template>
+    </data>
+</odoo>

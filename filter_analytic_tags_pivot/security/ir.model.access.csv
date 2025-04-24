@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_filter_analytic_tags_pivot_filter_analytic_tags_pivot,filter_analytic_tags_pivot.filter_analytic_tags_pivot,model_filter_analytic_tags_pivot_filter_analytic_tags_pivot,base.group_user,1,1,1,1

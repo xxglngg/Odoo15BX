@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="account_report_statement_bank.template_voucher">
+
+                <t t-call="web.html_container">
+                    <t t-call="account_report_statement_bank.custom_internal_layout">
+
+                        <t t-foreach="docs" t-as="o">
+                            <t t-set="j" t-value="0"/>
+                            <t t-foreach="range(o.total_partner)" t-as="total">
+
+                                <div class="page" style="page-break-after:always">
+                                    <style>
+                                        .tdhead_1 {
+                                            font-weight: bold;
+                                        }
+                                        .td_head_po_line {
+                                        border-top : 1px solid black;
+                                        border-bottom : 1px solid black;
+                                        border-left : 1px solid black;
+                                        border-right : 1px solid black;
+                                        padding-left : 2px;
+                                        padding-right : 2px;
+                                        text-align: center;
+                                        vertical-align: middle;
+                                        font-weight: bold;
+                                        }
+                                        .td_po_line {
+                                        border-top : 1px solid black;
+                                        border-bottom : 1px solid black;
+                                        border-left : 1px solid black;
+                                        border-right : 1px solid black;
+                                        padding-left : 2px;
+                                        padding-right : 2px;
+                                        text-align: center;
+                                        vertical-align: middle;
+                                        }
+                                        .td_bot_po_line {
+                                        border-top : 1px solid black;
+                                        border-bottom : 1px solid black;
+                                        border-left : 1px solid black;
+                                        border-right : 1px solid black;
+                                        padding : 3px;
+                                        text-align: center;
+                                        vertical-align: middle;
+                                        font-weight: bold;
+                                        }
+                                        .tdso_2 {
+                                        border-top : 1px solid black;
+                                        border-bottom : 1px solid black;
+                                        border-left : 1px solid black;
+                                        border-right : 1px solid black;
+                                        padding : 3px;
+                                        }
+                                        hr.class-2 {
+                                        border-top: 3px double #000000;
+                                        }
+                                        .terbilang{
+                                        border-top : 1px solid black;
+                                        border-bottom : 1px solid black;
+                                        border-left : 1px solid black;
+                                        border-right : 1px solid black;
+                                        padding : 3px;
+                                        text-align: center;
+                                        font-style:italic;
+                                        }
+                                        .td_ttd{
+                                        border-top : 1px solid black;
+                                        border-bottom : 1px solid black;
+                                        border-left : 1px solid black;
+                                        border-right : 1px solid black;
+                                        padding : 2px;
+                                        text-align: center;
+                                        vertical-align: middle;
+                                        font-weight: bold;
+                                        }
+                                    </style>
+
+                                    <table style="top:0px;width:100%;border-collapse: collapse;" cellspacing='0' cellpading="0">
+                                        <tr>
+                                            <td style="width:2%">
+                                                <t t-if="o.company_id.parent_id">
+                                                    <img t-att-src="image_data_uri(o.company_id.parent_id.logo)" style="height:100px;width:100px;position:relative;padding:0;margin:0 auto;top:20px;margin-left:20px"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <img t-att-src="image_data_uri(o.company_id.logo)" style="height:100px;width:100px;position:relative;padding:0;margin:0 auto;top:20px;margin-left:20px"/>
+                                                </t>
+                                            </td>
+
+                                            <td style="width:70%;border-collapse: collapse;">
+                                                <table style="padding:0;margin:0;border-collapse: collapse;position:relative;top:20px" cellspacing='0' cellpading="0">
+                                                    <tr>
+                                                        <td style="font-weight: bold;font-size: 12pt;vertical-align: top" class="tdhead_1" colspan="4">
+                                                            <b><h5><span t-field="o.company_id.parent_id.name"/></h5></b>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td style="width:37%;vertical-align: top;" class="tdhead_1">
+                                                            <span t-field="o.company_id.parent_id.street"/>
+                                                            <span t-field="o.company_id.parent_id.street2"/>
+                                                            <span t-field="o.company_id.parent_id.city"/>
+                                                            <span t-field="o.company_id.parent_id.state_id.name"/>
+                                                            Telp/fax : <span t-field="o.company_id.parent_id.phone"/>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                                    <br/>
+
+
+                                    <table style="width:100%;text-align:center;font-weight:bold;">
+                                        <tr>
+                                            <td><h1> Payment Voucher </h1></td>
+                                        </tr>
+                                        <tr>
+                                            <td> <span t-field="o.name"/> </td>
+
+                                        </tr>
+                                    </table>
+                                    <table>
+                                        <tr>
+                                            <td rowspan="2">
+                                                Payment To :
+                                            </td>
+                                            <td>
+                                                <div style="position:relative;left:20px">
+                                                    <t t-if="len(o.data_partner_ids) > 0">
+                                                    <t t-if="o.data_partner_ids[j].name">
+                                                        <span t-field="o.data_partner_ids[j].name"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span> Various </span>
+                                                    </t>
+                                                    </t>
+                                                    <t t-if="len(o.data_partner_ids) == 0">
+                                                      <span> Various </span>
+                                                    </t>
+
+
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div style="position:relative;left:20px">
+                                                    <strong>
+                                                        <span t-field="o.journal_id"/>
+                                                        <t t-if="o.journal_id.bank_account_id"> -
+                                                            <span t-field="o.journal_id.bank_account_id"/>
+                                                        </t>
+                                                        <t t-if="o.journal_id.code"> -
+                                                            <span t-field="o.journal_id.code"/>
+                                                        </t>
+                                                    </strong>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <br/>
+
+                                    <table style="position:relative;top:10px;font-size:12pt;border:solid 2px black;table-layout: fixed;width: 100%;border-spacing: 15px">
+                                        <tr>
+                                            <td style="font-weight:bold;text-align:center;border:black solid 2px;width:5%;padding:5px">
+                                                <span style="font-weight:bold"><h5> No. </h5></span>
+                                            </td>
+                                            <td style="font-weight:bold;text-align:center;border:black solid 2px;width:15%;padding:5px">
+                                                <span style="font-weight:bold"> <h5>Transaction Date </h5></span>
+                                            </td>
+                                            <td style="font-weight:bold;text-align:center;border:black solid 2px;width:15%;padding:5px">
+                                                <span style="font-weight:bold"><h5> GL Account </h5></span>
+                                            </td>
+                                            <td style="font-weight:bold;text-align:center;border:black solid 2px;width:45%;padding:5px">
+                                                <span style="font-weight:bold"><h5>Description </h5></span>
+                                            </td>
+                                            <td style="font-weight:bold;text-align:center;border:black solid 2px;width:20%;padding:5px">
+                                                <span style="font-weight:bold"><h5>Amount (Rp)</h5></span>
+                                            </td>
+                                        </tr>
+
+                                        <t t-if="len(o.line_ids.ids) > 1">
+                                            <t t-if="len(o.data_partner_ids) > 0">
+                                            <t t-if="o.data_partner_ids[j].id">
+                                                <t t-set="total_amount" t-value="0"/>
+                                                <t t-set="i" t-value="1"/>
+                                                <t t-foreach="o.line_ids" t-as="line">
+                                                    <t t-if="o.data_partner_ids[j].id == line.partner_id.id">
+
+                                                        <tr>
+                                                            <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+                                                                <span t-esc="i"/>
+                                                            </td>
+                                                            <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+                                                                <span t-field="o.date"  t-options='{"format": "dd-MMM-yyyy"}'/>
+                                                            </td>
+                                                            <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+                                                                <t t-if="line.partner_id">
+                                                                    <span t-field="line.partner_id.name" />
+                                                                </t>
+                                                                <t t-else="">
+                                                                    Various
+                                                                </t>
+                                                            </td>
+                                                            <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+                                                                <span t-field="line.payment_ref"/>
+                                                            </td>
+                                                            <td style="font-weight:bold;text-align:right;border:black solid 2px;padding:5px">
+                                                                <t t-if="line.amount &lt; 0">
+                                                                    <t t-set="amount" t-value="line.amount * -1"/>
+                                                                    Rp. <span t-esc="amount" t-options='{"widget": "float", "precision": 2}'/>
+                                                                </t>
+                                                                <t t-else="">
+                                                                    <t t-set="amount" t-value="line.amount * 1"/>
+                                                                    Rp. <span t-esc="amount" t-options='{"widget": "float", "precision": 2}'/>
+                                                                </t>
+
+                                                                <t t-set="total_amount" t-value="total_amount + amount"/>
+
+                                                            </td>
+                                                        </tr>
+
+                                                        <t t-set="i" t-value="i+1"/>
+                                                    </t>
+                                                </t>
+                                                <tr>
+                                                    <td colspan="4" style="font-weight:bold;text-align:right;border:black solid 2px;padding:5px"> Amount To Be Paid</td>
+                                                    <td style="font-weight:bold;text-align:right;border:black 1px solid;padding:5px">
+
+                                                        Rp. <span t-esc="total_amount"  t-options='{"widget": "float", "precision": 2}'/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            </t>
+                                            <t t-else="">
+                                                <t t-set="total_amount" t-value="0"/>
+                                                
+                                                <t t-set="i" t-value="1"/>
+                                                <t t-foreach="o.line_ids" t-as="line">
+
+                                                    <tr>
+                                                        <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+                                                            <span t-esc="i"/>
+                                                        </td>
+                                                        <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+                                                            <span t-field="o.date" t-options="{&quot;format&quot;: &quot;dd-MMM-yyyy&quot;}"/>
+                                                        </td>
+                                                        <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+
+                                                            Various
+
+                                                        </td>
+                                                        <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+                                                            <span t-field="line.payment_ref"/>
+                                                        </td>
+                                                        <td style="font-weight:bold;text-align:right;border:black solid 2px;padding:5px">
+                                                            <t t-if="line.amount &lt; 0">
+                                                                <t t-set="amount" t-value="line.amount * -1"/>
+                                                                Rp. <span t-esc="amount" t-options='{"widget": "float", "precision": 2}'/>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <t t-set="amount" t-value="line.amount * 1"/>
+                                                                Rp. <span t-esc="amount" t-options='{"widget": "float", "precision": 2}'/>
+                                                            </t>
+                                                            <t t-set="total_amount" t-value="total_amount + amount"/>
+                                                        </td>
+                                                    </tr>
+
+                                                    <t t-set="i" t-value="i+1"/>
+                                                </t>
+                                                <tr>
+                                                    <td colspan="4" style="font-weight:bold;text-align:right;border:black solid 2px;padding:5px"> Amount To Be Paid</td>
+                                                    <td style="font-weight:bold;text-align:right;border:black 1px solid;padding:5px">
+
+                                                        Rp. <span t-esc="total_amount"  t-options='{"widget": "float", "precision": 2}'/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+
+                                        </t>
+                                        <t t-else="">
+                                            <t t-set="total_amount" t-value="0"/>
+                                            <t t-set="i" t-value="1"/>
+                                            <t t-foreach="o.line_ids" t-as="line">
+
+                                            <tr>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+                                                    1.
+                                                </td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+                                                    <span t-field="o.date" t-options="{&quot;format&quot;: &quot;dd-MMM-yyyy&quot;}"/>
+                                                </td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+                                                    <t t-if="len(o.data_partner_ids) > 0">
+                                                    <t t-if="o.data_partner_ids[total].name">
+                                                        <span t-field="line.partner_id.name"/>
+                                                    </t>
+                                                    </t>
+                                                    <t t-else="">
+                                                        Various
+                                                    </t>
+                                                </td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+                                                    <span t-field="line.payment_ref"/>
+                                                </td>
+                                                <td style="font-weight:bold;text-align:right;border:black solid 2px;padding:5px">
+                                                    <t t-if="o.line_ids.amount &lt; 0">
+                                                        <t t-set="amount" t-value="o.line_ids.amount * -1"/>
+                                                        Rp. <span t-esc="amount" t-options='{"widget": "float", "precision": 2}'/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-set="amount" t-value="line.amount * 1"/>
+                                                        Rp. <span t-esc="amount" t-options='{"widget": "float", "precision": 2}'/>
+                                                    </t>
+
+                                                </td>
+                                            </tr>
+                                            <tr >
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+                                                    2.
+                                                </td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px"></td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px"></td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px"></td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+                                                    3.
+                                                </td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px"></td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px"></td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px"></td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px">
+                                                    4.
+                                                </td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px"></td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px"></td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px"></td>
+                                                <td style="font-weight:bold;text-align:center;border:black solid 2px;padding:5px"></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" style="font-weight:bold;text-align:right;border:black solid 2px;padding:5px"> Amount To Be Paid</td>
+                                                <td style="font-weight:bold;text-align:right;border:black 1px solid;padding:5px">
+                                                    <t t-set="total_amount" t-value="0"/>
+                                                    <t t-set="total_amount" t-value="total_amount + amount"/>
+                                                    Rp. <span t-esc="total_amount"  t-options='{"widget": "float", "precision": 2}'/>
+                                                </td>
+                                            </tr>
+                                            </t>
+                                
+                                        </t>
+                                    </table>
+                                    <br/>
+                                    Payment Date : <span t-field="o.date" t-options='{"format": "dd-MMM-yyyy"}'/>
+                                    <br/>
+                                    <table style="width:53%;text-align:center">
+                                        <tr>
+                                            <td style="border:2px solid black;border-bottom:2px double black">
+                                                Applicant
+                                            </td>
+                                            <td style="border:2px solid black;border-bottom:2px double black" colspan="2">
+                                                Approved
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border:2px solid black;padding:50px">
+
+                                            </td>
+                                            <td style="border:2px solid black;padding:50px">
+
+                                            </td>
+                                            <td style="border:2px solid black;padding:50px">
+
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td style="border:2px solid black;padding:10px">
+                                                <span t-field='o.user_applicant'/>
+
+
+                                            </td>
+                                            <td style="border:2px solid black;padding:10px">
+                                                <span t-field="o.user_fin_director"/>
+                                            </td>
+                                            <td style="border:2px solid black;padding:10px">
+                                                <span t-field="o.user_director"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="border:none">
+                                            <td style="border:2px solid black">
+                                                <span> Head of Fin and Acct</span>
+                                            </td>
+                                            <td style="border:2px solid black">
+                                                <span> Fin Director</span>
+                                            </td>
+                                            <td style="border:2px solid black">
+                                                <span> Director</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            <t t-set="j" t-value="j+1"/>
+                            </t>
+
+                        </t>
+
+                    </t>
+                </t>
+<!--                </t>-->
+
+        </template>
+    </data>
+</odoo>

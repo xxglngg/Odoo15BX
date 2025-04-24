@@ -1,0 +1,123 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="stock_manifest_view_list">
+            <field name="name">Stock Manifest</field>
+            <field name="model">stock.manifest</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="tanggal"/>
+                    <field name="nopol"/>
+                    <field name="driver"/>
+                    <field name="note"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="stock_picking_ids" widget="many2many_tags"/>
+                    <field name="stock_manifest_line_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="stock_manifest_view_form">
+            <field name="name">Stock Manifest</field>
+            <field name="model">stock.manifest</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="tanggal"/>
+                                <field name="driver"/>
+                                <field name="nopol"/>
+                            </group>
+                            <group>
+                                <field name="note"/>
+                                <field name="company_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="picking" string="Pickings">
+                                <field name="stock_picking_ids"
+                                       domain="[('state','=', 'done'), ('operation_type_code','=','outgoing')]">
+                                    <tree>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="scheduled_date"/>
+                                        <field name="partner_id" string="Customer"/>
+                                        <field name="address"/>
+                                        <field name="mobile"/>
+                                        <field name="name"/>
+                                        <field name="location_id"/>
+                                        <field name="location_dest_id"/>
+                                        <field name="state"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="sequence" invisible="1"/>
+                                                <field name="scheduled_date"/>
+                                                <field name="partner_id" string="Customer"/>
+                                                <field name="address"/>
+                                                <field name="mobile"/>
+                                            </group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="location_id"/>
+                                                <field name="location_dest_id"/>
+                                                <field name="state"/>
+                                                <field name="company_id" invisible="1"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page name="manifest_line" string="Manifest Lines">
+                                <field name="stock_manifest_line_ids" readonly="1" force_save="1">
+                                    <tree>
+                                        <field name="manifest_id" invisible="1"/>
+                                        <field name="sequence"/>
+                                        <field name="picking_id"/>
+                                        <field name="partner_id"/>
+                                        <field name="address"/>
+                                        <field name="mobile"/>
+                                        <field name="sku"/>
+                                        <field name="product_id"/>
+                                        <field name="product_qty"/>
+                                        <field name="product_uom_id"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="manifest_id" invisible="1"/>
+                                                <field name="sequence"/>
+                                                <field name="picking_id"/>
+                                                <field name="partner_id"/>
+                                                <field name="address"/>
+                                                <field name="mobile"/>
+                                            </group>
+                                            <group>
+                                                <field name="sku"/>
+                                                <field name="product_id"/>
+                                                <field name="product_qty"/>
+                                                <field name="product_uom_id"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="stock_manifest_action_window">
+            <field name="name">Stock Manifest</field>
+            <field name="res_model">stock.manifest</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

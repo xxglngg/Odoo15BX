@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+       <record id="account_invoice_report_view_tree_inherit" model="ir.ui.view">
+            <field name="name">"account.invoice.report.view.tree.inherit</field>
+            <field name="model">account.invoice.report</field>
+            <field name="inherit_id" ref="account.account_invoice_report_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_state']" position="after">
+                    <field name="payment_paid" optional="hide"/>
+                    <field name="payment_name" optional="hide"/>
+                    <field name="payment_journal" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="jumlah_ekoran" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

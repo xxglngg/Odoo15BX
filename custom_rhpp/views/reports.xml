@@ -1,0 +1,84 @@
+<odoo>
+    <data>
+         <record id="custom_a4_paperformat_rhpp" model="report.paperformat">
+            <field name="name">Custom A4 Report RHPP</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_report_rhpp" model="ir.actions.report">
+            <field name="name">Print Rhpp</field>
+            <field name="model">analytic.rhpp</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">custom_rhpp.report_print_rhpp</field>
+            <field name="report_file">custom_rhpp.report_print_rhpp</field>
+            <field name="print_report_name">'RHPP %s' % object.name.name</field>
+            <!-- <field name="binding_model_id" ref=""/> -->
+            <field name="binding_model_id" eval="False"/>
+            <field name="paperformat_id" ref="custom_rhpp.custom_a4_paperformat_rhpp"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="custom_a4_paperformat_kontrak_peternak" model="report.paperformat">
+            <field name="name">Custom A4 Report Kontrak Peternak</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">45</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_report_kontrak_peternak" model="ir.actions.report">
+            <field name="name">Print Kontrak Peternak</field>
+            <field name="model">form.kontrak.peternak</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">custom_rhpp.report_print_kontrak_peternak</field>
+            <field name="report_file">custom_rhpp.report_print_kontrak_peternak</field>
+            <field name="print_report_name">'P%s %s %s %s' % (object.contract_periode, object.contact_peternak.name, object.populasi_kandang.name, object.populasi_kandang.nomor_kandang)</field>
+            <!-- <field name="binding_model_id" ref=""/> -->
+            <field name="binding_model_id" eval="False"/>
+            <field name="paperformat_id" ref="custom_rhpp.custom_a4_paperformat_kontrak_peternak"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="custom_a4_paperformat_perjanjian_mitra_peternak" model="report.paperformat">
+            <field name="name">Custom A4 Report Perjanjian Mitra Peternak</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">45</field>
+            <field name="margin_bottom">30</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">40</field>
+            <field name="dpi">95</field>
+        </record>
+
+        <record id="action_report_perjanjian_mitra_peternak" model="ir.actions.report">
+            <field name="name">Print Perjanjian Mitra Peternak</field>
+            <field name="model">form.kontrak.peternak</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">custom_rhpp.report_print_perjanjian_mitra_peternak</field>
+            <field name="report_file">custom_rhpp.report_print_perjanjian_mitra_peternak</field>
+            <field name="print_report_name">'Perjanjian Kerjasama Mitra Peternak %s' % object.name</field>
+            <!-- <field name="binding_model_id" ref=""/> -->
+            <field name="binding_model_id" eval="False"/>
+            <field name="paperformat_id" ref="custom_rhpp.custom_a4_paperformat_perjanjian_mitra_peternak"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

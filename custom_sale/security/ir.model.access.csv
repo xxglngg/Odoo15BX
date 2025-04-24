@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_warehouse_sale_wizard,access_warehouse_sale_wizard,model_warehouse_sale_wizard,base.group_user,1,1,1,1
+access_sj_wiz_user,access_sj_wiz_user,model_create_sj_wizard,base.group_user,1,1,1,1
+access_sj_wiz_line_user,access_sj_wiz_line_user,model_create_sj_wizard_line,base.group_user,1,1,1,1

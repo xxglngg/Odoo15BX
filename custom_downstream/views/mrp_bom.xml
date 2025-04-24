@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record id="inherit_mrp_bom_form_view" model="ir.ui.view">
+            <field name="name">inherit_mrp_bom_form_view</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='components']/field[@name='bom_line_ids']" position="before">
+                    <button name="%(custom_downstream.action_mrp_bom_wizard)d" string="Add Multiple Products"
+                            type="action" class="btn-primary"/>
+                </xpath>
+                <xpath expr="//page[@name='by_products']/field[@name='byproduct_ids']" position="before">
+                    <button name="%(custom_downstream.action_mrp_bom_byproduct_wizard)d" string="Add Multiple Products"
+                            type="action" class="btn-primary"/>
+                </xpath>
+                <xpath expr="//page[@name='components']" position="attributes">
+                    <attribute name="string">Raw Material</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='components']/field[@name='bom_line_ids']/tree[1]/field[@name='product_uom_id']" position="after">
+                    <field name="split_method"/>
+                </xpath>
+
+                <xpath expr="//page[@name='by_products']" position="attributes">
+                    <attribute name="string">Product Results</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='by_products']/field[@name='byproduct_ids']/tree[1]" position="attributes">
+                    <attribute name="editable">bottom</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='by_products']/field[@name='byproduct_ids']/tree[1]/field[@name='product_uom_id']" position="after">
+                    <field name="ratio" optional="show" groups="custom_downstream.group_broilerx_downstream"/>
+                    <field name="is_fix_cost" optional="show" groups="custom_downstream.group_broilerx_downstream"/>
+                    <field name="fix_cost" optional="show" groups="custom_downstream.group_broilerx_downstream"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="company_currency_id" invisible="1"/>
+                </xpath>
+                <field name="code" position="after">
+                    <field name="is_special_bom" invisible="0" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

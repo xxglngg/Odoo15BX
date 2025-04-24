@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+
+        <record id="seq_api_post" model="ir.sequence">
+            <field name="name">API Post</field>
+            <field name="code">api.post</field>
+            <field name="prefix">API-POST-</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+
+<!--    <data noupdate="1">-->
+
+<!--        <record id="seq_product_label" model="ir.sequence">-->
+<!--            <field name="name">Product Label Sequence</field>-->
+<!--            <field name="code">product.label</field>-->
+<!--            <field name="prefix">PRODUCT LABEL/</field>-->
+<!--            <field name="padding">10</field>-->
+<!--            <field name="company_id" eval="False"/>-->
+<!--        </record>-->
+
+<!--    </data>-->
+
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_product_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.product.form.view_inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product_expiry.view_product_form_expiry" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='expiry_and_lots']" position="after">
+                <group string="Rasio Pcs/Bag" name="additional_field">
+                    <field name="pcs_per_bag_ratio"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_template_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.view_inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <group name="expiry_and_lots" position="after">
+                <group string="Rasio Pcs/Bag" name="additional_field">
+                    <field name="pcs_per_bag_ratio"/>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>

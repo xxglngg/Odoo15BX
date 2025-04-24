@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+        <record id="survey_question_form_inherit_bi_survey_files_upload" model="ir.ui.view">
+            <field name="name">survey.question.form.inherit.bi.survey.customization</field>
+            <field name="model">survey.question</field>
+            <field name="inherit_id" ref="survey.survey_question_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='options']/group/group/field[@name='constr_mandatory']" position="after">
+                     <field name="multipal_file" attrs ="{'invisible': [('question_type' ,'!=', 'upload_file')]}"/>
+                 </xpath>
+                 
+                 <!-- File Upload -->
+                 <xpath expr="//div[hasclass('o_preview_questions')]" position="inside">
+                    <div attrs="{'invisible': [('question_type', '!=', 'upload_file')]}">
+                        <p class="o_datetime">Upload File(s)
+                            <i class="fa fa-upload fa-lg" role="img" aria-label="Upload File(s)" title="Upload File(s)"/>
+                        </p>
+                    </div>
+                 </xpath>
+                 
+                 
+            </field>
+        </record>
+        
+  </data>
+</odoo>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="sale.action_report_saleorder" model="ir.actions.report">
+            <field name="binding_model_id" eval="False"/>
+        </record>
+        
+        <record id="action_report_sale_order" model="ir.actions.report">
+                <field name="name">Print Quotation/Order</field>
+                <field name="model">sale.order</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">custom_reporting_15.report_print_custom_sale_order</field>
+                <field name="report_file">custom_reporting_15.report_print_custom_sale_order</field>
+                <field name="print_report_name">'%s' % object.name</field>
+                <field name="binding_model_id" ref="model_sale_order"/>
+                <field name="paperformat_id" ref="custom_reporting_15.custom_a4_paperformat"/>
+                <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_purchase_order" model="ir.actions.report">
+                <field name="name">Print Purchase Order</field>
+                <field name="model">purchase.order</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">custom_reporting_15.report_print_custom_purchase_order</field>
+                <field name="report_file">custom_reporting_15.report_print_custom_purchase_order</field>
+                <field name="print_report_name">'%s' % object.name</field>
+                <field name="binding_model_id" ref="model_purchase_order"/>
+                <field name="paperformat_id" ref="custom_reporting_15.custom_a4_paperformat"/>
+                <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_account_move" model="ir.actions.report">
+                <field name="name">Print Invoice</field>
+                <field name="model">account.move</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">custom_reporting_15.report_print_custom_invoice</field>
+                <field name="report_file">custom_reporting_15.report_print_custom_invoice</field>
+                <field name="print_report_name">'%s' % object.name</field>
+                <field name="binding_model_id" ref="model_account_move"/>
+                <field name="paperformat_id" ref="custom_reporting_15.custom_a4_paperformat"/>
+                <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_bill_account_move" model="ir.actions.report">
+                <field name="name">Print Bill</field>
+                <field name="model">account.move</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">custom_reporting_15.report_print_custom_bill</field>
+                <field name="report_file">custom_reporting_15.report_print_custom_bill</field>
+                <field name="print_report_name">'%s' % object.name</field>
+                <field name="binding_model_id" ref="model_account_move"/>
+                <field name="paperformat_id" ref="custom_reporting_15.custom_a4_paperformat"/>
+                <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_account_move_with_amount_overdue" model="ir.actions.report">
+                <field name="name">Print Invoice (with amount overdue)</field>
+                <field name="model">account.move</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">custom_reporting_15.report_print_custom_invoice_with_amount_overdue</field>
+                <field name="report_file">custom_reporting_15.report_print_custom_invoice_with_amount_overdue</field>
+                <field name="print_report_name">'%s' % object.name</field>
+                <field name="binding_model_id" ref="model_account_move"/>
+                <field name="paperformat_id" ref="custom_reporting_15.custom_a4_paperformat"/>
+                <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_spm" model="ir.actions.report">
+                <field name="name">Surat Perintah Muat</field>
+                <field name="model">stock.picking</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">custom_reporting_15.report_template_print_custom_spm</field>
+                <field name="report_file">custom_reporting_15.report_template_print_custom_spm</field>
+                <field name="print_report_name">'SPM %s' % object.name</field>
+                <!-- <field name="binding_model_id" ref="stock.model_stock_picking"/> -->
+                <field name="binding_model_id" eval="False"/>
+                <field name="paperformat_id" ref="custom_reporting_15.custom_a4_paperformat_landscape"/>
+                <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_spj" model="ir.actions.report">
+                <field name="name">Surat Jalan</field>
+                <field name="model">stock.picking</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">custom_reporting_15.report_template_print_custom_spj</field>
+                <field name="report_file">custom_reporting_15.report_template_print_custom_spj</field>
+                <field name="print_report_name">'SJ %s' % object.name</field>
+                <!-- <field name="binding_model_id" ref="stock.model_stock_picking"/> -->
+                <field name="binding_model_id" eval="False"/>
+                <field name="paperformat_id" ref="custom_reporting_15.custom_a4_paperformat_landscape"/>
+                <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_ttb" model="ir.actions.report">
+                <field name="name">Print TTB</field>
+                <field name="model">stock.picking</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">custom_reporting_15.report_template_print_custom_ttb</field>
+                <field name="report_file">custom_reporting_15.report_template_print_custom_ttb</field>
+                <field name="print_report_name">'TTB %s' % object.name</field>
+                <!-- <field name="binding_model_id" ref="stock.model_stock_picking"/> -->
+                <field name="binding_model_id" eval="False"/>
+                <field name="paperformat_id" ref="custom_reporting_15.ttb_custom_a4_paperformat"/>
+                <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_account_move_surat_jalan" model="ir.actions.report">
+                <field name="name">Surat Jalan</field>
+                <field name="model">account.move</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">custom_reporting_15.report_print_custom_invoice_surat_jalan</field>
+                <field name="report_file">custom_reporting_15.report_print_custom_invoice_surat_jalan</field>
+                <field name="print_report_name">'%s' % object.name</field>
+                <field name="binding_model_id" ref="model_account_move"/>
+                <field name="paperformat_id" ref="custom_reporting_15.custom_a4_paperformat_surat_jalan_invoice"/>
+                <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_sale_surat_perintah_muat" model="ir.actions.report">
+                <field name="name">Surat Perintah Muat</field>
+                <field name="model">sale.order</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">custom_reporting_15.report_print_custom_sale_surat_perintah_muat</field>
+                <field name="report_file">custom_reporting_15.report_print_custom_sale_surat_perintah_muat</field>
+                <field name="print_report_name">'%s' % object.name</field>
+                <field name="binding_model_id" ref="model_sale_order"/>
+                <field name="paperformat_id" ref="custom_reporting_15.custom_a4_paperformat_surat_jalan_invoice"/>
+                <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_payment_voucher" model="ir.actions.report">
+            <field name="name">Payment Voucher</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">custom_reporting_15.report_payment_voucher</field>
+            <field name="report_file">custom_reporting_15.report_payment_voucher</field>
+            <field name="print_report_name">'%s' % object.name</field>
+            <field name="binding_model_id" ref="account.model_account_payment"/>
+            <field name="paperformat_id" ref="custom_reporting_15.custom_a4_paperformat_surat_jalan_invoice"/>
+            <field name="binding_type">report</field>
+        </record>
+        
+        <record id="action_report_combine_bill_purchase" model="ir.actions.report">
+                <field name="name">Print Bill and Purchase</field>
+                <field name="model">account.move</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">custom_reporting_15.report_print_custom_combine_bill_purchase</field>
+                <field name="report_file">custom_reporting_15.report_print_custom_combine_bill_purchase</field>
+                <field name="print_report_name">'Purchase Order and Bill'</field>
+                <field name="binding_model_id" ref="model_account_move"/>
+                <field name="paperformat_id" ref="custom_reporting_15.custom_a4_paperformat"/>
+                <field name="binding_type">report</field>
+        </record>
+        
+    </data>
+</odoo>
